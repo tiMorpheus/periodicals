@@ -5,7 +5,7 @@ import com.tolochko.periodicals.model.domain.periodical.PeriodicalCategory;
 
 import java.util.List;
 
-public interface PeriodicalDao extends GenericDAO<Periodical, Long> {
+public interface PeriodicalDao extends GenericDao<Periodical, Long> {
 
     Periodical findPeriodicalByName(String name);
 

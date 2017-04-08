@@ -5,7 +5,7 @@ import com.tolochko.periodicals.model.domain.invoice.Invoice;
 import java.time.Instant;
 import java.util.List;
 
-public interface InvoiceDao extends GenericDAO<Invoice, Long> {
+public interface InvoiceDao extends GenericDao<Invoice, Long> {
 
     List<Invoice> findAllByUserId(long userId);
 

@@ -1,7 +1,7 @@
 package com.tolochko.periodicals.init;
 
-import com.tolochko.periodicals.model.dao.factories.DaoFactory;
-import com.tolochko.periodicals.model.dao.factories.impl.MySqlDaoFactory;
+import com.tolochko.periodicals.model.dao.factory.DaoFactory;
+import com.tolochko.periodicals.model.dao.factory.impl.MySqlDaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.UserDao;
 import com.tolochko.periodicals.model.domain.user.User;
 

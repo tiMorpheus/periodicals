@@ -2,7 +2,8 @@ package com.tolochko.periodicals.dao.user;
 
 import com.tolochko.periodicals.init.EntityCreator;
 import com.tolochko.periodicals.init.InitDB;
-import com.tolochko.periodicals.model.dao.factories.DaoFactory;
+import com.tolochko.periodicals.model.dao.factory.DaoFactory;
+import com.tolochko.periodicals.model.dao.factory.impl.MySqlDaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.UserDao;
 import com.tolochko.periodicals.model.domain.user.User;
 import org.junit.After;
@@ -25,7 +26,7 @@ public class MySqlUserDaoTest {
     @BeforeClass
     public static void setUp() {
         InitDB.initMySql();
-        factory = DaoFactory.getMysqlDaoFactory();
+        factory = MySqlDaoFactory.getFactoryInstance();
         userDao = factory.getUserDao();
 
         expected = EntityCreator.createUser();

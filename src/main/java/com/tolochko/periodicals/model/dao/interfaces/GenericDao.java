@@ -3,7 +3,7 @@ package com.tolochko.periodicals.model.dao.interfaces;
 import java.io.Serializable;
 import java.util.List;
 
-public interface GenericDAO<E, T extends Serializable> {
+public interface GenericDao<E, T extends Serializable> {
 
     /**
      * Retrieves an entity by its id.

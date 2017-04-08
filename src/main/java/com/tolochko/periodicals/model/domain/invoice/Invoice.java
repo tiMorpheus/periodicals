@@ -8,7 +8,7 @@ import java.time.Instant;
 
 
 public class Invoice implements Serializable {
-    private static final long serialVersionUID = -888L;
+    private static final long serialVersionUID = 12412412488L;
     private long id;
     private User user;
     private Periodical periodical;

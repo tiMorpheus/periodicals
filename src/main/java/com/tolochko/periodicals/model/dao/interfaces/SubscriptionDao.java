@@ -5,7 +5,7 @@ import com.tolochko.periodicals.model.domain.user.User;
 
 import java.util.List;
 
-public interface SubscriptionDao extends GenericDAO<Subscription, Long> {
+public interface SubscriptionDao extends GenericDao<Subscription, Long> {
 
     Subscription findByUserAndPeriodicalId(long userId, long periodicalId);
 

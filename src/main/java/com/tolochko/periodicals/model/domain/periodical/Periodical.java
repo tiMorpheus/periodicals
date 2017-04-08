@@ -3,7 +3,7 @@ package com.tolochko.periodicals.model.domain.periodical;
 import java.io.Serializable;
 
 public class Periodical implements Serializable {
-    private static final long serialVersionUID = -888L;
+    private static final long serialVersionUID = 2223323888L;
     private long id;
     private String name;
     private PeriodicalCategory category;
