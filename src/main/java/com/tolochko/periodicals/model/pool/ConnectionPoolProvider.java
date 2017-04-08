@@ -1,5 +1,7 @@
 package com.tolochko.periodicals.model.pool;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.apache.log4j.Logger;
 
 import javax.naming.Context;
@@ -8,19 +10,38 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class ConnectionPoolProvider {
     private static final Logger logger = Logger.getLogger(ConnectionPoolProvider.class);
 
-
-    private static ConnectionPoolProvider connectionProvider;
     private static DataSource dataSource;
 
-    private ConnectionPoolProvider(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public ConnectionPoolProvider(String url, String username, String password) {
+        if (dataSource == null){
+            HikariConfig config = new HikariConfig();
+
+            config.setJdbcUrl(url);
+            config.setUsername(username);
+            config.setPassword(password);
+            config.setMaximumPoolSize(10);
+            config.addDataSourceProperty("cachePrepStmts", "true");
+            config.addDataSourceProperty("prepStmtCacheSize", "250");
+            config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+
+            dataSource = new HikariDataSource(config);
+        }
     }
 
-    public static Connection getConnection() {
+    public ConnectionPoolProvider(Properties properties){
+        if (dataSource == null){
+            HikariConfig config = new HikariConfig(properties);
+            dataSource = new HikariDataSource(config);
+        }
+    }
+
+
+    public static synchronized  Connection getConnection() {
         try {
             return dataSource.getConnection();
         } catch (SQLException e) {
@@ -30,39 +51,6 @@ public class ConnectionPoolProvider {
         return null;
     }
 
-    public static ConnectionPoolProvider getInstance(){
-        if (connectionProvider == null){
-            logger.info("Connection manager must be initWithJNDI");
-            throw new IllegalArgumentException();
-        }
-
-        return connectionProvider;
-    }
-
-    public static synchronized void initWithJNDI(String name){
-        if (connectionProvider != null){
-            return;
-        }
-
-        try {
-            Context context = new InitialContext();
-            Context env = (Context) context.lookup("java:/comp/env");
-            DataSource ds = (DataSource) env.lookup(name);
-
-            connectionProvider = new ConnectionPoolProvider(ds);
-
-        } catch (NamingException e) {
-            logger.error("Cannot create initial context");
-        }
-    }
-
-    public synchronized static void initWithDataSource(DataSource ds){
-        if (connectionProvider != null){
-            return;
-        }
-
-        connectionProvider = new ConnectionPoolProvider(ds);
-    }
 
 
 
