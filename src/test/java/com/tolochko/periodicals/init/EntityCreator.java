@@ -1,6 +1,5 @@
 package com.tolochko.periodicals.init;
 
-import com.tolochko.periodicals.dao.user.MySqlUserDaoTest;
 import com.tolochko.periodicals.model.dao.factories.DaoFactory;
 import com.tolochko.periodicals.model.dao.factories.impl.MySqlDaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.UserDao;
@@ -17,9 +16,8 @@ public class EntityCreator {
                 .setLastName("Tolochko")
                 .setEmail("tymurtolochko@gmail.com")
                 .setAddress("Mazepy Street , 14")
-                .setStatus(User.Status.ACTIVE)
-                .setPassword("passwordd");
-
+                .setPassword("passwordd")
+                .setRole(User.Role.getRole("user"));
         return userBuilder.build();
     }
 

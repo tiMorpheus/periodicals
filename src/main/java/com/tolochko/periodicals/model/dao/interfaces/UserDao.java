@@ -1,20 +1,19 @@
 package com.tolochko.periodicals.model.dao.interfaces;
 
-import com.tolochko.periodicals.model.dao.GenericDAO;
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.domain.user.User;
 
-public interface UserDao extends GenericDAO<User>{
-
-    User findByFirstName(String firstName) throws DaoException;
-
-    User findUserByEmail(String email);
+public interface UserDao extends GenericDAO<User, Long>{
 
     /**
-     * For registration new users
-     * user cannot create account if email is used
+     *  Return user by email
+     *
+     * @param email
+     * @return User
      */
-    boolean isEmailExistsInDb(String email) throws DaoException;
+    User findUserByEmail(String email);
 
-    int deleteUserFromDb(String email);
+    Long findRoleId(User.Role role);
+
+    User.Role readRole(Long id);
 }

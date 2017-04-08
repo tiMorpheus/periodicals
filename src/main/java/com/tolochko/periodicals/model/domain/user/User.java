@@ -12,26 +12,33 @@ public class User implements Serializable {
     private String email;
     private String address;
     private String passwordHash;
-    /**
-     * Only {@code active} users can sign into the system.
-     */
-    private Status status;
 
     /**
      * Roles define specific system functionality available to a user.
      */
-    private Set<Role> roles;
+    private Role role;
 
     public enum Status {
         ACTIVE, BLOCKED
     }
 
     public enum Role {
-        ADMIN, SUBSCRIBER;
+        ADMIN, USER;
 
         @Override
         public String toString() {
             return name().toLowerCase();
+        }
+
+        public static Role getRole(String role) {
+            switch (role) {
+                case "user":
+                    return USER;
+                case "admin":
+                    return ADMIN;
+                default:
+                    throw new IllegalArgumentException("This role doesn't exist");
+            }
         }
     }
 
@@ -67,17 +74,13 @@ public class User implements Serializable {
             return this;
         }
 
-        public Builder setStatus(Status status) {
-            user.setStatus(status);
+
+        public Builder setRole(Role role) {
+            user.setRole(role);
             return this;
         }
 
-        public Builder setRoles(Set<Role> roles) {
-            user.setRoles(roles);
-            return this;
-        }
-
-        public Builder setPassword(String password){
+        public Builder setPassword(String password) {
             user.setPassword(password);
             return this;
         }
@@ -127,28 +130,13 @@ public class User implements Serializable {
         this.address = address;
     }
 
-    public Status getStatus() {
-        return status;
+
+    public Role getRole() {
+        return role;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    public boolean hasRole(Role role) {
-        return roles.contains(role);
-    }
-
-    public boolean hasRole(String role) {
-        return hasRole(Role.valueOf(role.toUpperCase()));
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getPassword() {
@@ -162,9 +150,9 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return String.format("User{id=%d, firstName='%s', lastName='%s', " +
-                        "email='%s', address='%s', status=%s, roles=%s}",
+                        "email='%s', address='%s',  role=%s}",
                 id, firstName, lastName,
-                email, address, status, roles);
+                email, address, role);
     }
 
     @Override

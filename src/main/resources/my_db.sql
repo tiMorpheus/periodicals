@@ -38,19 +38,21 @@ CREATE TABLE IF NOT EXISTS `webproject`.`periodicals` (
 -- -----------------------------------------------------
 -- Table `webproject`.`users`
 -- -----------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS `webproject`.`users` (
-  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `first_name` VARCHAR(45) NULL DEFAULT NULL,
-  `last_name` VARCHAR(45) NULL DEFAULT NULL,
-  `email` VARCHAR(50) NOT NULL,
-  `address` VARCHAR(100) NOT NULL,
-  `status` ENUM('active', 'blocked') NULL DEFAULT NULL,
-  `password_hash` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
-  ENGINE = InnoDB
-  AUTO_INCREMENT = 20
-  DEFAULT CHARACTER SET = utf8;
+  id         BIGINT(11)   NOT NULL AUTO_INCREMENT,
+  first_name VARCHAR(64)  NOT NULL,
+  last_name  VARCHAR(64)  NOT NULL,
+  email      VARCHAR(128) NOT NULL UNIQUE,
+  address    VARCHAR(100) NOT NULL,
+  password   VARCHAR(64)  NOT NULL,
+  role       INT(11)      NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT user_role
+  FOREIGN KEY (role)
+  REFERENCES role (id)
+);
+
 
 
 -- -----------------------------------------------------
@@ -114,18 +116,11 @@ CREATE TABLE IF NOT EXISTS `webproject`.`subscriptions` (
 -- -----------------------------------------------------
 -- Table `webproject`.`user_roles`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `webproject`.`user_roles` (
-  `user_id` BIGINT(20) NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`user_id`, `name`),
-  CONSTRAINT `u_roles_fk`
-  FOREIGN KEY (`user_id`)
-  REFERENCES `webproject`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-  ENGINE = InnoDB
-  DEFAULT CHARACTER SET = utf8;
-
+CREATE TABLE IF NOT EXISTS `webproject`.`role` (
+  id   INT(11)     NOT NULL AUTO_INCREMENT,
+  role VARCHAR(32) NOT NULL UNIQUE,
+  PRIMARY KEY (id)
+);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

@@ -1,12 +1,11 @@
 package com.tolochko.periodicals.model.dao.interfaces;
 
-import com.tolochko.periodicals.model.dao.GenericDAO;
 import com.tolochko.periodicals.model.domain.invoice.Invoice;
 
 import java.time.Instant;
 import java.util.List;
 
-public interface InvoiceDao extends GenericDAO<Invoice> {
+public interface InvoiceDao extends GenericDAO<Invoice, Long> {
 
     List<Invoice> findAllByUserId(long userId);
 

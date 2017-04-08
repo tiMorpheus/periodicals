@@ -1,12 +1,11 @@
 package com.tolochko.periodicals.model.dao.interfaces;
 
-import com.tolochko.periodicals.model.dao.GenericDAO;
 import com.tolochko.periodicals.model.domain.subscription.Subscription;
 import com.tolochko.periodicals.model.domain.user.User;
 
 import java.util.List;
 
-public interface SubscriptionDao extends GenericDAO<Subscription> {
+public interface SubscriptionDao extends GenericDAO<Subscription, Long> {
 
     Subscription findByUserAndPeriodicalId(long userId, long periodicalId);
 

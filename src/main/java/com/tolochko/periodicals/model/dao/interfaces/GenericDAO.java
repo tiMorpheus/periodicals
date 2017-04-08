@@ -1,10 +1,9 @@
-package com.tolochko.periodicals.model.dao;
+package com.tolochko.periodicals.model.dao.interfaces;
 
-import com.tolochko.periodicals.model.dao.exception.DaoException;
-
+import java.io.Serializable;
 import java.util.List;
 
-public interface GenericDAO<E> {
+public interface GenericDAO<E, T extends Serializable> {
 
     /**
      * Retrieves an entity by its id.
@@ -12,14 +11,14 @@ public interface GenericDAO<E> {
      * @param id must not be null
      * @return the entity with the given id or {@code null} if none found
      */
-    E findOneById(long id) throws DaoException;
+    E findOneById(T id);
 
     /**
      * Returns all entities from the db.
      *
      * @return all entities
      */
-    List<E> findAll() throws DaoException;
+    List<E> findAll();
 
     /**
      * Creates a new entity taking values for the fields from the passed entity.
@@ -29,15 +28,16 @@ public interface GenericDAO<E> {
      * @return a persisted entity's id
      * @throws IllegalArgumentException in case the given entity is null
      */
-    long createNew(E entity) throws DaoException;
+    long add(E entity);
 
     /**
-     * Updates an entity in the db. If the passed entity has such an 'id' that there is no
-     * entity in the db with it, the method throws a {@link java.util.NoSuchElementException}.
+     * Updates an entity in the db.
      *
      * @param entity an object to be updated
-     * @return an updated entity
      */
-    int update(E entity) throws DaoException;
+    void update(T id, E entity);
+
+
+    void delete(T id);
 
 }

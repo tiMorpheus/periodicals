@@ -44,27 +44,5 @@ public final class DaoUtil {
 
     }
 
-    /**
-     * Creates a new user using the data from the result set.
-     */
-    public static User getUserFromResultSet(ResultSet rs) throws DaoException {
-        User.Builder userBuilder = null;
-
-        try {
-            userBuilder = new User.Builder()
-                    .setId(rs.getLong("id"))
-                    .setFirstName(rs.getString("first_name"))
-                    .setLastName(rs.getString("last_name"))
-                    .setEmail(rs.getString("email"))
-                    .setAddress(rs.getString("address"))
-                    .setPassword(rs.getString("password_hash"))
-                    .setStatus(User.Status.valueOf(rs.getString("status").toUpperCase()));
-
-            return userBuilder.build();
-        } catch (Exception e) {
-            logger.error("I've caught error during building periodical for result set", e);
-            throw new DaoException(e);
-        }
-    }
 
 }

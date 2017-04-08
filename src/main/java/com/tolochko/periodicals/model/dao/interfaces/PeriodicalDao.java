@@ -1,12 +1,11 @@
 package com.tolochko.periodicals.model.dao.interfaces;
 
-import com.tolochko.periodicals.model.dao.GenericDAO;
 import com.tolochko.periodicals.model.domain.periodical.Periodical;
 import com.tolochko.periodicals.model.domain.periodical.PeriodicalCategory;
 
 import java.util.List;
 
-public interface PeriodicalDao extends GenericDAO<Periodical> {
+public interface PeriodicalDao extends GenericDAO<Periodical, Long> {
 
     Periodical findPeriodicalByName(String name);
 

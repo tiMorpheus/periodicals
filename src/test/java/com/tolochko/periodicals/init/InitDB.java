@@ -26,11 +26,11 @@ public class InitDB {
         Properties properties = new Properties();
         MysqlDataSource ds = new MysqlDataSource();
         try {
-            FileInputStream fis = new FileInputStream("./src/main/resources/dbConfig.properties");
+            FileInputStream fis = new FileInputStream("./src/test/resources/database.properties");
             properties.load(fis);
-            ds.setURL(properties.getProperty("database.urlTest"));
-            ds.setUser(properties.getProperty("database.userName"));
-            ds.setPassword(properties.getProperty("database.userPassword"));
+            ds.setURL(properties.getProperty("mysql.database.url"));
+            ds.setUser(properties.getProperty("mysql.database.username"));
+            ds.setPassword(properties.getProperty("mysql.database.password"));
         } catch (FileNotFoundException e) {
             throw new IllegalArgumentException(e);
         } catch (IOException e) {
