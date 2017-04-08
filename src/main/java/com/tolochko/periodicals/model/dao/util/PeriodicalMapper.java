@@ -31,7 +31,7 @@ public class PeriodicalMapper {
 
             return periodicalBuilder.build();
         } catch (SQLException e) {
-            logger.error("I've caught error during building periodical for result set[DaoUtil]", e);
+            logger.error("I've caught error during mapping periodical for result set", e);
             throw new DaoException(e);
         }
 

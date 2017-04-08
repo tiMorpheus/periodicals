@@ -2,14 +2,10 @@ package com.tolochko.periodicals.model.dao.interfaces;
 
 import com.tolochko.periodicals.model.domain.invoice.Invoice;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface InvoiceDao extends GenericDao<Invoice, Long> {
-
-    List<Invoice> findAllByUserId(long userId);
-
-    List<Invoice> findAllByPeriodicalId(long periodicalId);
 
     /**
      * Returns the sum of all invoices that were created during the specified time period
@@ -17,7 +13,7 @@ public interface InvoiceDao extends GenericDao<Invoice, Long> {
      * @param since the beginning of the time period
      * @param until the end of the time period
      */
-    long getCreatedInvoiceSumBy(Instant since, Instant until);
+    Long getCreatedInvoiceSumBy(LocalDateTime since, LocalDateTime until);
 
 
     /**
@@ -26,5 +22,5 @@ public interface InvoiceDao extends GenericDao<Invoice, Long> {
      * @param since the beginning of the time period
      * @param until the end of the time period
      */
-    long getPaidInvoiceSumByPaymentDate(Instant since, Instant until);
+    Long getPaidInvoiceSumByPaymentDate(LocalDateTime since, LocalDateTime until);
 }

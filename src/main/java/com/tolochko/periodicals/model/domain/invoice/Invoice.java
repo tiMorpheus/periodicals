@@ -5,17 +5,18 @@ import com.tolochko.periodicals.model.domain.user.User;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 
 public class Invoice implements Serializable {
     private static final long serialVersionUID = 12412412488L;
-    private long id;
-    private User user;
-    private Periodical periodical;
+    private Long id;
+    private Long userId;
+    private Long periodicalId;
     private int subscriptionPeriod;
     private long totalSum;
-    private Instant creationDate;
-    private Instant paymentDate;
+    private LocalDateTime creationDate;
+    private LocalDateTime paymentDate;
     private Status status;
 
     public enum Status {
@@ -34,13 +35,13 @@ public class Invoice implements Serializable {
             return this;
         }
 
-        public Builder setUser(User user) {
-            invoice.setUser(user);
+        public Builder setUserId(Long userId) {
+            invoice.setUserId(userId);
             return this;
         }
 
-        public Builder setPeriodical(Periodical periodical) {
-            invoice.setPeriodical(periodical);
+        public Builder setPeriodicalId(Long periodicalId) {
+            invoice.setPeriodicalId(periodicalId);
             return this;
         }
 
@@ -59,12 +60,12 @@ public class Invoice implements Serializable {
             return this;
         }
 
-        public Builder setCreationDate(Instant creationDate) {
+        public Builder setCreationDate(LocalDateTime creationDate) {
             invoice.setCreationDate(creationDate);
             return this;
         }
 
-        public Builder setPaymentDate(Instant paymentDate) {
+        public Builder setPaymentDate(LocalDateTime paymentDate) {
             invoice.setPaymentDate(paymentDate);
             return this;
         }
@@ -74,60 +75,28 @@ public class Invoice implements Serializable {
         }
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public long getTotalSum() {
-        return totalSum;
+    public Long getPeriodicalId() {
+        return periodicalId;
     }
 
-    public void setTotalSum(long totalSum) {
-        this.totalSum = totalSum;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public Instant getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Instant creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Instant getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(Instant paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-
-    public Periodical getPeriodical() {
-        return periodical;
-    }
-
-    public void setPeriodical(Periodical periodical) {
-        this.periodical = periodical;
+    public void setPeriodicalId(Long periodicalId) {
+        this.periodicalId = periodicalId;
     }
 
     public int getSubscriptionPeriod() {
@@ -138,49 +107,81 @@ public class Invoice implements Serializable {
         this.subscriptionPeriod = subscriptionPeriod;
     }
 
+    public long getTotalSum() {
+        return totalSum;
+    }
 
-    @Override
-    public String toString() {
-        return String.format("Invoice{id=%d, user=%s, periodical=%s, subscriptionPeriod=%d, "
-                        + "totalSum=%s, creationDate=%s, paymentDate=%s, status=%s}",
-                id, user, periodical, subscriptionPeriod, totalSum,
-                creationDate, paymentDate, status);
+    public void setTotalSum(long totalSum) {
+        this.totalSum = totalSum;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public LocalDateTime getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(LocalDateTime paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Invoice invoice = (Invoice) o;
 
-        if (id != invoice.id) {
+        if (subscriptionPeriod != invoice.subscriptionPeriod) return false;
+        if (totalSum != invoice.totalSum) return false;
+        if (id != null ? !id.equals(invoice.id) : invoice.id != null) return false;
+        if (userId != null ? !userId.equals(invoice.userId) : invoice.userId != null) return false;
+        if (periodicalId != null ? !periodicalId.equals(invoice.periodicalId) : invoice.periodicalId != null)
             return false;
-        }
-        if (subscriptionPeriod != invoice.subscriptionPeriod) {
+        if (creationDate != null ? !creationDate.equals(invoice.creationDate) : invoice.creationDate != null)
             return false;
-        }
-        if (user != null ? !user.equals(invoice.user) : invoice.user != null) {
-            return false;
-        }
-        if (periodical != null ? !periodical.equals(invoice.periodical) : invoice.periodical != null) {
-            return false;
-        }
-        return creationDate != null ? creationDate.equals(invoice.creationDate) : invoice.creationDate == null;
-
+        if (paymentDate != null ? !paymentDate.equals(invoice.paymentDate) : invoice.paymentDate != null) return false;
+        return status == invoice.status;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (user != null ? user.hashCode() : 0);
-        result = 31 * result + (periodical != null ? periodical.hashCode() : 0);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
+        result = 31 * result + (periodicalId != null ? periodicalId.hashCode() : 0);
         result = 31 * result + subscriptionPeriod;
+        result = 31 * result + (int) (totalSum ^ (totalSum >>> 32));
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
+        result = 31 * result + (paymentDate != null ? paymentDate.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", periodicalId=" + periodicalId +
+                ", subscriptionPeriod=" + subscriptionPeriod +
+                ", totalSum=" + totalSum +
+                ", creationDate=" + creationDate +
+                ", paymentDate=" + paymentDate +
+                ", status=" + status +
+                '}';
     }
 }

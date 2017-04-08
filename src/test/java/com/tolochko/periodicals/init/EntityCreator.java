@@ -1,5 +1,6 @@
 package com.tolochko.periodicals.init;
 
+import com.tolochko.periodicals.model.domain.invoice.Invoice;
 import com.tolochko.periodicals.model.domain.periodical.Periodical;
 import com.tolochko.periodicals.model.domain.periodical.PeriodicalCategory;
 import com.tolochko.periodicals.model.domain.subscription.Subscription;
@@ -45,4 +46,16 @@ public class EntityCreator {
         return builder.build();
     }
 
+    public static Invoice createInvoice() {
+        Invoice.Builder builder = new Invoice.Builder();
+        builder.setUserId(68l)   /* testid in db*/
+                .setPeriodicalId(42l)
+                .setSubscriptionPeriod(100)
+                .setTotalSum(10000)
+                .setCreationDate(LocalDateTime.now())
+                .setPaymentDate(LocalDateTime.now())
+                .setStatus(Invoice.Status.PAID);
+
+        return builder.build();
+    }
 }

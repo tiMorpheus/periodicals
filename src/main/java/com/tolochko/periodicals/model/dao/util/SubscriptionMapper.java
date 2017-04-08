@@ -31,7 +31,7 @@ public class SubscriptionMapper {
 
             return subscriptionBuilder.build();
         } catch (SQLException e) {
-            logger.error("I've caught error during building subscription for result set[DaoUtil]", e);
+            logger.error("I've caught error during mapping subscription for result set", e);
             throw new DaoException(e);
         }
 
