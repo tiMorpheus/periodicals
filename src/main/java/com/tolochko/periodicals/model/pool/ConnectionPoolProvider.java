@@ -14,8 +14,12 @@ import java.util.Properties;
 
 public class ConnectionPoolProvider {
     private static final Logger logger = Logger.getLogger(ConnectionPoolProvider.class);
-
+    private static ConnectionPoolProvider connectionProvider;
     private static DataSource dataSource;
+
+    public ConnectionPoolProvider(DataSource dataSource){
+        this.dataSource = dataSource;
+    }
 
     public ConnectionPoolProvider(String url, String username, String password) {
         if (dataSource == null){
@@ -50,8 +54,4 @@ public class ConnectionPoolProvider {
 
         return null;
     }
-
-
-
-
 }

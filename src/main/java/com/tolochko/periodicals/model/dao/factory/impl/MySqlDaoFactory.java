@@ -1,6 +1,8 @@
 package com.tolochko.periodicals.model.dao.factory.impl;
 
 import com.tolochko.periodicals.model.dao.factory.DaoFactory;
+import com.tolochko.periodicals.model.dao.impl.mysql.PeriodicalDaoImpl;
+import com.tolochko.periodicals.model.dao.impl.mysql.SubscriptionDaoImpl;
 import com.tolochko.periodicals.model.dao.impl.mysql.UserDaoImpl;
 import com.tolochko.periodicals.model.dao.interfaces.InvoiceDao;
 import com.tolochko.periodicals.model.dao.interfaces.PeriodicalDao;
@@ -15,10 +17,10 @@ public class MySqlDaoFactory implements DaoFactory {
 
     private static UserDao userDao = new UserDaoImpl();
 
+    private static PeriodicalDao periodicalDao = new PeriodicalDaoImpl();
+    private static SubscriptionDao subscriptionDao = new SubscriptionDaoImpl();
     // TODO: 07.04.2017 initialize instances dao
     private static InvoiceDao invoiceDao;
-    private static SubscriptionDao subscriptionDao;
-    private static PeriodicalDao periodicalDao;
 
 
     private MySqlDaoFactory() {
@@ -38,7 +40,6 @@ public class MySqlDaoFactory implements DaoFactory {
     public UserDao getUserDao() {
         return userDao;
     }
-
 
     @Override
     public SubscriptionDao getSubscriptionDao() {

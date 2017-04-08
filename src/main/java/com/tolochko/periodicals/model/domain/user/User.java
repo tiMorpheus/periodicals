@@ -1,7 +1,6 @@
 package com.tolochko.periodicals.model.domain.user;
 
 import java.io.Serializable;
-import java.util.Set;
 
 public class User implements Serializable {
     private static final long serialVersionUID = 1232131888L;

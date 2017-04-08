@@ -7,20 +7,17 @@ import java.util.List;
 
 public interface PeriodicalDao extends GenericDao<Periodical, Long> {
 
-    Periodical findPeriodicalByName(String name);
+    Periodical findPeriodicalByNameAndPublisher(String name, String publisher);
 
     List<Periodical> findAllByStatus(Periodical.Status status);
 
-    int findAmountWithCategoryAndStatus(PeriodicalCategory category, Periodical.Status status);
+    List<Periodical> findAllByCategory(PeriodicalCategory category);
 
     /**
      * Updates a periodical and sets a new status 'discarded' only if there is no active subscriptions
      * of this periodical.
-     *
-     * @return the number of affected rows: 0 - if the condition was not satisfied and updated
-     *      has not happened; 1 - if the status of this periodical has been changed to 'discarded'
      */
-    int updateAndSetDiscarded(Periodical periodical);
+    void updateAndSetDiscarded(Periodical periodical);
 
     /**
      * Deletes from the db all periodicals with status = 'discarded'.

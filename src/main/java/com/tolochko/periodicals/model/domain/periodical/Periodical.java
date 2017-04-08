@@ -16,9 +16,9 @@ public class Periodical implements Serializable {
         ACTIVE, INACTIVE, DISCARDED
     }
 
-    public enum OperationType {
+/*    public enum OperationType {
         CREATE, UPDATE
-    }
+    }*/
 
     public static class Builder {
         private Periodical periodical;

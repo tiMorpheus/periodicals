@@ -6,6 +6,7 @@ import com.tolochko.periodicals.model.dao.factory.DaoFactory;
 import com.tolochko.periodicals.model.dao.factory.impl.MySqlDaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.UserDao;
 import com.tolochko.periodicals.model.domain.user.User;
+import com.tolochko.periodicals.model.pool.ConnectionPoolProvider;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -15,7 +16,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class MySqlUserDaoTest {
+public class UserDaoImplTest {
+    static ConnectionPoolProvider pool;
     private static UserDao userDao;
     private static DaoFactory factory;
     private static User expected;
@@ -25,7 +27,7 @@ public class MySqlUserDaoTest {
 
     @BeforeClass
     public static void setUp() {
-        InitDB.initMySql();
+        pool = new ConnectionPoolProvider(InitDB.getMySqlDS());
         factory = MySqlDaoFactory.getFactoryInstance();
         userDao = factory.getUserDao();
 
@@ -85,13 +87,13 @@ public class MySqlUserDaoTest {
         id = userDao.add(expected);
 
         recrut = EntityCreator.createUser();
-        recrut.setEmail("test update");
+        recrut.setEmail("test updateById");
 
-        userDao.update(id, recrut);
+        userDao.updateById(id, recrut);
 
         User updatedUser = userDao.findOneById(id);
 
-        assertEquals("test update", updatedUser.getEmail());
+        assertEquals("test updateById", updatedUser.getEmail());
     }
 
     @After

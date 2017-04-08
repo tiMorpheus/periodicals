@@ -108,7 +108,7 @@ public class JdbcTemplates {
             }
             return statement.executeUpdate();
         } catch (SQLException e) {
-            logger.error("cannot execute update query", e);
+            logger.error("cannot execute updateById query", e);
             throw new DaoException(e);
         } finally {
             closeConnection(connection);

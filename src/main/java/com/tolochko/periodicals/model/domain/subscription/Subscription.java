@@ -1,27 +1,25 @@
 package com.tolochko.periodicals.model.domain.subscription;
 
-import com.tolochko.periodicals.model.domain.periodical.Periodical;
-import com.tolochko.periodicals.model.domain.user.User;
-
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 
 public class Subscription {
-    private long id;
+    private Long id;
     /**
-     * The user this subscription belongs to.
+     * The user_id this subscription belongs to.
      */
-    private User user;
+    private Long user_id;
     /**
-     * The periodical this subscription is on.
+     * The periodical_id this subscription is on.
      */
-    private Periodical periodical;
+    private Long periodical;
     private String deliveryAddress;
     /**
      * The expiration date of this subscription. It can be prolonged by creating and paying a new invoice
      * for the same periodical.
      */
-    private Instant endDate;
+    private LocalDateTime endDate;
     /**
      * Is {@code active} when a subscription is created. Becomes {@code inactive} when
      * this subscription is expired.
@@ -39,18 +37,18 @@ public class Subscription {
             subscription = new Subscription();
         }
 
-        public Builder setId(long id) {
+        public Builder setId(Long id) {
             subscription.setId(id);
             return this;
         }
 
-        public Builder setUser(User user) {
-            subscription.setUser(user);
+        public Builder setUserId(Long userId) {
+            subscription.setUser_id(userId);
             return this;
         }
 
-        public Builder setPeriodical(Periodical periodical) {
-            subscription.setPeriodical(periodical);
+        public Builder setPeriodicalId(Long periodicalId) {
+            subscription.setPeriodical(periodicalId);
             return this;
         }
 
@@ -59,7 +57,7 @@ public class Subscription {
             return this;
         }
 
-        public Builder setEndDate(Instant endDate) {
+        public Builder setEndDate(LocalDateTime endDate) {
             subscription.setEndDate(endDate);
             return this;
         }
@@ -74,28 +72,28 @@ public class Subscription {
         }
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return user_id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 
-    public Periodical getPeriodical() {
+    public Long getPeriodicalId() {
         return periodical;
     }
 
-    public void setPeriodical(Periodical periodical) {
-        this.periodical = periodical;
+    public void setPeriodical(Long periodicalId) {
+        this.periodical = periodicalId;
     }
 
     public String getDeliveryAddress() {
@@ -106,11 +104,11 @@ public class Subscription {
         this.deliveryAddress = deliveryAddress;
     }
 
-    public Instant getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Instant endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
@@ -125,36 +123,31 @@ public class Subscription {
 
     @Override
     public String toString() {
-        return String.format("Subscription{id=%d, user=%s, periodical=%s, deliveryAddress='%s', " +
-                "endDate=%s, status=%s}", id, user, periodical, deliveryAddress, endDate, status);
+        return String.format("Subscription{id=%d, user_id=%s, periodicalId=%s, deliveryAddress='%s', " +
+                "endDate=%s, status=%s}", id, user_id, periodical, deliveryAddress, endDate, status);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         Subscription that = (Subscription) o;
 
-        if (id != that.id) {
+        if (id != that.id) return false;
+        if (user_id != that.user_id) return false;
+        if (periodical != that.periodical) return false;
+        if (deliveryAddress != null ? !deliveryAddress.equals(that.deliveryAddress) : that.deliveryAddress != null)
             return false;
-        }
-        if (user != null ? !user.equals(that.user) : that.user != null) {
-            return false;
-        }
-        return periodical != null ? periodical.equals(that.periodical) : that.periodical == null;
-
+        if (endDate != null ? !endDate.equals(that.endDate) : that.endDate != null) return false;
+        return status == that.status;
     }
 
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (user != null ? user.hashCode() : 0);
-        result = 31 * result + (periodical != null ? periodical.hashCode() : 0);
+        result = (int) (31 * result + user_id);
+        result = (int) (31 * result + periodical);
         return result;
     }
 }

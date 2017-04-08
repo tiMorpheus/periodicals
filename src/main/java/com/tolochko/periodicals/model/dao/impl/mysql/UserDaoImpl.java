@@ -116,7 +116,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void update(Long id, User user) {
+    public void updateById(Long id, User user) {
         String query = "UPDATE users " +
                 "SET " +
                 "first_name = ?," +

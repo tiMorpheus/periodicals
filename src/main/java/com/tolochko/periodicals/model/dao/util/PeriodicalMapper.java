@@ -1,27 +1,20 @@
-package com.tolochko.periodicals.utils;
+package com.tolochko.periodicals.model.dao.util;
 
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.domain.periodical.Periodical;
 import com.tolochko.periodicals.model.domain.periodical.PeriodicalCategory;
-import com.tolochko.periodicals.model.domain.user.User;
 import org.apache.log4j.Logger;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static java.util.Objects.nonNull;
-
-public final class DaoUtil {
-    private static final Logger logger = Logger.getLogger(DaoUtil.class);
-
-    private DaoUtil() {
-    }
+public class PeriodicalMapper {
+    private static final Logger logger = Logger.getLogger(PeriodicalMapper.class);
 
     /**
      * Creates a new periodical using the data from the result set.
      */
-    public static Periodical getPeriodicalFromResultSet(ResultSet rs) throws DaoException {
+    public static Periodical map(ResultSet rs)  {
         Periodical.Builder periodicalBuilder = null;
 
         try {
@@ -43,6 +36,4 @@ public final class DaoUtil {
         }
 
     }
-
-
 }
