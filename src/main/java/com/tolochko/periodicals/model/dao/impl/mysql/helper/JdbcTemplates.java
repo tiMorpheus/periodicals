@@ -12,12 +12,7 @@ import java.util.List;
 public class JdbcTemplates {
     private static final Logger logger = Logger.getLogger(JdbcTemplates.class);
 
-    private ConnectionPoolProvider connectionProvider;
     private Connection connection;
-
-    public JdbcTemplates(ConnectionPoolProvider connectionProvider) {
-        this.connectionProvider = connectionProvider;
-    }
 
     private void executeQuery(String query, ResultSetExecutor executor, Object... params) {
         connection = ConnectionPoolProvider.getConnection();

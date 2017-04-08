@@ -4,7 +4,6 @@ import com.tolochko.periodicals.model.dao.impl.mysql.helper.JdbcTemplates;
 import com.tolochko.periodicals.model.dao.interfaces.UserDao;
 import com.tolochko.periodicals.model.dao.util.UserMapper;
 import com.tolochko.periodicals.model.domain.user.User;
-import com.tolochko.periodicals.model.pool.ConnectionPoolProvider;
 import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
@@ -15,7 +14,7 @@ import static java.util.Objects.isNull;
 public class UserDaoImpl implements UserDao {
     private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
 
-    private JdbcTemplates templates = new JdbcTemplates(ConnectionPoolProvider.getInstance());
+    private JdbcTemplates templates = new JdbcTemplates();
 
 
     @Override

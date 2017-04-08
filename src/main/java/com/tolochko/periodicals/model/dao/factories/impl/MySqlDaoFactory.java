@@ -2,7 +2,10 @@ package com.tolochko.periodicals.model.dao.factories.impl;
 
 import com.tolochko.periodicals.model.dao.factories.DaoFactory;
 import com.tolochko.periodicals.model.dao.impl.mysql.UserDaoImpl;
-import com.tolochko.periodicals.model.dao.interfaces.*;
+import com.tolochko.periodicals.model.dao.interfaces.InvoiceDao;
+import com.tolochko.periodicals.model.dao.interfaces.PeriodicalDao;
+import com.tolochko.periodicals.model.dao.interfaces.SubscriptionDao;
+import com.tolochko.periodicals.model.dao.interfaces.UserDao;
 import org.apache.log4j.Logger;
 
 public class MySqlDaoFactory extends DaoFactory {
@@ -14,7 +17,6 @@ public class MySqlDaoFactory extends DaoFactory {
 
     // TODO: 07.04.2017 initialize instances dao
     private static InvoiceDao invoiceDao;
-    private static RoleDao roleDao;
     private static SubscriptionDao subscriptionDao;
     private static PeriodicalDao periodicalDao;
 
@@ -23,7 +25,7 @@ public class MySqlDaoFactory extends DaoFactory {
     }
 
 
-    public static DaoFactory getFactoryInstance(){
+    public static DaoFactory getFactoryInstance() {
         return DAO_FACTORY_INSTANCE;
     }
 
@@ -37,10 +39,6 @@ public class MySqlDaoFactory extends DaoFactory {
         return userDao;
     }
 
-    @Override
-    public RoleDao getRoleDao() {
-        return roleDao;
-    }
 
     @Override
     public SubscriptionDao getSubscriptionDao() {
