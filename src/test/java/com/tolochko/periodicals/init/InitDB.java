@@ -4,9 +4,9 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 import com.tolochko.periodicals.model.pool.ConnectionPoolProvider;
 
 import javax.sql.DataSource;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class InitDB {
@@ -26,7 +26,7 @@ public class InitDB {
         Properties properties = new Properties();
         MysqlDataSource ds = new MysqlDataSource();
         try {
-            FileInputStream fis = new FileInputStream("./src/test/resources/database.properties");
+            InputStream fis = ClassLoader.getSystemResourceAsStream("database.properties");
             properties.load(fis);
             ds.setURL(properties.getProperty("mysql.database.url"));
             ds.setUser(properties.getProperty("mysql.database.username"));
