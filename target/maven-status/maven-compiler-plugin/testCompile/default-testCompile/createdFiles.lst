@@ -1,0 +1,6 @@
+com\tolochko\periodicals\dao\user\UserDaoImplTest.class
+com\tolochko\periodicals\dao\invoice\InvoiceDaoImplTest.class
+com\tolochko\periodicals\dao\periodical\PeriodicalDaoImplTest.class
+com\tolochko\periodicals\init\EntityCreator.class
+com\tolochko\periodicals\init\InitDB.class
+com\tolochko\periodicals\dao\subscription\SubscriptionDaoImplTest.class

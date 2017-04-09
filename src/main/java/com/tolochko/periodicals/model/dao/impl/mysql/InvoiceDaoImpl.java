@@ -4,11 +4,10 @@ import com.tolochko.periodicals.model.dao.impl.mysql.helper.JdbcTemplates;
 import com.tolochko.periodicals.model.dao.interfaces.InvoiceDao;
 import com.tolochko.periodicals.model.dao.util.InvoiceMapper;
 import com.tolochko.periodicals.model.domain.invoice.Invoice;
-import com.tolochko.periodicals.model.pool.ConnectionPoolProvider;
+import com.tolochko.periodicals.model.dao.pool.ConnectionPoolProvider;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 

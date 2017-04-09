@@ -6,7 +6,7 @@ import com.tolochko.periodicals.model.dao.factory.DaoFactory;
 import com.tolochko.periodicals.model.dao.factory.impl.MySqlDaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.UserDao;
 import com.tolochko.periodicals.model.domain.user.User;
-import com.tolochko.periodicals.model.pool.ConnectionPoolProvider;
+import com.tolochko.periodicals.model.dao.pool.ConnectionPoolProvider;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -65,12 +65,12 @@ public class UserDaoImplTest {
         recrut.setEmail("Test1");
 
         id = userDao.add(expected);
-        long recrutID = userDao.add(recrut);
+        Long recrutID = userDao.add(recrut);
 
         List<User> users = userDao.findAll();
 
         //expected of current number of rows in table users
-        assertEquals(2, users.size());
+        assertEquals(3, users.size());
 
         userDao.delete(recrutID);
     }

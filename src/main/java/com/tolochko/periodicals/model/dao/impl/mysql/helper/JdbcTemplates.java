@@ -2,7 +2,7 @@ package com.tolochko.periodicals.model.dao.impl.mysql.helper;
 
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.util.EntityMapper;
-import com.tolochko.periodicals.model.pool.ConnectionPoolProvider;
+import com.tolochko.periodicals.model.dao.pool.ConnectionPoolProvider;
 import org.apache.log4j.Logger;
 
 import java.sql.*;

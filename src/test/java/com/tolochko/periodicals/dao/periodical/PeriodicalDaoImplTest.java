@@ -7,7 +7,7 @@ import com.tolochko.periodicals.model.dao.factory.impl.MySqlDaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.PeriodicalDao;
 import com.tolochko.periodicals.model.domain.periodical.Periodical;
 import com.tolochko.periodicals.model.domain.periodical.PeriodicalCategory;
-import com.tolochko.periodicals.model.pool.ConnectionPoolProvider;
+import com.tolochko.periodicals.model.dao.pool.ConnectionPoolProvider;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -91,7 +91,7 @@ public class PeriodicalDaoImplTest {
     public void deleteAllDiscarded() throws Exception {
 
         //add discarded periodical
-        periodicalDao.add(expected);
+        id = periodicalDao.add(expected);
 
         periodicalDao.deleteAllDiscarded();
         List<Periodical> periodicals = periodicalDao.findAllByStatus(Periodical.Status.DISCARDED);

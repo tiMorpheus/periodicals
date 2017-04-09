@@ -6,7 +6,7 @@ import com.tolochko.periodicals.model.dao.factory.DaoFactory;
 import com.tolochko.periodicals.model.dao.factory.impl.MySqlDaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.SubscriptionDao;
 import com.tolochko.periodicals.model.domain.subscription.Subscription;
-import com.tolochko.periodicals.model.pool.ConnectionPoolProvider;
+import com.tolochko.periodicals.model.dao.pool.ConnectionPoolProvider;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
