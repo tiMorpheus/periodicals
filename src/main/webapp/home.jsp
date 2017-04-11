@@ -1,5 +1,5 @@
-<%@include file="WEB-INF/jsps/includes/header.jsp"%>
-<fmt:setBundle basename="i18n.general.general" var="home"/>
+<%@include file="WEB-INF/app/includes/header.jsp"%>
+<fmt:setBundle basename="i18n.general.homepage" var="home"/>
 
 
 <div class="row">
@@ -22,4 +22,4 @@
 </div>
 
 
-<%@include file="WEB-INF/jsps/includes/footer.jsp" %>
+<%@include file="WEB-INF/app/includes/footer.jsp" %>

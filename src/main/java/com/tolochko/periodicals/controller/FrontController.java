@@ -1,10 +1,14 @@
 package com.tolochko.periodicals.controller;
 
+import com.tolochko.periodicals.controller.request.DispatchException;
 import com.tolochko.periodicals.controller.request.provider.RequestProvider;
 import com.tolochko.periodicals.controller.request.provider.impl.RequestProviderImpl;
 import com.tolochko.periodicals.controller.util.HttpUtil;
+import com.tolochko.periodicals.controller.view.ViewResolver;
+import com.tolochko.periodicals.controller.view.impl.JspViewResolver;
 import org.apache.log4j.Logger;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +18,7 @@ import java.io.IOException;
 public class FrontController extends HttpServlet {
     private static final Logger logger = Logger.getLogger(FrontController.class);
     private RequestProvider requestProvider = RequestProviderImpl.getInstance();
+    private ViewResolver viewResolver = JspViewResolver.getInstance();
 
 
     @Override
@@ -31,6 +36,7 @@ public class FrontController extends HttpServlet {
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) {
 
         try {
+
             String abstractViewName = requestProvider.getRequestProcessor(req).process(req, resp);
             dispatch(abstractViewName, req, resp);
         } catch (RuntimeException e) {
@@ -40,14 +46,48 @@ public class FrontController extends HttpServlet {
 
 
     private void dispatch(String viewName, HttpServletRequest request, HttpServletResponse response) {
-        // TODO: 11.04.2017 realization 
 
+        String[] viewNameParts = viewName.split(":");
+        String dispatchType = viewNameParts[0];
+        String view = viewNameParts[1];
+
+        switch (dispatchType) {
+            case "forward":
+                performForward(viewName, request, response);
+                break;
+            case "redirect":
+                performRedirect(viewName, request, response);
+                break;
+            case "noAction":
+                break;
+            default:
+                logger.error("Incorrect the dispatch type");
+                throw new IllegalArgumentException();
+        }
+
+    }
+
+    private void performForward(String viewName, HttpServletRequest request, HttpServletResponse response) {
+
+        try {
+            RequestDispatcher dispatcher = request.getRequestDispatcher(
+                    viewResolver.resolvePrivateViewName(viewName));
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            logger.error("Dispatching to the viewName " + viewName + " was failed", e);
+            throw new DispatchException(e);
+        }
+    }
+
+    private void performRedirect(String viewName, HttpServletRequest request, HttpServletResponse response) {
+        HttpUtil.sendRedirect(request, response, viewName);
     }
 
     private void redirectUserToErrorPageAndLogException(HttpServletRequest req, HttpServletResponse resp, RuntimeException e) {
 
-        logger.error("User " + req.getSession().getAttribute("currentUser") + ". Request uri "+ req.getRequestURI(), e);
+        logger.error("User " + req.getSession().getAttribute("currentUser")
+                + ". Request uri " + req.getRequestURI(), e);
 
-        HttpUtil.sendRedirect(req,resp,);
+        HttpUtil.sendRedirect(req, resp, viewResolver.resolvePublicViewName(HttpUtil.getExceptionViewName(e)));
     }
 }

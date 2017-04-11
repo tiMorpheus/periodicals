@@ -67,6 +67,9 @@ public class SubscriptionDaoImplTest {
 
         List<Subscription> subscriptions = subscriptionDao.findAll();
 
+        for (Subscription s : subscriptions){
+            System.out.println(s);
+        }
         // must be number of rows in subscription
         assertEquals(2, subscriptions.size());
 
