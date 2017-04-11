@@ -51,7 +51,6 @@ CREATE TABLE IF NOT EXISTS `periodicals_test_db`.`users` (
   REFERENCES role (id)
 );
 
-
 -- -----------------------------------------------------
 -- Table `periodicals_test_db`.`invoices`
 -- -----------------------------------------------------

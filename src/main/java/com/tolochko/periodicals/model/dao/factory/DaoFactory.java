@@ -14,6 +14,4 @@ public interface DaoFactory {
     SubscriptionDao getSubscriptionDao();
 
     InvoiceDao getInvoiceDao();
-
-
 }

@@ -1,4 +1,3 @@
-D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\security\AuthenticationFilter.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\pool\ConnectionPoolProvider.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\domain\user\User.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\domain\periodical\PeriodicalCategory.java
@@ -16,15 +15,15 @@ D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\encoding\E
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\util\UserMapper.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\factory\impl\MySqlDaoFactory.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\impl\mysql\InvoiceDaoImpl.java
-D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\security\Authorization.java
+D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\service\LoginService.java
+D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\FrontController.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\service\UserService.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\impl\mysql\PeriodicalDaoImpl.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\exception\DaoException.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\impl\mysql\SubscriptionDaoImpl.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\factory\DaoFactory.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\service\impl\UserServiceImpl.java
-D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\Util\HttpUtil.java
-D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\servlet\SimpleServlet.java
+D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\util\HttpUtil.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\interfaces\UserDao.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\interfaces\GenericDao.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\domain\subscription\Subscription.java

@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class UserDaoImplTest {
     static ConnectionPoolProvider pool;
@@ -56,6 +57,13 @@ public class UserDaoImplTest {
     public void findUserByEmailTest() {
         id = userDao.add(expected);
         assertUserData(userDao.findUserByEmail("tymurtolochko@gmail.com"));
+    }
+
+    @Test
+    public void findUserByEmailIfUserDoesntExist(){
+        User user = userDao.findUserByEmail("email");
+
+        assertNull(user);
     }
 
 

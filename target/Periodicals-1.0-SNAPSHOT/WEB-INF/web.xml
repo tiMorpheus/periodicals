@@ -6,23 +6,13 @@
 
    <display-name>Periodicals</display-name>
 
-   <welcome-file-list>
-      <welcome-file>mypage.html</welcome-file>
-   </welcome-file-list>
 
-
-   <servlet>
-      <servlet-name>Simple</servlet-name>
-      <servlet-class>com.tolochko.periodicals.controller.servlet.SimpleServlet</servlet-class>
-   </servlet>
-
-   <servlet-mapping>
-      <servlet-name>Simple</servlet-name>
-      <url-pattern>/simple</url-pattern>
-   </servlet-mapping>
+    <session-config>
+        <!-- web.xml expects the session timeout in minutes: -->
+        <session-timeout>20</session-timeout>
+    </session-config>
 
    <filter>
-
       <filter-name>EncodingFilter</filter-name>
       <filter-class>
          com.tolochko.periodicals.controller.encoding.EncodingFilter
@@ -30,13 +20,27 @@
 
       <init-param>
          <param-name>encoding</param-name>
-         <param-value>UTF8</param-value>
+         <param-value>UTF-8</param-value>
       </init-param>
-
    </filter>
 
    <filter-mapping>
       <filter-name>EncodingFilter</filter-name>
       <url-pattern>/*</url-pattern>
+      <dispatcher>REQUEST</dispatcher>
+      <dispatcher>FORWARD</dispatcher>
+      <dispatcher>INCLUDE</dispatcher>
+      <dispatcher>ERROR</dispatcher>
    </filter-mapping>
+
+    <servlet>
+        <servlet-name>FrontController</servlet-name>
+        <servlet-class>com.tolochko.periodicals.controller.FrontController</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>FrontController</servlet-name>
+        <url-pattern>/app/*</url-pattern>
+    </servlet-mapping>
+
 </web-app>
