@@ -1,4 +1,4 @@
-<%@include file="WEB-INF/app/includes/header.jsp"%>
+<%@include file="WEB-INF/includes/header.jsp"%>
 <fmt:setBundle basename="i18n.general.homepage" var="home"/>
 
 
@@ -22,4 +22,4 @@
 </div>
 
 
-<%@include file="WEB-INF/app/includes/footer.jsp" %>
+<%@include file="WEB-INF/includes/footer.jsp" %>

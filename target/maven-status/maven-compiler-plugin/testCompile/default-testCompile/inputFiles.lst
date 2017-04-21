@@ -1,6 +1,6 @@
-D:\code\Periodicals\src\test\java\com\tolochko\periodicals\dao\periodical\PeriodicalDaoImplTest.java
+D:\code\Periodicals\src\test\java\com\tolochko\periodicals\model\service\PeriodicalServiceImplTest.java
 D:\code\Periodicals\src\test\java\com\tolochko\periodicals\init\InitDB.java
-D:\code\Periodicals\src\test\java\com\tolochko\periodicals\dao\invoice\InvoiceDaoImplTest.java
-D:\code\Periodicals\src\test\java\com\tolochko\periodicals\dao\subscription\SubscriptionDaoImplTest.java
-D:\code\Periodicals\src\test\java\com\tolochko\periodicals\dao\user\UserDaoImplTest.java
+D:\code\Periodicals\src\test\java\com\tolochko\periodicals\model\service\InvoiceServiceImplTest.java
+D:\code\Periodicals\src\test\java\com\tolochko\periodicals\model\service\SubscriptionServiceImplTest.java
+D:\code\Periodicals\src\test\java\com\tolochko\periodicals\model\service\UserServiceImplTest.java
 D:\code\Periodicals\src\test\java\com\tolochko\periodicals\init\EntityCreator.java

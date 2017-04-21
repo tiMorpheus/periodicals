@@ -9,12 +9,28 @@
         <body-content>JSP</body-content>
 
         <attribute>
-            <name>mustHaveRoles</name>
+            <name>mustHaveRole</name>
             <required>true</required>
         </attribute>
 
         <attribute>
-            <name>mustNotHaveRoles</name>
+            <name>mustNotHaveRole</name>
+        </attribute>
+    </tag>
+
+
+    <tag>
+        <name>format-datetime</name>
+        <tag-class>com.tolochko.periodicals.controller.view.jsp.tag.FormatDatetimeTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>pattern</name>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
 </taglib>

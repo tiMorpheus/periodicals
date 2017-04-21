@@ -35,9 +35,6 @@ public interface GenericDao<E, T extends Serializable> {
      *
      * @param entity an object to be updated
      */
-    void updateById(T id, E entity);
-
-
-    void delete(T id);
+    int updateById(T id, E entity);
 
 }

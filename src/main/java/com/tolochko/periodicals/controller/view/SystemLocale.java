@@ -2,7 +2,7 @@ package com.tolochko.periodicals.controller.view;
 
 import java.util.Locale;
 
-public enum  SystemLocale {
+public enum SystemLocale {
     EN_EN(Locale.ENGLISH),
     RU_RU(new Locale("ru","RU"));
 

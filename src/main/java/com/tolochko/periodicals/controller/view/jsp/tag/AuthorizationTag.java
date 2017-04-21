@@ -1,6 +1,7 @@
 package com.tolochko.periodicals.controller.view.jsp.tag;
 
 import com.tolochko.periodicals.model.domain.user.User;
+import org.apache.log4j.Logger;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
@@ -17,18 +18,19 @@ import static java.util.Objects.nonNull;
  * see the content of this tag.
  */
 public class AuthorizationTag extends TagSupport {
-
-    private String mustHaveRoles;
-    private String mustNotHaveRoles;
+    private static final Logger logger = Logger.getLogger(AuthorizationTag.class);
+    private String mustHaveRole;
+    private String mustNotHaveRole;
     private User user;
 
     @Override
     public int doStartTag() throws JspException {
         user = getUserFromSession();
+        logger.debug(user);
 
         if (nonNull(user)
-                && hasUserLegitRoles()
-                && hasUserNoProhibitedRoles()) {
+                && hasUserLegitRole()
+                /*&& hasUserNoProhibitedRole()*/) {
 
             return Tag.EVAL_BODY_INCLUDE;
         }
@@ -37,80 +39,55 @@ public class AuthorizationTag extends TagSupport {
     }
 
     private User getUserFromSession() {
-        return (User) pageContext.getSession()
-                .getAttribute("currentUser");
+        return (User) pageContext.getSession().getAttribute("currentUser");
     }
 
-    private boolean hasUserLegitRoles() {
-        if ("*".equals(mustHaveRoles)) {
+    private boolean hasUserLegitRole() {
+        if ("*".equals(mustHaveRole)) {
             return true;
 
         } else {
-            Set<User.Role> legitRoles = parseLegitRoles();
-            Set<User.Role> userRoles = new HashSet<>(user.getRole());
+            User.Role legitRole = parseLegitRole();
+            User.Role userRole = user.getRole();
 
-            userRoles.retainAll(legitRoles);
-
-            return !userRoles.isEmpty();
+            return legitRole.equals(userRole);
         }
     }
 
-    private Set<User.Role> parseLegitRoles() {
-        Set<User.Role> legitRoles = new HashSet<>();
-
-        if (nonNull(mustHaveRoles)) {
-            legitRoles.addAll(Arrays.asList(mustHaveRoles.split(" "))
-                    .stream()
-                    .map(roleStr -> User.Role.valueOf(roleStr.toUpperCase()))
-                    .collect(Collectors.toList()));
-        }
-
-        return legitRoles;
+    private User.Role parseLegitRole() {
+        return nonNull(mustHaveRole) ? User.Role.valueOf(mustHaveRole.toUpperCase()) : null;
     }
 
-    private boolean hasUserNoProhibitedRoles() {
-        if ("*".equals(mustNotHaveRoles)) {
+    private boolean hasUserNoProhibitedRole() {
+        if ("*".equals(mustNotHaveRole)) {
             return false;
 
         } else {
-            Set<User.Role> prohibitedRoles = parseProhibitedRoles();
-            Set<User.Role> userRoles = new HashSet<>(user.getRole());
-            userRoles.retainAll(prohibitedRoles);
+            User.Role prohibitedRole = parseProhibitedRole();
+            User.Role userRole = user.getRole();
 
-            return userRoles.isEmpty();
+            return prohibitedRole.equals(userRole);
         }
     }
 
-    private Set<User.Role> parseProhibitedRoles() {
-        Set<User.Role> prohibitedRoles = new HashSet<>();
+    private User.Role parseProhibitedRole() {
 
-        if (nonNull(mustNotHaveRoles)) {
-            prohibitedRoles.addAll(Arrays.asList(mustNotHaveRoles.split(" "))
-                    .stream()
-                    .map(roleStr -> User.Role.valueOf(roleStr.toUpperCase()))
-                    .collect(Collectors.toList()));
-        }
-
-        return prohibitedRoles;
+        return nonNull(mustNotHaveRole) ? User.Role.valueOf(mustNotHaveRole.toUpperCase()) : null;
     }
 
-    public String getMustHaveRoles() {
-        return mustHaveRoles;
+    public String getMustHaveRole() {
+        return mustHaveRole;
     }
 
-    public void setMustHaveRoles(String mustHaveRoles) {
-        this.mustHaveRoles = mustHaveRoles;
+    public void setMustHaveRole(String mustHaveRole) {
+        this.mustHaveRole = mustHaveRole;
     }
 
-    public String getMustNotHaveRoles() {
-        return mustNotHaveRoles;
+    public String getMustNotHaveRole() {
+        return mustNotHaveRole;
     }
 
-    public void setMustNotHaveRoles(String mustNotHaveRoles) {
-        this.mustNotHaveRoles = mustNotHaveRoles;
+    public void setMustNotHaveRole(String mustNotHaveRole) {
+        this.mustNotHaveRole = mustNotHaveRole;
     }
-
-
-
-
 }

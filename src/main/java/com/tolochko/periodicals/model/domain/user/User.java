@@ -1,44 +1,39 @@
 package com.tolochko.periodicals.model.domain.user;
 
+import org.apache.log4j.Logger;
+
 import java.io.Serializable;
+import java.util.Set;
 
 public class User implements Serializable {
     private static final long serialVersionUID = 1232131888L;
+    private static final Logger logger = Logger.getLogger(User.class);
 
-    private long id;
+    private Long id;
+    private String username;
     private String firstName;
     private String lastName;
     private String email;
     private String address;
     private String passwordHash;
-
-    /**
-     * Roles define specific system functionality available to a user.
-     */
     private Role role;
+    private Status status;
+
 
     public enum Status {
         ACTIVE, BLOCKED
     }
 
     public enum Role {
-        ADMIN, USER;
+        ADMIN, SUBSCRIBER;
+
+
 
         @Override
         public String toString() {
             return name().toLowerCase();
         }
 
-        public static Role getRole(String role) {
-            switch (role) {
-                case "user":
-                    return USER;
-                case "admin":
-                    return ADMIN;
-                default:
-                    throw new IllegalArgumentException("This role doesn't exist");
-            }
-        }
     }
 
     public static class Builder {
@@ -48,8 +43,13 @@ public class User implements Serializable {
             this.user = new User();
         }
 
-        public Builder setId(long id) {
+        public Builder setId(Long id) {
             user.setId(id);
+            return this;
+        }
+
+        public Builder setUsername(String username) {
+            user.setUsername(username);
             return this;
         }
 
@@ -73,7 +73,6 @@ public class User implements Serializable {
             return this;
         }
 
-
         public Builder setRole(Role role) {
             user.setRole(role);
             return this;
@@ -84,17 +83,30 @@ public class User implements Serializable {
             return this;
         }
 
+        public Builder setStatus(Status status){
+            user.setStatus(status);
+            return this;
+        }
+
         public User build() {
             return user;
         }
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
@@ -129,13 +141,25 @@ public class User implements Serializable {
         this.address = address;
     }
 
-
     public Role getRole() {
         return role;
     }
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public boolean hasRole(Role roles) {
+        if(roles == null) {
+            logger.debug("checking not null role: " + roles);
+            throw new NullPointerException();
+        }
+
+        return role.equals(roles);
+    }
+
+    public boolean hasRole(String role) {
+        return hasRole(Role.valueOf(role.toUpperCase()));
     }
 
     public String getPassword() {
@@ -146,11 +170,19 @@ public class User implements Serializable {
         this.passwordHash = password;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
     @Override
     public String toString() {
-        return String.format("User{id=%d, firstName='%s', lastName='%s', " +
+        return String.format("User{id=%d,username='%s' firstName='%s', lastName='%s', " +
                         "email='%s', address='%s',  role=%s}",
-                id, firstName, lastName,
+                id, username, firstName, lastName,
                 email, address, role);
     }
 

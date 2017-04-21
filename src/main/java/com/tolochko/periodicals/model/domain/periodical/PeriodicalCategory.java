@@ -1,13 +1,13 @@
 package com.tolochko.periodicals.model.domain.periodical;
 
 public enum PeriodicalCategory {
-    BUSINESS("business"),
-    SPORTS("sports"),
-    SCIENCE("science"),
-    TRAVELLING("travelling"),
-    NEWS("news"),
-    NATURE("nature"),
-    ART("art");
+    BUSINESS("category.business"),
+    SPORTS("category.sports"),
+    SCIENCE("category.science"),
+    TRAVELLING("category.traveling"),
+    NEWS("category.news"),
+    NATURE("category.nature"),
+    FITNESS("category.fitness");
 
 
     private String messageKey;

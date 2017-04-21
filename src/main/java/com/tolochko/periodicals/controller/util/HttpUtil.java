@@ -1,16 +1,23 @@
 package com.tolochko.periodicals.controller.util;
 
+import com.tolochko.periodicals.controller.message.FrontMessage;
 import com.tolochko.periodicals.controller.request.DispatchException;
 import com.tolochko.periodicals.model.dao.exception.DaoException;
+import com.tolochko.periodicals.model.domain.periodical.Periodical;
+import com.tolochko.periodicals.model.domain.periodical.PeriodicalCategory;
 import com.tolochko.periodicals.model.domain.user.User;
+import com.tolochko.periodicals.model.service.UserService;
+import com.tolochko.periodicals.model.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
-import java.util.Arrays;
-import java.util.NoSuchElementException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.*;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.util.Objects.nonNull;
@@ -18,21 +25,22 @@ import static java.util.Objects.nonNull;
 // helper class
 public final class HttpUtil {
     private static final Logger logger = Logger.getLogger(HttpUtil.class);
+    private static UserService userService = UserServiceImpl.getInstance();
 
     private HttpUtil() {
     }
 
-    public static String getExceptionViewName(Throwable exceprion){
+    public static String getExceptionViewName(Throwable exception){
 
-        if (exceprion instanceof DaoException){
+        if (exception instanceof DaoException){
             return "errors/storage-error-page";
         }
 
-        if (exceprion instanceof NoSuchElementException){
+        if (exception instanceof NoSuchElementException){
             return "errors/page-404";
         }
 
-        if (exceprion instanceof AccessDeniedException){
+        if (exception instanceof AccessDeniedException){
             return "errors/accessDenied";
         }
 
@@ -81,4 +89,89 @@ public final class HttpUtil {
         return Pattern.matches(urlPattern, requestUri);
     }
 
+    /**
+     * Adds general messages to the session.
+     */
+    public static void addGeneralMessagesToSession(HttpServletRequest request,
+                                                   List<FrontMessage> generalMessages) {
+        Map<String, List<FrontMessage>> frontMessageMap = new HashMap<>();
+        frontMessageMap.put("topMessages", generalMessages);
+        HttpUtil.addMessagesToSession(request, frontMessageMap);
+    }
+
+    /**
+     * Sets a session scoped attribute 'messages'.
+     */
+    public static void addMessagesToSession(HttpServletRequest request,
+                                            Map<String, List<FrontMessage>> frontMessageMap) {
+        request.getSession().setAttribute("messages", frontMessageMap);
+    }
+
+
+    /**
+     * Returns a hash for this password.
+     */
+    public static String getPasswordHash(String password) {
+        try {
+            return convertPasswordIntoHash(password);
+
+        } catch (NoSuchAlgorithmException e) {
+            logger.error("Exception during getting MessageDigest for 'MD5'", e);
+            throw new RuntimeException();
+        }
+    }
+
+    private static String convertPasswordIntoHash(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+
+        md.update(password.getBytes());
+        byte[] byteData = md.digest();
+
+        StringBuilder builder = new StringBuilder();
+        for (byte aByteData : byteData) {
+            builder.append(Integer.toString((aByteData & 0xff) + 0x100, 16)
+                    .substring(1));
+        }
+
+        return builder.toString();
+    }
+
+    /**
+     * Tries to find the first number in the uri.
+     */
+    public static int getFirstIdFromUri(String uri) {
+        Matcher matcher = Pattern.compile("\\d+").matcher(uri);
+
+        if (!matcher.find()) {
+            logger.error("Uri: " + uri + " - must contain id.");
+            throw new IllegalArgumentException(String.format("Uri (%s) must contain id.", uri));
+        }
+
+        return Integer.parseInt(matcher.group());
+    }
+
+    /**
+     * Retrieves a user object from the db for the current user from the request.
+     */
+    public static User getCurrentUserFromFromDb(HttpServletRequest request) {
+        return userService.findOneById(getUserIdFromSession(request));
+    }
+
+    /**
+     * Creates a new periodical using the data from the request.
+     */
+    public static Periodical getPeriodicalFromRequest(HttpServletRequest request) {
+        Periodical.Builder periodicalBuilder = new Periodical.Builder();
+        periodicalBuilder.setId(Long.parseLong(request.getParameter("entityId")))
+                .setName(request.getParameter("periodicalName"))
+                .setCategory(PeriodicalCategory.valueOf(
+                        request.getParameter("periodicalCategory").toUpperCase()))
+                .setPublisher(request.getParameter("periodicalPublisher"))
+                .setDescription(request.getParameter("periodicalDescription").trim())
+                .setOneMonthCost(Long.parseLong(request.getParameter("periodicalCost")))
+                .setStatus(Periodical.Status.valueOf(
+                        (request.getParameter("periodicalStatus")).toUpperCase()));
+
+        return periodicalBuilder.build();
+    }
 }

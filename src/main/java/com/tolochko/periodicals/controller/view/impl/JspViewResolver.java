@@ -21,6 +21,6 @@ public final class JspViewResolver implements ViewResolver{
 
     @Override
     public String resolvePublicViewName(String viewName) {
-        return String.format("/%s.sjp", viewName);
+        return String.format("/%s.jsp", viewName);
     }
 }

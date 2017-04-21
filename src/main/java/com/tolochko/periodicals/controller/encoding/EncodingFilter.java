@@ -1,32 +1,28 @@
 package com.tolochko.periodicals.controller.encoding;
 
+import org.apache.log4j.Logger;
+
 import javax.servlet.*;
 import java.io.IOException;
 
+/**
+ * Allows entering on the frontend and saving cyrillic symbols in the system.
+ */
 public class EncodingFilter implements Filter{
+    private static final Logger logger = Logger.getLogger(EncodingFilter.class);
 
-    private String encoding;
+
 
     public void init(FilterConfig config) throws ServletException {
-        encoding = config.getInitParameter("requestEncoding");
-        if (encoding == null){
-            encoding = "UTF-8";
-        }
+
     }
 
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain next)
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        // Respect the client-specified character encoding
-        // (see HTTP specification section 3.4.1)
-        if (null == request.getCharacterEncoding()) {
-            request.setCharacterEncoding(encoding);
-        }
 
-        // Set the default response content type and encoding
-        response.setContentType("text/html; charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
-        next.doFilter(request, response);
+        logger.debug("encoding: current language " + request.getParameter("language"));
+        request.setCharacterEncoding("UTF-8");
+        chain.doFilter(request, response);
     }
 
     public void destroy() {

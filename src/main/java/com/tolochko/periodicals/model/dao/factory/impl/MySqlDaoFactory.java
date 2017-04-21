@@ -1,53 +1,75 @@
 package com.tolochko.periodicals.model.dao.factory.impl;
 
+import com.tolochko.periodicals.model.dao.connection.AbstractConnection;
+import com.tolochko.periodicals.model.dao.connection.AbstractConnectionImpl;
+import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.factory.DaoFactory;
-import com.tolochko.periodicals.model.dao.impl.mysql.InvoiceDaoImpl;
-import com.tolochko.periodicals.model.dao.impl.mysql.PeriodicalDaoImpl;
-import com.tolochko.periodicals.model.dao.impl.mysql.SubscriptionDaoImpl;
-import com.tolochko.periodicals.model.dao.impl.mysql.UserDaoImpl;
-import com.tolochko.periodicals.model.dao.interfaces.InvoiceDao;
-import com.tolochko.periodicals.model.dao.interfaces.PeriodicalDao;
-import com.tolochko.periodicals.model.dao.interfaces.SubscriptionDao;
-import com.tolochko.periodicals.model.dao.interfaces.UserDao;
+import com.tolochko.periodicals.model.dao.impl.*;
+import com.tolochko.periodicals.model.dao.interfaces.*;
+import com.tolochko.periodicals.model.dao.pool.ConnectionPoolProvider;
 import org.apache.log4j.Logger;
+
+import java.sql.Connection;
+
+import static java.util.Objects.isNull;
 
 public class MySqlDaoFactory implements DaoFactory {
     private static final Logger logger = Logger.getLogger(MySqlDaoFactory.class);
 
     private static final DaoFactory DAO_FACTORY_INSTANCE = new MySqlDaoFactory();
 
-    private static UserDao userDao = new UserDaoImpl();
-
-    private static PeriodicalDao periodicalDao = new PeriodicalDaoImpl();
-    private static SubscriptionDao subscriptionDao = new SubscriptionDaoImpl();
-    private static InvoiceDao invoiceDao = new InvoiceDaoImpl();
-
+    // TODO: 13.04.2017 dao realization
+/*
+    private static UserDao userDao ;
+    private static PeriodicalDao periodicalDao ;
+    private static SubscriptionDao subscriptionDao ;
+    private static InvoiceDao invoiceDao ;
+*/
 
     private MySqlDaoFactory() {
     }
-
 
     public static DaoFactory getFactoryInstance() {
         return DAO_FACTORY_INSTANCE;
     }
 
     @Override
-    public PeriodicalDao getPeriodicalDao() {
-        return periodicalDao;
+    public PeriodicalDao getPeriodicalDao(AbstractConnection connection) {
+        checkConnection(connection);
+        return new PeriodicalDaoImpl(getConnection(connection));
     }
 
     @Override
-    public UserDao getUserDao() {
-        return userDao;
+    public UserDao getUserDao(AbstractConnection connection) {
+        checkConnection(connection);
+        return new UserDaoImpl(getConnection(connection));
     }
 
     @Override
-    public SubscriptionDao getSubscriptionDao() {
-        return subscriptionDao;
+    public SubscriptionDao getSubscriptionDao(AbstractConnection connection) {
+        checkConnection(connection);
+        return new SubscriptionDaoImpl(getConnection(connection));
     }
 
     @Override
-    public InvoiceDao getInvoiceDao() {
-        return invoiceDao;
+    public InvoiceDao getInvoiceDao(AbstractConnection connection) {
+        checkConnection(connection);
+        return new InvoiceDaoImpl(getConnection(connection));
+    }
+
+    @Override
+    public RoleDao getRoleDao(AbstractConnection connection) {
+        checkConnection(connection);
+        return new RoleDaoImpl(getConnection(connection));
+    }
+
+    private void checkConnection(AbstractConnection conn) {
+        if (isNull(conn)) {
+            throw new DaoException("Connection can not be null.");
+        }
+    }
+
+    private Connection getConnection(AbstractConnection conn){
+        return ((AbstractConnectionImpl) conn).getConnection();
     }
 }
