@@ -4,15 +4,9 @@ import com.tolochko.periodicals.model.domain.user.User;
 
 public interface UserDao extends GenericDao<User, Long> {
 
-    /**
-     *  Return user by email
-     *
-     * @param email
-     * @return User
-     */
-    User findUserByEmail(String email);
+    User findOneByUserName(String userName);
 
-    Long findRoleId(User.Role role);
+    boolean emailExistsInDb(String email);
 
-    User.Role readRole(Long id);
+   // User.Role getUserRoleByUserName(String userName);
 }
