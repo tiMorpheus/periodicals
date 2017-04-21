@@ -1,8 +1,5 @@
 package com.tolochko.periodicals.model.dao.pool;
 
-import com.sun.istack.internal.Nullable;
-import com.tolochko.periodicals.model.dao.connection.AbstractConnection;
-import com.tolochko.periodicals.model.dao.connection.AbstractConnectionImpl;
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.log4j.Logger;
@@ -28,19 +25,18 @@ public class ConnectionPoolImpl implements ConnectionPool {
     }
 
     @Override
-    public AbstractConnection getConnection() {
-        Connection connection;
+    public Connection getConnection() {
+
 
         try {
-
-            connection = dataSource.getConnection();
+            return dataSource.getConnection();
         } catch (SQLException e) {
 
             logger.error("Cannot create connection from data source", e);
             throw new DaoException("Cannot create connection from data source", e);
         }
 
-        return new AbstractConnectionImpl(connection);
+
     }
 
     public static Builder getBuilder(String url) {
@@ -88,14 +84,14 @@ public class ConnectionPoolImpl implements ConnectionPool {
         }
 
 
-        public static void checkArgument(boolean expression, @Nullable Object errorMessage) {
+        public static void checkArgument(boolean expression,  Object errorMessage) {
             if (!expression) {
                 logger.error(errorMessage);
                 throw new IllegalArgumentException(String.valueOf(errorMessage));
             }
         }
 
-        public static <T> T checkNotNull(T reference, @Nullable Object errorMessage) {
+        public static <T> T checkNotNull(T reference,  Object errorMessage) {
             if (reference == null) {
                 logger.error(errorMessage);
                 throw new NullPointerException(String.valueOf(errorMessage));

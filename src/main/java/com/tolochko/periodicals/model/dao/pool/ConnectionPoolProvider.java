@@ -1,19 +1,10 @@
 package com.tolochko.periodicals.model.dao.pool;
 
-import com.tolochko.periodicals.model.dao.connection.AbstractConnection;
-import com.tolochko.periodicals.model.dao.connection.AbstractConnectionImpl;
-import com.tolochko.periodicals.model.dao.exception.DaoException;
 import org.apache.log4j.Logger;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionPoolProvider {

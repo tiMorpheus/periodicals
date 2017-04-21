@@ -1,6 +1,5 @@
 package com.tolochko.periodicals.model.service;
 
-import com.tolochko.periodicals.model.dao.connection.AbstractConnection;
 import com.tolochko.periodicals.model.dao.factory.DaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.PeriodicalDao;
 import com.tolochko.periodicals.model.dao.pool.ConnectionPool;
@@ -12,12 +11,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.sql.Connection;
 import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class PeriodicalServiceImplTest {
     private static final long PERIODICAL_ID = 10;
@@ -30,7 +28,7 @@ public class PeriodicalServiceImplTest {
     @Mock
     private PeriodicalDao periodicalDao;
     @Mock
-    private AbstractConnection conn;
+    private Connection conn;
 
     @InjectMocks
     private PeriodicalService periodicalService = PeriodicalServiceImpl.getInstance();
@@ -48,7 +46,7 @@ public class PeriodicalServiceImplTest {
         newPeriodical.setId(NEW_PERIODICAL_ID);
 
         when(connectionPool.getConnection()).thenReturn(conn);
-        when(factory.getPeriodicalDao(conn)).thenReturn(periodicalDao);
+        when(factory.getPeriodicalDao()).thenReturn(periodicalDao);
     }
 
     @Test

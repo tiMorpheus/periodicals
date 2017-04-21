@@ -2,6 +2,8 @@ package com.tolochko.periodicals.model.dao.impl;
 
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.interfaces.UserDao;
+import com.tolochko.periodicals.model.dao.pool.ConnectionPool;
+import com.tolochko.periodicals.model.dao.pool.ConnectionPoolProvider;
 import com.tolochko.periodicals.model.dao.util.DaoUtil;
 import com.tolochko.periodicals.model.domain.user.User;
 import org.apache.log4j.Logger;
@@ -13,18 +15,16 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
     private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
 
-    private Connection connection;
-
-    public UserDaoImpl(Connection connection) {
-        this.connection = connection;
-    }
-
+    private ConnectionPool pool = ConnectionPoolProvider.getPool();
 
     @Override
     public User findOneByUserName(String userName) {
         String query = "SELECT * FROM users WHERE username = ?";
 
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
+
+        try (Connection connection = pool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
             ps.setString(1, userName);
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -43,7 +43,8 @@ public class UserDaoImpl implements UserDao {
         String sqlStatement = "SELECT COUNT(id) FROM users " +
                 "WHERE users.email = ?";
 
-        try (PreparedStatement st = connection.prepareStatement(sqlStatement)) {
+        try (Connection connection = pool.getConnection();
+                PreparedStatement st = connection.prepareStatement(sqlStatement)) {
             st.setString(1, email);
 
             try (ResultSet rs = st.executeQuery()) {
@@ -61,7 +62,8 @@ public class UserDaoImpl implements UserDao {
     public User findOneById(Long id) {
         String query = "SELECT * FROM users WHERE id = ?";
 
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
+        try (Connection connection = pool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setLong(1, id);
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -79,7 +81,8 @@ public class UserDaoImpl implements UserDao {
     public List<User> findAll() {
         String query = "SELECT * FROM users";
 
-        try (PreparedStatement st = connection.prepareStatement(query);
+        try (Connection connection = pool.getConnection();
+                PreparedStatement st = connection.prepareStatement(query);
              ResultSet rs = st.executeQuery()) {
 
             List<User> users = new ArrayList<>();
@@ -105,7 +108,8 @@ public class UserDaoImpl implements UserDao {
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 
-        try (PreparedStatement st =
+        try (Connection connection = pool.getConnection();
+                PreparedStatement st =
                      connection.prepareStatement(sqlStatement, Statement.RETURN_GENERATED_KEYS)) {
 
             st.setString(1, user.getUsername());
@@ -146,7 +150,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    // TODO: 14.04.2017 Realize these 2
+    // TODO: 14.04.2017 Realize these
 
     @Override
     public int updateById(Long id, User user) {

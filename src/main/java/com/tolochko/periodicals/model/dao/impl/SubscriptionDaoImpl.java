@@ -2,6 +2,8 @@ package com.tolochko.periodicals.model.dao.impl;
 
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.interfaces.SubscriptionDao;
+import com.tolochko.periodicals.model.dao.pool.ConnectionPool;
+import com.tolochko.periodicals.model.dao.pool.ConnectionPoolProvider;
 import com.tolochko.periodicals.model.dao.util.DaoUtil;
 import com.tolochko.periodicals.model.domain.subscription.Subscription;
 import com.tolochko.periodicals.model.domain.user.User;
@@ -14,18 +16,15 @@ import java.util.List;
 public class SubscriptionDaoImpl implements SubscriptionDao {
     private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
 
-    private Connection connection;
-
-    public SubscriptionDaoImpl(Connection connection) {
-        this.connection = connection;
-    }
+    private ConnectionPool pool = ConnectionPoolProvider.getPool();
 
     @Override
     public Subscription findOneByUserIdAndPeriodicalId(long userId, long periodicalId) {
         String query = "SELECT * FROM subscriptions " +
                 "WHERE user_id = ? AND periodical_id = ?";
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (Connection connection = pool.getConnection();
+                PreparedStatement st = connection.prepareStatement(query)) {
             st.setLong(1, userId);
             st.setLong(2, periodicalId);
 
@@ -47,7 +46,8 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
                 "JOIN periodicals ON (subscriptions.periodical_id = periodicals.id) " +
                 "WHERE periodicals.id = ? AND subscriptions.status = ?";
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (Connection connection = pool.getConnection();
+                PreparedStatement st = connection.prepareStatement(query)) {
             st.setLong(1, periodicalId);
             st.setString(2, status.name().toLowerCase());
 
@@ -76,7 +76,8 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
                 "JOIN periodicals ON (subscriptions.periodical_id = periodicals.id) " +
                 "WHERE users.id = ?";
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (Connection connection = pool.getConnection();
+                PreparedStatement st = connection.prepareStatement(query)) {
             st.setLong(1, user.getId());
 
             ResultSet rs = st.executeQuery();
@@ -112,7 +113,8 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
                 "(user_id, periodical_id, delivery_address, end_date, status) " +
                 "VALUES (?, ?, ?, ?, ?)";
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (Connection connection = pool.getConnection();
+                PreparedStatement st = connection.prepareStatement(query)) {
             st.setLong(1, subscription.getUser().getId());
             st.setLong(2, subscription.getPeriodical().getId());
             st.setString(3, subscription.getDeliveryAddress());
@@ -134,7 +136,8 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
                 "SET user_id=?, periodical_id=?, delivery_address=?, end_date=?, status=? " +
                 "WHERE id=?";
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (Connection connection = pool.getConnection();
+                PreparedStatement st = connection.prepareStatement(query)) {
 
             st.setLong(1, subscription.getUser().getId());
             st.setLong(2, subscription.getPeriodical().getId());

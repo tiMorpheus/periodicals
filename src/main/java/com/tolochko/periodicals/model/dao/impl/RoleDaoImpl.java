@@ -2,6 +2,8 @@ package com.tolochko.periodicals.model.dao.impl;
 
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.interfaces.RoleDao;
+import com.tolochko.periodicals.model.dao.pool.ConnectionPool;
+import com.tolochko.periodicals.model.dao.pool.ConnectionPoolProvider;
 import com.tolochko.periodicals.model.domain.user.User;
 import org.apache.log4j.Logger;
 
@@ -15,12 +17,7 @@ import java.util.Set;
 public class RoleDaoImpl implements RoleDao {
     private static final Logger logger = Logger.getLogger(RoleDaoImpl.class);
 
-    private Connection connection;
-
-    public RoleDaoImpl(Connection connection) {
-        this.connection = connection;
-    }
-
+    private ConnectionPool pool = ConnectionPoolProvider.getPool();
 
     @Override
     public User.Role findRoleByUserName(String userName) {
@@ -30,7 +27,8 @@ public class RoleDaoImpl implements RoleDao {
                 "WHERE users.username = ?";
 
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (Connection connection = pool.getConnection();
+                PreparedStatement st = connection.prepareStatement(query)) {
             st.setString(1, userName);
 
 
@@ -50,7 +48,8 @@ public class RoleDaoImpl implements RoleDao {
         String sqlStatement = "INSERT INTO user_roles " +
                 "(user_id, name) VALUES (?, ?)";
 
-        try (PreparedStatement st = connection.prepareStatement(sqlStatement)) {
+        try (Connection connection = pool.getConnection();
+                PreparedStatement st = connection.prepareStatement(sqlStatement)) {
             st.setLong(1, userId);
             st.setString(2, role.toString());
 

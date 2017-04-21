@@ -1,0 +1,238 @@
+2017-04-22 00:12:43 DEBUG ConnectionPoolProvider:42 - getting pool impl url: jdbc:mysql://localhost:3306/webproject db name: webproject
+2017-04-22 00:12:45 ERROR InvoiceServiceImpl:92 - transaction failed
+2017-04-22 00:12:45 INFO  UserServiceImpl:39 - setting role to user: null
+2017-04-22 00:12:45 DEBUG UserServiceImpl:43 - Mock for User, hashCode: 100929741
+2017-04-22 00:13:42 DEBUG ConnectionPoolProvider:42 - getting pool impl url: jdbc:mysql://localhost:3306/webproject db name: webproject
+2017-04-22 00:13:42 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:13:42 INFO  FrontController:32 - user POST
+2017-04-22 00:13:42 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:13:42 INFO  UserServiceImpl:39 - setting role to user: admin
+2017-04-22 00:13:42 DEBUG UserServiceImpl:43 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:42 DEBUG SignIn:74 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:42 INFO  SignIn:47 - after verifying users data
+2017-04-22 00:13:42 INFO  UserServiceImpl:39 - setting role to user: admin
+2017-04-22 00:13:42 DEBUG UserServiceImpl:43 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:42 INFO  SignIn:49 - got redirect
+2017-04-22 00:13:42 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:13:42 INFO  HttpUtil:72 - getting user for session: 36C69E57FE1424D83216D265E0E6DAA6
+2017-04-22 00:13:42 INFO  UserServiceImpl:39 - setting role to user: admin
+2017-04-22 00:13:42 DEBUG UserServiceImpl:43 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:42 INFO  FrontController:26 - user GET
+2017-04-22 00:13:42 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:13:43 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:43 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:46 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:13:46 INFO  HttpUtil:72 - getting user for session: 36C69E57FE1424D83216D265E0E6DAA6
+2017-04-22 00:13:46 INFO  UserServiceImpl:39 - setting role to user: admin
+2017-04-22 00:13:46 DEBUG UserServiceImpl:43 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:46 INFO  FrontController:26 - user GET
+2017-04-22 00:13:46 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:13:47 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:47 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:47 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:47 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:47 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:47 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:47 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:47 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:48 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:13:48 INFO  HttpUtil:72 - getting user for session: 36C69E57FE1424D83216D265E0E6DAA6
+2017-04-22 00:13:48 INFO  UserServiceImpl:39 - setting role to user: admin
+2017-04-22 00:13:48 DEBUG UserServiceImpl:43 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:48 INFO  FrontController:26 - user GET
+2017-04-22 00:13:48 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:13:48 DEBUG DisplayAllUsers:30 - find: 4 users
+2017-04-22 00:13:49 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:49 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:51 DEBUG EncodingFilter:23 - encoding: current language en_EN
+2017-04-22 00:13:51 INFO  HttpUtil:72 - getting user for session: 36C69E57FE1424D83216D265E0E6DAA6
+2017-04-22 00:13:51 INFO  UserServiceImpl:39 - setting role to user: admin
+2017-04-22 00:13:51 DEBUG UserServiceImpl:43 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:51 INFO  FrontController:26 - user GET
+2017-04-22 00:13:51 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:13:51 DEBUG DisplayAllUsers:30 - find: 4 users
+2017-04-22 00:13:51 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:51 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:52 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:13:52 INFO  HttpUtil:72 - getting user for session: 36C69E57FE1424D83216D265E0E6DAA6
+2017-04-22 00:13:52 INFO  UserServiceImpl:39 - setting role to user: admin
+2017-04-22 00:13:52 DEBUG UserServiceImpl:43 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:52 INFO  FrontController:26 - user GET
+2017-04-22 00:13:52 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:13:52 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:52 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:52 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:52 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:52 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:52 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:52 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:52 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:53 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:13:53 INFO  HttpUtil:72 - getting user for session: 36C69E57FE1424D83216D265E0E6DAA6
+2017-04-22 00:13:53 INFO  UserServiceImpl:39 - setting role to user: admin
+2017-04-22 00:13:53 DEBUG UserServiceImpl:43 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:53 INFO  FrontController:26 - user GET
+2017-04-22 00:13:53 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:13:53 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:53 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:56 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:13:56 INFO  HttpUtil:72 - getting user for session: 36C69E57FE1424D83216D265E0E6DAA6
+2017-04-22 00:13:56 INFO  UserServiceImpl:39 - setting role to user: admin
+2017-04-22 00:13:56 DEBUG UserServiceImpl:43 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:56 INFO  FrontController:26 - user GET
+2017-04-22 00:13:56 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:13:56 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:56 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:56 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:56 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:56 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:56 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:56 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:56 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:57 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:13:57 INFO  HttpUtil:72 - getting user for session: 36C69E57FE1424D83216D265E0E6DAA6
+2017-04-22 00:13:57 INFO  UserServiceImpl:39 - setting role to user: admin
+2017-04-22 00:13:57 DEBUG UserServiceImpl:43 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:57 INFO  FrontController:26 - user GET
+2017-04-22 00:13:57 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:13:57 DEBUG DisplayAllUsers:30 - find: 4 users
+2017-04-22 00:13:57 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:13:57 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:14:01 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:14:01 INFO  HttpUtil:72 - getting user for session: 36C69E57FE1424D83216D265E0E6DAA6
+2017-04-22 00:14:01 INFO  UserServiceImpl:39 - setting role to user: admin
+2017-04-22 00:14:01 DEBUG UserServiceImpl:43 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:14:01 INFO  FrontController:26 - user GET
+2017-04-22 00:14:01 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:14:01 INFO  HttpUtil:72 - getting user for session: 36C69E57FE1424D83216D265E0E6DAA6
+2017-04-22 00:14:01 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:14:01 DEBUG AuthorizationTag:29 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:16:04 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:16:04 INFO  HttpUtil:72 - getting user for session: 36C69E57FE1424D83216D265E0E6DAA6
+2017-04-22 00:16:04 INFO  UserServiceImpl:39 - setting role to user: admin
+2017-04-22 00:16:04 DEBUG UserServiceImpl:43 - User{id=1,username='admin' firstName='null', lastName='null', email='tito@gmail.com', address='null',  role=admin}
+2017-04-22 00:16:04 INFO  FrontController:26 - user GET
+2017-04-22 00:16:04 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:16:06 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:16:06 INFO  FrontController:26 - user GET
+2017-04-22 00:16:06 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:16:19 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:16:19 INFO  FrontController:32 - user POST
+2017-04-22 00:16:19 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:16:19 DEBUG AjaxFormValidation:44 - ajax entityId: null
+2017-04-22 00:16:23 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:16:23 INFO  FrontController:32 - user POST
+2017-04-22 00:16:23 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:16:23 DEBUG AjaxFormValidation:44 - ajax entityId: null
+2017-04-22 00:16:26 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:16:26 INFO  FrontController:32 - user POST
+2017-04-22 00:16:26 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:16:26 DEBUG CreateUser:94 - user is builded user: 
+2017-04-22 00:16:26 DEBUG CreateUser:95 - User{id=null,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=null}
+2017-04-22 00:16:33 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:16:33 INFO  FrontController:32 - user POST
+2017-04-22 00:16:33 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:16:33 INFO  UserServiceImpl:39 - setting role to user: user4
+2017-04-22 00:16:33 DEBUG UserServiceImpl:43 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:33 DEBUG SignIn:74 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:33 INFO  SignIn:47 - after verifying users data
+2017-04-22 00:16:33 INFO  UserServiceImpl:39 - setting role to user: user4
+2017-04-22 00:16:34 DEBUG UserServiceImpl:43 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:34 INFO  SignIn:49 - got redirect
+2017-04-22 00:16:34 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:16:34 INFO  HttpUtil:72 - getting user for session: AE5B9733337EF0C4E07A03CAED2EE850
+2017-04-22 00:16:34 INFO  UserServiceImpl:39 - setting role to user: user4
+2017-04-22 00:16:34 DEBUG UserServiceImpl:43 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:34 INFO  FrontController:26 - user GET
+2017-04-22 00:16:34 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:16:34 INFO  HttpUtil:72 - getting user for session: AE5B9733337EF0C4E07A03CAED2EE850
+2017-04-22 00:16:34 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:34 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:38 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:16:38 INFO  HttpUtil:72 - getting user for session: AE5B9733337EF0C4E07A03CAED2EE850
+2017-04-22 00:16:38 INFO  UserServiceImpl:39 - setting role to user: user4
+2017-04-22 00:16:38 DEBUG UserServiceImpl:43 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:38 INFO  FrontController:26 - user GET
+2017-04-22 00:16:38 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:16:38 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:38 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:38 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:38 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:38 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:38 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:38 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:38 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:41 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:16:41 INFO  HttpUtil:72 - getting user for session: AE5B9733337EF0C4E07A03CAED2EE850
+2017-04-22 00:16:41 INFO  UserServiceImpl:39 - setting role to user: user4
+2017-04-22 00:16:41 DEBUG UserServiceImpl:43 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:41 INFO  FrontController:26 - user GET
+2017-04-22 00:16:41 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:16:41 INFO  HttpUtil:72 - getting user for session: AE5B9733337EF0C4E07A03CAED2EE850
+2017-04-22 00:16:41 INFO  UserServiceImpl:39 - setting role to user: user4
+2017-04-22 00:16:41 DEBUG UserServiceImpl:43 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:42 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:42 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:42 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:42 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:42 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:44 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:16:44 INFO  HttpUtil:72 - getting user for session: AE5B9733337EF0C4E07A03CAED2EE850
+2017-04-22 00:16:44 INFO  UserServiceImpl:39 - setting role to user: user4
+2017-04-22 00:16:44 DEBUG UserServiceImpl:43 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:44 INFO  HttpUtil:72 - getting user for session: AE5B9733337EF0C4E07A03CAED2EE850
+2017-04-22 00:16:44 INFO  FrontController:32 - user POST
+2017-04-22 00:16:44 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:16:45 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:16:45 INFO  HttpUtil:72 - getting user for session: AE5B9733337EF0C4E07A03CAED2EE850
+2017-04-22 00:16:45 INFO  UserServiceImpl:39 - setting role to user: user4
+2017-04-22 00:16:45 DEBUG UserServiceImpl:43 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:45 INFO  FrontController:26 - user GET
+2017-04-22 00:16:45 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:16:45 INFO  HttpUtil:72 - getting user for session: AE5B9733337EF0C4E07A03CAED2EE850
+2017-04-22 00:16:45 INFO  UserServiceImpl:39 - setting role to user: user4
+2017-04-22 00:16:45 DEBUG UserServiceImpl:43 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:45 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:45 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:45 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:45 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:45 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:47 DEBUG EncodingFilter:23 - encoding: current language en_EN
+2017-04-22 00:16:47 INFO  HttpUtil:72 - getting user for session: AE5B9733337EF0C4E07A03CAED2EE850
+2017-04-22 00:16:47 INFO  UserServiceImpl:39 - setting role to user: user4
+2017-04-22 00:16:47 DEBUG UserServiceImpl:43 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:47 INFO  FrontController:26 - user GET
+2017-04-22 00:16:47 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:16:47 INFO  HttpUtil:72 - getting user for session: AE5B9733337EF0C4E07A03CAED2EE850
+2017-04-22 00:16:47 INFO  UserServiceImpl:39 - setting role to user: user4
+2017-04-22 00:16:47 DEBUG UserServiceImpl:43 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:47 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:47 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:47 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:47 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:47 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:49 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:16:49 INFO  HttpUtil:72 - getting user for session: AE5B9733337EF0C4E07A03CAED2EE850
+2017-04-22 00:16:49 INFO  UserServiceImpl:39 - setting role to user: user4
+2017-04-22 00:16:49 DEBUG UserServiceImpl:43 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:49 INFO  FrontController:26 - user GET
+2017-04-22 00:16:49 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:16:49 INFO  HttpUtil:72 - getting user for session: AE5B9733337EF0C4E07A03CAED2EE850
+2017-04-22 00:16:49 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:49 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:52 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:16:52 INFO  HttpUtil:72 - getting user for session: AE5B9733337EF0C4E07A03CAED2EE850
+2017-04-22 00:16:52 INFO  UserServiceImpl:39 - setting role to user: user4
+2017-04-22 00:16:52 DEBUG UserServiceImpl:43 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:52 INFO  HttpUtil:72 - getting user for session: AE5B9733337EF0C4E07A03CAED2EE850
+2017-04-22 00:16:52 INFO  FrontController:32 - user POST
+2017-04-22 00:16:52 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:16:52 DEBUG EncodingFilter:23 - encoding: current language null
+2017-04-22 00:16:52 INFO  HttpUtil:72 - getting user for session: AE5B9733337EF0C4E07A03CAED2EE850
+2017-04-22 00:16:52 INFO  UserServiceImpl:39 - setting role to user: user4
+2017-04-22 00:16:52 DEBUG UserServiceImpl:43 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:52 INFO  FrontController:26 - user GET
+2017-04-22 00:16:52 INFO  RequestProviderImpl:87 - found processor 
+2017-04-22 00:16:52 INFO  HttpUtil:72 - getting user for session: AE5B9733337EF0C4E07A03CAED2EE850
+2017-04-22 00:16:52 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}
+2017-04-22 00:16:52 DEBUG AuthorizationTag:29 - User{id=5,username='user4' firstName='null', lastName='null', email='user4@mail.ru', address='null',  role=subscriber}

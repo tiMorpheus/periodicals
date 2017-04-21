@@ -1,6 +1,5 @@
 package com.tolochko.periodicals.model.service;
 
-import com.tolochko.periodicals.model.dao.connection.AbstractConnection;
 import com.tolochko.periodicals.model.dao.factory.DaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.RoleDao;
 import com.tolochko.periodicals.model.dao.interfaces.UserDao;
@@ -8,18 +7,16 @@ import com.tolochko.periodicals.model.dao.pool.ConnectionPool;
 import com.tolochko.periodicals.model.domain.user.User;
 import com.tolochko.periodicals.model.service.impl.UserServiceImpl;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.sql.Connection;
+
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class UserServiceImplTest {
 
@@ -33,7 +30,7 @@ public class UserServiceImplTest {
     @Mock
     private ConnectionPool connectionPool;
     @Mock
-    private AbstractConnection conn;
+    private Connection conn;
     @InjectMocks
     private UserService userService = UserServiceImpl.getInstance();
 
@@ -43,8 +40,8 @@ public class UserServiceImplTest {
 
         when(connectionPool.getConnection()).thenReturn(conn);
 
-        when(factory.getUserDao(conn)).thenReturn(userDao);
-        when(factory.getRoleDao(conn)).thenReturn(roleDao);
+        when(factory.getUserDao()).thenReturn(userDao);
+        when(factory.getRoleDao()).thenReturn(roleDao);
 
     }
 
@@ -56,15 +53,5 @@ public class UserServiceImplTest {
         assertEquals(user, userService.findOneUserByUserName(TEST_USERNAME));
 
         verify(user).setRole(any());
-    }
-
-    @Ignore
-    public void createNewUser_Should_AddUserAndRoleIntoDB_ReturnTrue(){
-        User user = mock(User.class);
-
-        assertTrue(userService.createNewUser(user));
-
-        verify(user).setRole(any());
-
     }
 }

@@ -1,30 +1,22 @@
 package com.tolochko.periodicals.model.dao.factory.impl;
 
-import com.tolochko.periodicals.model.dao.connection.AbstractConnection;
-import com.tolochko.periodicals.model.dao.connection.AbstractConnectionImpl;
-import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.factory.DaoFactory;
 import com.tolochko.periodicals.model.dao.impl.*;
 import com.tolochko.periodicals.model.dao.interfaces.*;
-import com.tolochko.periodicals.model.dao.pool.ConnectionPoolProvider;
 import org.apache.log4j.Logger;
-
-import java.sql.Connection;
-
-import static java.util.Objects.isNull;
 
 public class MySqlDaoFactory implements DaoFactory {
     private static final Logger logger = Logger.getLogger(MySqlDaoFactory.class);
 
     private static final DaoFactory DAO_FACTORY_INSTANCE = new MySqlDaoFactory();
 
-    // TODO: 13.04.2017 dao realization
-/*
-    private static UserDao userDao ;
-    private static PeriodicalDao periodicalDao ;
-    private static SubscriptionDao subscriptionDao ;
-    private static InvoiceDao invoiceDao ;
-*/
+
+    private static UserDao userDao = new UserDaoImpl();
+    private static PeriodicalDao periodicalDao = new PeriodicalDaoImpl();
+    private static SubscriptionDao subscriptionDao = new SubscriptionDaoImpl();
+    private static InvoiceDao invoiceDao = new InvoiceDaoImpl();
+    private static RoleDao roleDao = new RoleDaoImpl();
+
 
     private MySqlDaoFactory() {
     }
@@ -34,42 +26,28 @@ public class MySqlDaoFactory implements DaoFactory {
     }
 
     @Override
-    public PeriodicalDao getPeriodicalDao(AbstractConnection connection) {
-        checkConnection(connection);
-        return new PeriodicalDaoImpl(getConnection(connection));
+    public UserDao getUserDao() {
+        return userDao;
     }
 
     @Override
-    public UserDao getUserDao(AbstractConnection connection) {
-        checkConnection(connection);
-        return new UserDaoImpl(getConnection(connection));
+    public PeriodicalDao getPeriodicalDao() {
+        return periodicalDao;
     }
 
     @Override
-    public SubscriptionDao getSubscriptionDao(AbstractConnection connection) {
-        checkConnection(connection);
-        return new SubscriptionDaoImpl(getConnection(connection));
+    public SubscriptionDao getSubscriptionDao() {
+        return subscriptionDao;
     }
 
     @Override
-    public InvoiceDao getInvoiceDao(AbstractConnection connection) {
-        checkConnection(connection);
-        return new InvoiceDaoImpl(getConnection(connection));
+    public InvoiceDao getInvoiceDao() {
+        return invoiceDao;
     }
 
     @Override
-    public RoleDao getRoleDao(AbstractConnection connection) {
-        checkConnection(connection);
-        return new RoleDaoImpl(getConnection(connection));
+    public RoleDao getRoleDao() {
+        return roleDao;
     }
 
-    private void checkConnection(AbstractConnection conn) {
-        if (isNull(conn)) {
-            throw new DaoException("Connection can not be null.");
-        }
-    }
-
-    private Connection getConnection(AbstractConnection conn){
-        return ((AbstractConnectionImpl) conn).getConnection();
-    }
 }

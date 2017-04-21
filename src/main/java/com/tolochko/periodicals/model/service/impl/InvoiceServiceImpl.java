@@ -1,13 +1,10 @@
 package com.tolochko.periodicals.model.service.impl;
 
-import com.tolochko.periodicals.model.dao.connection.AbstractConnection;
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.factory.DaoFactory;
 import com.tolochko.periodicals.model.dao.factory.impl.MySqlDaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.InvoiceDao;
 import com.tolochko.periodicals.model.dao.interfaces.SubscriptionDao;
-import com.tolochko.periodicals.model.dao.pool.ConnectionPool;
-import com.tolochko.periodicals.model.dao.pool.ConnectionPoolProvider;
 import com.tolochko.periodicals.model.domain.FinancialStatistics;
 import com.tolochko.periodicals.model.domain.invoice.Invoice;
 import com.tolochko.periodicals.model.domain.periodical.Periodical;
@@ -29,9 +26,9 @@ public class InvoiceServiceImpl implements InvoiceService {
     private static final Logger logger = Logger.getLogger(InvoiceServiceImpl.class);
     private static final InvoiceServiceImpl instance = new InvoiceServiceImpl();
     private DaoFactory factory = MySqlDaoFactory.getFactoryInstance();
-    private ConnectionPool pool = ConnectionPoolProvider.getPool();
 
-    private InvoiceServiceImpl(){}
+    private InvoiceServiceImpl() {
+    }
 
     public static InvoiceServiceImpl getInstance() {
         return instance;
@@ -39,50 +36,46 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     public Invoice findOneById(long invoiceId) {
-        try (AbstractConnection conn = pool.getConnection()) {
-            return factory.getInvoiceDao(conn).findOneById(invoiceId);
-        }
+        return factory.getInvoiceDao().findOneById(invoiceId);
     }
 
     @Override
     public List<Invoice> findAllByUserId(long userId) {
-        try (AbstractConnection conn = pool.getConnection()) {
-            return factory.getInvoiceDao(conn).findAllByUserId(userId);
-        }
+
+        return factory.getInvoiceDao().findAllByUserId(userId);
+
     }
 
     @Override
     public List<Invoice> findAllByPeriodicalId(long periodicalId) {
-        try (AbstractConnection conn = pool.getConnection()) {
-            return factory.getInvoiceDao(conn).findAllByPeriodicalId(periodicalId);
-        }
+
+            return factory.getInvoiceDao().findAllByPeriodicalId(periodicalId);
+
     }
 
     @Override
     public void createNew(Invoice invoice) {
-        try (AbstractConnection conn = pool.getConnection()) {
-            factory.getInvoiceDao(conn).add(invoice);
-        }
+
+            factory.getInvoiceDao().add(invoice);
+
     }
 
     @Override
     public boolean payInvoice(Invoice invoiceToPay) {
+        try {
 
-        AbstractConnection conn = null;
-        try  {
-            conn = pool.getConnection();
-            conn.beginTransaction();
-            SubscriptionDao subscriptionDao = factory.getSubscriptionDao(conn);
+            //conn.beginTransaction();
+            SubscriptionDao subscriptionDao = factory.getSubscriptionDao();
             invoiceToPay.setStatus(Invoice.Status.PAID);
             invoiceToPay.setPaymentDate(Instant.now());
 
-            User userFromDb = factory.getUserDao(conn).findOneById(invoiceToPay.getUser().getId());
+            User userFromDb = factory.getUserDao().findOneById(invoiceToPay.getUser().getId());
             Periodical periodical = invoiceToPay.getPeriodical();
 
             Subscription existingSubscription = subscriptionDao
                     .findOneByUserIdAndPeriodicalId(userFromDb.getId(), periodical.getId());
 
-            factory.getInvoiceDao(conn).updateById(invoiceToPay.getId(), invoiceToPay);
+            factory.getInvoiceDao().updateById(invoiceToPay.getId(), invoiceToPay);
 
             int subscriptionPeriod = invoiceToPay.getSubscriptionPeriod();
 
@@ -92,26 +85,24 @@ public class InvoiceServiceImpl implements InvoiceService {
                 updateExistingSubscription(existingSubscription, subscriptionPeriod, subscriptionDao);
             }
 
-            conn.commitTransaction();
+            //conn.commitTransaction();
             return true;
-        } catch (RuntimeException e){
-            conn.rollbackTransaction();
+        } catch (RuntimeException e) {
+            //conn.rollbackTransaction();
             logger.error("transaction failed");
             throw new DaoException(e);
-        } finally {
-            conn.close();
         }
     }
 
     @Override
     public FinancialStatistics getFinStatistics(Instant since, Instant until) {
-        try (AbstractConnection conn = pool.getConnection()) {
-            InvoiceDao dao = factory.getInvoiceDao(conn);
+
+            InvoiceDao dao = factory.getInvoiceDao();
             long totalInvoiceSum = dao.getCreatedInvoiceSumByCreationDate(since, until);
             long paidInvoiceSum = dao.getPaidInvoiceSumByPaymentDate(since, until);
 
             return new FinancialStatistics(totalInvoiceSum, paidInvoiceSum);
-        }
+
     }
 
     private void updateExistingSubscription(Subscription existingSubscription,
