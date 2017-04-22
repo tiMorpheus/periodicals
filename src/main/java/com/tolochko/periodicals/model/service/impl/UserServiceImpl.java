@@ -92,5 +92,10 @@ public class UserServiceImpl implements UserService {
         return factory.getUserDao().emailExistsInDb(email);
     }
 
+    @Override
+    public void update(User user) {
+        factory.getUserDao().updateById(user.getId(), user);
+    }
+
 
 }

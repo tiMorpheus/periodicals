@@ -11,9 +11,7 @@ import com.tolochko.periodicals.controller.request.provider.RequestProvider;
 import com.tolochko.periodicals.controller.request.sign.DisplaySignUpPage;
 import com.tolochko.periodicals.controller.request.sign.SignIn;
 import com.tolochko.periodicals.controller.request.sign.SignOut;
-import com.tolochko.periodicals.controller.request.user.CreateUser;
-import com.tolochko.periodicals.controller.request.user.DisplayAllUsers;
-import com.tolochko.periodicals.controller.request.user.DisplayCurrentUser;
+import com.tolochko.periodicals.controller.request.user.*;
 import com.tolochko.periodicals.controller.util.HttpUtil;
 import com.tolochko.periodicals.controller.validation.AjaxFormValidation;
 import org.apache.log4j.Logger;
@@ -41,6 +39,8 @@ public final class RequestProviderImpl implements RequestProvider {
         requestMapping.put("POST:/app/signUp/?", CreateUser.getInstance());
         requestMapping.put("GET:/app/users/currentUser/?", DisplayCurrentUser.getInstance());
         requestMapping.put("GET:/app/users/?", DisplayAllUsers.getInstance());
+        requestMapping.put("GET:/app/users/\\d+/update/?", DisplayUpdateUserPage.getInstance());
+        requestMapping.put("POST:/app/users/?", UpdateUser.getInstance());
 
         requestMapping.put("GET:/app/adminPanel/?", DisplayAdminPanel.getInstance());
 

@@ -1,5 +1,6 @@
 package com.tolochko.periodicals.init;
 
+import com.tolochko.periodicals.controller.util.HttpUtil;
 import com.tolochko.periodicals.model.domain.invoice.Invoice;
 import com.tolochko.periodicals.model.domain.periodical.Periodical;
 import com.tolochko.periodicals.model.domain.periodical.PeriodicalCategory;
@@ -11,17 +12,19 @@ import java.time.LocalDateTime;
 
 public class EntityCreator {
 
-//
-//    public static User createUser() {
-//        User.Builder userBuilder = new User.Builder();
-//        userBuilder.setFirstName("Tymur")
-//                .setLastName("Tolochko")
-//                .setEmail("tymurtolochko@gmail.com")
-//                .setAddress("Mazepy Street , 14")
-//                .setPassword("passwordd");
-//                //.setRole(User.Role.getRole("user"));
-//        return userBuilder.build();
-//    }
+
+    public static User createUser() {
+        User.Builder userBuilder = new User.Builder();
+        userBuilder
+                .setUsername("test")
+                .setFirstName("Тимур")
+                .setLastName("Tolochko")
+                .setEmail("tymurtolochko@gmail.com")
+                .setAddress("Mazepy Street , 14")
+                .setPassword(HttpUtil.getPasswordHash("123456"))
+        .setStatus(User.Status.ACTIVE);
+        return userBuilder.build();
+    }
 //
 //    public static Periodical createPeriodical() {
 //        Periodical.Builder periodicalBuider = new Periodical.Builder();

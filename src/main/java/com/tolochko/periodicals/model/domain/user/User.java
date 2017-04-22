@@ -9,7 +9,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1232131888L;
     private static final Logger logger = Logger.getLogger(User.class);
 
-    private Long id;
+    private long id;
     private String username;
     private String firstName;
     private String lastName;

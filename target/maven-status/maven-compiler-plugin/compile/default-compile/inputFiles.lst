@@ -12,6 +12,7 @@ D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\pool\Connec
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\provider\impl\RequestProviderImpl.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\validation\AjaxFormValidation.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\domain\periodical\Periodical.java
+D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\user\DisplayUpdateUserPage.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\validation\user\UserPasswordValidator.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\periodicals\DisplayUpdatePeriodicalPage.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\user\DisplayAllUsers.java
@@ -44,6 +45,7 @@ D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\pe
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\domain\periodical\PeriodicalCategory.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\impl\UserDaoImpl.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\invoice\PayOneInvoice.java
+D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\user\UpdateUser.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\interfaces\PeriodicalDao.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\service\SubscriptionService.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\view\ViewResolver.java

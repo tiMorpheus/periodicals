@@ -22,6 +22,7 @@ com\tolochko\periodicals\model\domain\periodical\Periodical$OperationType.class
 com\tolochko\periodicals\model\dao\pool\ConnectionPoolImpl$Builder.class
 com\tolochko\periodicals\model\domain\invoice\Invoice.class
 com\tolochko\periodicals\controller\request\user\CreateUser.class
+com\tolochko\periodicals\controller\request\user\UpdateUser.class
 com\tolochko\periodicals\controller\request\admin\panel\DisplayAdminPanel.class
 com\tolochko\periodicals\controller\view\jsp\tag\AuthorizationTag.class
 com\tolochko\periodicals\controller\util\HttpUtil.class
@@ -47,6 +48,7 @@ com\tolochko\periodicals\model\service\UserService.class
 com\tolochko\periodicals\controller\validation\ValidationResult.class
 com\tolochko\periodicals\controller\request\periodicals\DeleteDiscardedPeriodicals.class
 com\tolochko\periodicals\model\domain\subscription\Subscription$Builder.class
+com\tolochko\periodicals\controller\request\user\DisplayUpdateUserPage.class
 com\tolochko\periodicals\controller\view\SystemLocale.class
 com\tolochko\periodicals\controller\encoding\EncodingFilter.class
 com\tolochko\periodicals\controller\validation\ValidationProcessorException.class

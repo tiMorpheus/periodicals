@@ -12,11 +12,19 @@
     font-style: italic;
 }
 
+.form-control{
+    height: 50px;
+}
+
 footer {
     min-height: 50px;
 }
 
-.login-panel{
+.sign-in-title {
+    margin-bottom: 10px;
+}
+
+.login-panel {
     margin-top: 15px;
 }
 

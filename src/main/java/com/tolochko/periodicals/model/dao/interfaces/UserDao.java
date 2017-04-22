@@ -7,6 +7,4 @@ public interface UserDao extends GenericDao<User, Long> {
     User findOneByUserName(String userName);
 
     boolean emailExistsInDb(String email);
-
-   // User.Role getUserRoleByUserName(String userName);
 }

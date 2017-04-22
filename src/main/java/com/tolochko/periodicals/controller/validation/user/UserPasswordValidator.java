@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 public class UserPasswordValidator extends AbstractValidator {
     private static ValidationResult failedResult =
             new ValidationResult(412, "validation.userPasswordIsIncorrect");
+
     private static final UserPasswordValidator instance = new UserPasswordValidator();
     public static final String USER_PASSWORD_PATTERN_REGEX = "[\\w]{6,12}";
 

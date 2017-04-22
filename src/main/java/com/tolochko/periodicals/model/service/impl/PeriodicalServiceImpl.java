@@ -33,28 +33,24 @@ public class PeriodicalServiceImpl implements PeriodicalService {
         PeriodicalDao periodicalDao = factory.getPeriodicalDao();
 
         return periodicalDao.findOneById(id);
-
     }
 
     @Override
     public Periodical findOneByName(String name) {
 
         return factory.getPeriodicalDao().findOneByName(name);
-
     }
 
     @Override
     public List<Periodical> findAll() {
 
         return factory.getPeriodicalDao().findAll();
-
     }
 
     @Override
     public List<Periodical> findAllByStatus(Periodical.Status status) {
 
         return factory.getPeriodicalDao().findAllByStatus(status);
-
     }
 
     @Override
@@ -72,7 +68,6 @@ public class PeriodicalServiceImpl implements PeriodicalService {
     private void createNewPeriodical(Periodical periodical) {
 
         factory.getPeriodicalDao().add(periodical);
-
     }
 
     private void updatePeriodical(Periodical periodical) {
@@ -89,26 +84,22 @@ public class PeriodicalServiceImpl implements PeriodicalService {
     private Periodical getPeriodicalFromDbByName(String name) {
 
         return factory.getPeriodicalDao().findOneByName(name);
-
     }
 
     @Override
     public int updateAndSetDiscarded(Periodical periodical) {
 
         return factory.getPeriodicalDao().updateAndSetDiscarded(periodical);
-
     }
 
     @Override
     public int deleteAllDiscarded() {
 
         return factory.getPeriodicalDao().deleteAllDiscarded();
-
     }
 
     @Override
     public boolean hasActiveSubscriptions(long periodicalId) {
-
 
         return !factory.getSubscriptionDao()
                 .findAllByPeriodicalIdAndStatus(periodicalId, Subscription.Status.ACTIVE)

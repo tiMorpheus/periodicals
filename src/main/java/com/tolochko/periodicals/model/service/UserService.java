@@ -16,4 +16,6 @@ public interface UserService {
 
     boolean emailExistsInDb(String email);
 
+    void update(User user);
+
 }

@@ -48,6 +48,14 @@
                     </p>
                 </div>
             </div>
+            <div class="row text-center">
+                <a href="<c:url
+                value="${'/app/users/'.concat(currentUser.id).concat('/update/')}"/>"
+                                            class="btn btn-warning"
+                                            role="button">
+                <fmt:message key="user.editBtn.label" bundle="${langUser}"/></a>
+            </div>
         </form>
+
     </div>
 </div>

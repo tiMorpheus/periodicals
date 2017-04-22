@@ -14,7 +14,7 @@
 
 
 <!doctype html>
-<html lang="${language}">
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><fmt:message key="htmlHead.title" bundle="${langGeneral}" /></title>

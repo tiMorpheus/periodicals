@@ -42,7 +42,6 @@ public class InvoiceDaoImpl implements InvoiceDao {
                 "JOIN periodicals ON (invoices.periodical_id = periodicals.id) " +
                 "WHERE periodicals.id = ?";
 
-
         try {
             return executeAndGetInvoicesFromRs(query, periodicalId);
 

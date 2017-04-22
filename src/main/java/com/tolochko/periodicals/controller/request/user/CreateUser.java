@@ -21,13 +21,6 @@ import java.util.Map;
 import static java.util.Objects.nonNull;
 
 
-// TODO: 13.04.2017 comments 
-// TODO: 13.04.2017 service impl 
-// TODO: 13.04.2017 logger
-// TODO: 13.04.2017 fix process method on If/else constr
-
-
-
 public class CreateUser implements RequestProcessor {
     private static final Logger logger = Logger.getLogger(CreateUser.class);
     private static final CreateUser instance = new CreateUser();
@@ -52,18 +45,22 @@ public class CreateUser implements RequestProcessor {
         // form data
         String username = request.getParameter("signUpUsername");
         String userEmail = request.getParameter("userEmail");
+        String address = request.getParameter("address");
         String password = request.getParameter("password");
         String repeatPassword = request.getParameter("repeatPassword");
 
 
         if (!arePasswordsValidAndEqual(password,repeatPassword)){
+
             formMessages.put("password",
                     messageFactory.getError("validation.passwordsAreNotEqual"));
+
         } else if (usernameExistsInDb(username)){
+
             formMessages.put("signUpUsername",
                     messageFactory.getError("validation.usernameIsNotUnique"));
         } else {
-            boolean isNewUserCreated = createUser(username, userEmail, password);
+            boolean isNewUserCreated = createUser(username, userEmail, address, password);
             if (isNewUserCreated){
                 redirectUri = "/login.jsp";
             } else {
@@ -83,16 +80,14 @@ public class CreateUser implements RequestProcessor {
         return REDIRECT + redirectUri;
     }
 
-    private boolean createUser(String username, String userEmail, String password) {
+    private boolean createUser(String username, String userEmail,String address, String password) {
         User.Builder builder =  new User.Builder();
+        logger.debug("Address :" +address);
         builder.setUsername(username)
                 .setEmail(userEmail)
+                .setAddress(address)
                 .setPassword(HttpUtil.getPasswordHash(password))
                 .setStatus(User.Status.ACTIVE);
-        // TODO: 13.04.2017 BUILD user
-
-        logger.debug("user is builded user: ");
-        logger.debug(builder.build());
 
         return userService.createNewUser(builder.build());
     }

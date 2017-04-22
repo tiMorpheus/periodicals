@@ -18,7 +18,6 @@
         </attribute>
     </tag>
 
-
     <tag>
         <name>format-datetime</name>
         <tag-class>com.tolochko.periodicals.controller.view.jsp.tag.FormatDatetimeTag</tag-class>

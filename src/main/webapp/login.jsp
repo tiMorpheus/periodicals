@@ -9,7 +9,7 @@
         <div class="login-panel panel panel-default">
             <div class="panel-heading">
 
-                <h3 class="panel-title"><fmt:message key="credential.signin.title" bundle="${credential}"/></h3>
+                <h3 class="panel-title sign-in-title"><fmt:message key="credential.signin.title" bundle="${credential}"/></h3>
 
                 <form method="POST" name="loginform" id="loginform"
                       action="<c:url value="/app/signIn" />"

@@ -44,7 +44,7 @@ public class UserDaoImpl implements UserDao {
                 "WHERE users.email = ?";
 
         try (Connection connection = pool.getConnection();
-                PreparedStatement st = connection.prepareStatement(sqlStatement)) {
+             PreparedStatement st = connection.prepareStatement(sqlStatement)) {
             st.setString(1, email);
 
             try (ResultSet rs = st.executeQuery()) {
@@ -63,7 +63,7 @@ public class UserDaoImpl implements UserDao {
         String query = "SELECT * FROM users WHERE id = ?";
 
         try (Connection connection = pool.getConnection();
-                PreparedStatement ps = connection.prepareStatement(query)) {
+             PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setLong(1, id);
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -82,7 +82,7 @@ public class UserDaoImpl implements UserDao {
         String query = "SELECT * FROM users";
 
         try (Connection connection = pool.getConnection();
-                PreparedStatement st = connection.prepareStatement(query);
+             PreparedStatement st = connection.prepareStatement(query);
              ResultSet rs = st.executeQuery()) {
 
             List<User> users = new ArrayList<>();
@@ -109,7 +109,7 @@ public class UserDaoImpl implements UserDao {
 
 
         try (Connection connection = pool.getConnection();
-                PreparedStatement st =
+             PreparedStatement st =
                      connection.prepareStatement(sqlStatement, Statement.RETURN_GENERATED_KEYS)) {
 
             st.setString(1, user.getUsername());
@@ -150,12 +150,30 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    // TODO: 14.04.2017 Realize these
-
     @Override
     public int updateById(Long id, User user) {
+        String query = "UPDATE users " +
+                "SET " +
+                "username = ?,first_name = ?, last_name = ?,email = ?, address = ?, password = ? " +
+                "WHERE id = ?";
 
-        return 0;
+        try (Connection connection = pool.getConnection();
+             PreparedStatement st =
+                     connection.prepareStatement(query)) {
+
+            st.setString(1, user.getUsername());
+            st.setString(2, user.getFirstName());
+            st.setString(3, user.getLastName());
+            st.setString(4, user.getEmail());
+            st.setString(5, user.getAddress());
+            st.setString(6, user.getPassword());
+            st.setLong(7, user.getId());
+
+            return st.executeUpdate();
+        } catch (SQLException e) {
+            String message = "Exception during update user id: " + id;
+            logger.error(message, e);
+            throw new DaoException(message, e);
+        }
     }
-
 }

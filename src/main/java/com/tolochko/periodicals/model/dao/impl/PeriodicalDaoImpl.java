@@ -203,7 +203,6 @@ public class PeriodicalDaoImpl implements PeriodicalDao {
             st.setLong(5, periodical.getOneMonthCost());
             st.setString(6, periodical.getStatus().name().toLowerCase());
             st.setLong(7, periodical.getId());
-            //noinspection JpaQueryApiInspection
             st.setString(8, Subscription.Status.ACTIVE.name().toLowerCase());
 
             return st.executeUpdate();

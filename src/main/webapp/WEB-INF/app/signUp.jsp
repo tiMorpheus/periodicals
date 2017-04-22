@@ -52,6 +52,23 @@
                         </c:if>
                     </div>
 
+<!-- address -->
+                    <div class="form-group validated required">
+                        <label class="control-label" for="address">
+                            <fmt:message key="credential.address.label" bundle="${credential}"/></label>
+                        <input type="text" class="form-control" id="address"
+                               placeholder="<fmt:message key="credential.address.label" bundle="${credential}"/>"
+                               name="address"
+                               value="${address}"/>
+
+                        <c:if test="${(not empty messages) && (not empty messages['address'])}">
+                            <label class="messages ${messages['address'].type == 'ERROR' ? 'error' : ''}">
+                                <fmt:message key="${messages['address'].messageKey}" bundle="${validation}"/>
+                            </label>
+                        </c:if>
+
+                    </div>
+
 
  <!-- userPassword -->
                     <div class="form-group validated required">

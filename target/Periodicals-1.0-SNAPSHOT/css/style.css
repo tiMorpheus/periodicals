@@ -2,10 +2,6 @@
     margin-top: 20px;
 }
 
-body{
-    background-color: #080808;
-}
-
 /*noinspection CssUnusedSymbol*/
 #header .userFullName {
     font-weight: 600;
@@ -16,11 +12,19 @@ body{
     font-style: italic;
 }
 
+.form-control{
+    height: 50px;
+}
+
 footer {
     min-height: 50px;
 }
 
-.login-panel{
+.sign-in-title {
+    margin-bottom: 10px;
+}
+
+.login-panel {
     margin-top: 15px;
 }
 
