@@ -7,7 +7,6 @@
 
 <fmt:setBundle basename="i18n.general.general" var="langGeneral" />
 
-
 <c:set var="language"
        value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}"
        scope="session"/>

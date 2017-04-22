@@ -2,6 +2,10 @@
     margin-top: 20px;
 }
 
+body{
+    background-color: #080808;
+}
+
 /*noinspection CssUnusedSymbol*/
 #header .userFullName {
     font-weight: 600;
@@ -14,6 +18,10 @@
 
 footer {
     min-height: 50px;
+}
+
+.login-panel{
+    margin-top: 15px;
 }
 
 .validated .messages {

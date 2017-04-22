@@ -885,3 +885,27 @@ java.util.NoSuchElementException: no mapping for /app/asdasd
 2017-04-22 11:49:17 INFO  HttpUtil:72 - getting user for session: 00392F1B3A2765A5183315D917B765EC
 2017-04-22 11:49:17 DEBUG AuthorizationTag:29 - User{id=6,username='user5' firstName='null', lastName='null', email='user5@gmail.com', address='null',  role=subscriber}
 2017-04-22 11:49:17 DEBUG AuthorizationTag:29 - User{id=6,username='user5' firstName='null', lastName='null', email='user5@gmail.com', address='null',  role=subscriber}
+2017-04-22 13:17:30 DEBUG ConnectionPoolProvider:42 - getting pool impl url: jdbc:mysql://localhost:3306/webproject db name: webproject
+2017-04-22 13:17:32 ERROR InvoiceServiceImpl:92 - transaction failed
+2017-04-22 13:17:32 INFO  UserServiceImpl:39 - setting role to user: null
+2017-04-22 13:17:32 DEBUG UserServiceImpl:43 - Mock for User, hashCode: 100929741
+2017-04-22 13:21:39 DEBUG ConnectionPoolProvider:42 - getting pool impl url: jdbc:mysql://localhost:3306/webproject db name: webproject
+2017-04-22 13:21:40 ERROR InvoiceServiceImpl:92 - transaction failed
+2017-04-22 13:21:41 INFO  UserServiceImpl:39 - setting role to user: null
+2017-04-22 13:21:41 DEBUG UserServiceImpl:43 - Mock for User, hashCode: 100929741
+2017-04-22 13:24:46 DEBUG ConnectionPoolProvider:42 - getting pool impl url: jdbc:mysql://localhost:3306/webproject db name: webproject
+2017-04-22 13:24:48 ERROR InvoiceServiceImpl:92 - transaction failed
+2017-04-22 13:24:48 INFO  UserServiceImpl:39 - setting role to user: null
+2017-04-22 13:24:48 DEBUG UserServiceImpl:43 - Mock for User, hashCode: 100929741
+2017-04-22 13:25:45 DEBUG ConnectionPoolProvider:42 - getting pool impl url: jdbc:mysql://localhost:3306/webproject db name: webproject
+2017-04-22 13:25:46 ERROR InvoiceServiceImpl:92 - transaction failed
+2017-04-22 13:25:47 INFO  UserServiceImpl:39 - setting role to user: null
+2017-04-22 13:25:47 DEBUG UserServiceImpl:43 - Mock for User, hashCode: 100929741
+2017-04-22 13:27:21 DEBUG ConnectionPoolProvider:42 - getting pool impl url: jdbc:mysql://localhost:3306/webproject db name: webproject
+2017-04-22 13:27:22 ERROR InvoiceServiceImpl:92 - transaction failed
+2017-04-22 13:27:22 INFO  UserServiceImpl:39 - setting role to user: null
+2017-04-22 13:27:22 DEBUG UserServiceImpl:43 - Mock for User, hashCode: 100929741
+2017-04-22 13:28:21 DEBUG ConnectionPoolProvider:42 - getting pool impl url: jdbc:mysql://localhost:3306/webproject db name: webproject
+2017-04-22 13:28:23 ERROR InvoiceServiceImpl:92 - transaction failed
+2017-04-22 13:28:23 INFO  UserServiceImpl:39 - setting role to user: null
+2017-04-22 13:28:23 DEBUG UserServiceImpl:43 - Mock for User, hashCode: 100929741

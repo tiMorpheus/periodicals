@@ -12,7 +12,6 @@ public class EncodingFilter implements Filter{
     private static final Logger logger = Logger.getLogger(EncodingFilter.class);
 
 
-
     public void init(FilterConfig config) throws ServletException {
 
     }

@@ -102,7 +102,7 @@ public final class HttpUtil {
     /**
      * Sets a session scoped attribute 'messages'.
      */
-    public static void addMessagesToSession(HttpServletRequest request,
+    private static void addMessagesToSession(HttpServletRequest request,
                                             Map<String, List<FrontMessage>> frontMessageMap) {
         request.getSession().setAttribute("messages", frontMessageMap);
     }

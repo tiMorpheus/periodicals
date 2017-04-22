@@ -16,6 +16,10 @@ footer {
     min-height: 50px;
 }
 
+.login-panel{
+    margin-top: 15px;
+}
+
 .validated .messages {
     font-size: 80%;
     font-style: italic;

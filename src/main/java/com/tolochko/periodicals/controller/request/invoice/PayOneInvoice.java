@@ -122,6 +122,4 @@ public class PayOneInvoice implements RequestProcessor {
     private long getPeriodicalIdFromInvoice(Invoice invoiceInDb) {
         return invoiceInDb.getPeriodical().getId();
     }
-
-
 }

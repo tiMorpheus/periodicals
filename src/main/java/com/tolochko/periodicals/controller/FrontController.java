@@ -23,14 +23,14 @@ public class FrontController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.info("user GET");
+        logger.info("user GET:" + req.getRequestURI());
         processRequest(req, resp);
     }
 
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.info("user POST");
+        logger.info("user POST" + req.getRequestURI());
         processRequest(req, resp);
     }
 

@@ -39,7 +39,6 @@ public class ConnectionPoolProvider {
         int maxConnNumber = Integer.parseInt(properties.getProperty("database.maxconnections"));
 
 
-        logger.debug("getting pool impl url: " + url + " db name: " + dbName);
         return ConnectionPoolImpl.getBuilder(url)
                 .setUserName(userName)
                 .setPassword(userPassword)

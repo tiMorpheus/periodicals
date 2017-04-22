@@ -19,12 +19,10 @@ public class AuthorizationFilter implements Filter{
     private static final Logger logger = Logger.getLogger(AuthorizationFilter.class);
     private ViewResolver viewResolver = JspViewResolver.getInstance();
 
-
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
     }
-
 
     /**
      * Proceeds to the next resource if a current user has enough permissions, and
