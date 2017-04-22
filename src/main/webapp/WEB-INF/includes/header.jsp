@@ -55,7 +55,7 @@
 
                 <c:otherwise>
                     <c:if test="${pageContext.request.requestURI != '/login.jsp'}">
-                        <p><a href="/login.jsp"><fmt:message key="signin.label" bundle="${langGeneral}"/></a></p>
+                        <p><a href="/login.jsp"><fmt:message key="signIn.label" bundle="${langGeneral}"/></a></p>
                     </c:if>
                 </c:otherwise>
             </c:choose>

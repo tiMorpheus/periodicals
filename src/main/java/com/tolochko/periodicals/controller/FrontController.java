@@ -27,6 +27,7 @@ public class FrontController extends HttpServlet {
         processRequest(req, resp);
     }
 
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("user POST");

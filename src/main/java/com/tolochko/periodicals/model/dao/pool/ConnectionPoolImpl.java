@@ -26,8 +26,6 @@ public class ConnectionPoolImpl implements ConnectionPool {
 
     @Override
     public Connection getConnection() {
-
-
         try {
             return dataSource.getConnection();
         } catch (SQLException e) {
@@ -35,8 +33,6 @@ public class ConnectionPoolImpl implements ConnectionPool {
             logger.error("Cannot create connection from data source", e);
             throw new DaoException("Cannot create connection from data source", e);
         }
-
-
     }
 
     public static Builder getBuilder(String url) {
