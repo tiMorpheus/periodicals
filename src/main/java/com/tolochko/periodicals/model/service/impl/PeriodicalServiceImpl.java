@@ -35,9 +35,9 @@ public class PeriodicalServiceImpl implements PeriodicalService {
     public Periodical findOneById(long id) {
 
         try (ConnectionProxy connection = pool.getConnection()) {
-            PeriodicalDao periodicalDao = factory.getPeriodicalDao(connection);
 
-            return periodicalDao.findOneById(id);
+
+            return factory.getPeriodicalDao(connection).findOneById(id);
         }
 
     }

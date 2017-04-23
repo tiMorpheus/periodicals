@@ -97,17 +97,6 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
     }
 
-    @Override
-    public FinancialStatistics getFinStatistics(Instant since, Instant until) {
-        try (ConnectionProxy connection = pool.getConnection()) {
-            InvoiceDao dao = factory.getInvoiceDao(connection);
-            long totalInvoiceSum = dao.getCreatedInvoiceSumByCreationDate(since, until);
-            long paidInvoiceSum = dao.getPaidInvoiceSumByPaymentDate(since, until);
-
-            return new FinancialStatistics(totalInvoiceSum, paidInvoiceSum);
-        }
-    }
-
     private void updateExistingSubscription(Subscription existingSubscription,
                                             int subscriptionPeriod, SubscriptionDao subscriptionDao) {
         Instant newEndDate;
@@ -141,5 +130,17 @@ public class InvoiceServiceImpl implements InvoiceService {
         LocalDateTime startDate = LocalDateTime.ofInstant(startInstant, ZoneId.systemDefault());
 
         return startDate.plusMonths(subscriptionPeriod).toInstant(ZoneOffset.UTC);
+    }
+
+
+    @Override
+    public FinancialStatistics getFinStatistics(Instant since, Instant until) {
+        try (ConnectionProxy connection = pool.getConnection()) {
+            InvoiceDao dao = factory.getInvoiceDao(connection);
+            long totalInvoiceSum = dao.getCreatedInvoiceSumByCreationDate(since, until);
+            long paidInvoiceSum = dao.getPaidInvoiceSumByPaymentDate(since, until);
+
+            return new FinancialStatistics(totalInvoiceSum, paidInvoiceSum);
+        }
     }
 }

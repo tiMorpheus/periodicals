@@ -7,9 +7,13 @@ import com.tolochko.periodicals.model.dao.factory.impl.MySqlDaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.PeriodicalDao;
 import com.tolochko.periodicals.model.domain.periodical.Periodical;
 import com.tolochko.periodicals.model.domain.periodical.PeriodicalCategory;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.sql.SQLException;
+
+import static java.util.Objects.nonNull;
 import static org.junit.Assert.assertEquals;
 
 public class PeriodicalDaoImplTest {
@@ -95,6 +99,13 @@ public class PeriodicalDaoImplTest {
         assertEquals("activeNews periodicals", activeNewsExpectedNumber, activeNewsActualNumber);
         assertEquals("inActiveNews periodicals", inActiveNewsExpectedNumber, inActiveNewsActualNumber);
         assertEquals("discardedNews periodicals", discardedNewsExpectedNumber, discardedNewsActualNumber);
+    }
+
+    @AfterClass
+    public static void tearDown() throws SQLException {
+        if (nonNull(conn)) {
+            conn.close();
+        }
     }
 
 }

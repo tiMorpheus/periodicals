@@ -68,7 +68,9 @@ public class DisplayCurrentUser implements RequestProcessor {
 
         Collections.sort(invoices, (first, second) -> {
             if (first.getStatus() == second.getStatus()) {
+
                 if (Invoice.Status.NEW.equals(first.getStatus())) {
+
                     return second.getCreationDate().compareTo(first.getCreationDate());
                 } else {
                     return second.getPaymentDate().compareTo(first.getPaymentDate());
@@ -82,6 +84,7 @@ public class DisplayCurrentUser implements RequestProcessor {
     private void sortSubscriptions(List<Subscription> subscriptions) {
         Collections.sort(subscriptions, (first, second) -> {
             if (first.getStatus() == second.getStatus()) {
+
                 return first.getEndDate().compareTo(second.getEndDate());
             } else {
                 return (first.getStatus() == Subscription.Status.ACTIVE) ? -1 : 1;

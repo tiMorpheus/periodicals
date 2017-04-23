@@ -3,8 +3,10 @@ package com.tolochko.periodicals.model.service;
 import com.tolochko.periodicals.model.connection.ConnectionProxy;
 import com.tolochko.periodicals.model.dao.factory.DaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.PeriodicalDao;
+import com.tolochko.periodicals.model.dao.interfaces.SubscriptionDao;
 import com.tolochko.periodicals.model.dao.pool.ConnectionPool;
 import com.tolochko.periodicals.model.domain.periodical.Periodical;
+import com.tolochko.periodicals.model.domain.subscription.Subscription;
 import com.tolochko.periodicals.model.service.impl.PeriodicalServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,9 +15,13 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class PeriodicalServiceImplTest {
@@ -26,6 +32,8 @@ public class PeriodicalServiceImplTest {
     private DaoFactory factory;
     @Mock
     private ConnectionPool connectionPool;
+    @Mock
+    private SubscriptionDao subscriptionDao;
     @Mock
     private PeriodicalDao periodicalDao;
     @Mock
@@ -48,6 +56,7 @@ public class PeriodicalServiceImplTest {
 
         when(connectionPool.getConnection()).thenReturn(conn);
         when(factory.getPeriodicalDao(conn)).thenReturn(periodicalDao);
+        when(factory.getSubscriptionDao(conn)).thenReturn(subscriptionDao);
     }
 
     @Test
@@ -82,5 +91,26 @@ public class PeriodicalServiceImplTest {
         periodicalService.deleteAllDiscarded();
 
         verify(periodicalDao).deleteAllDiscarded();
+    }
+
+    @Test
+    public void hasActiveSubscriptions_ReturnTrue(){
+        List<Subscription> subscriptions = new ArrayList<>();
+        subscriptions.add(new Subscription());
+
+        when(subscriptionDao.findAllByPeriodicalIdAndStatus(PERIODICAL_ID, Subscription.Status.ACTIVE))
+                .thenReturn(subscriptions);
+
+        assertTrue(periodicalService.hasActiveSubscriptions(PERIODICAL_ID));
+    }
+
+    @Test
+    public void hasActiveSubscriptions_ReturnFalse(){
+        List<Subscription> subscriptions = new ArrayList<>();
+
+        when(subscriptionDao.findAllByPeriodicalIdAndStatus(PERIODICAL_ID, Subscription.Status.ACTIVE))
+                .thenReturn(subscriptions);
+
+        assertFalse(periodicalService.hasActiveSubscriptions(PERIODICAL_ID));
     }
 }

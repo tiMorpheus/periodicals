@@ -7704,3 +7704,5 @@ java.util.NoSuchElementException: no mapping for /app/adminpanel
 2017-04-23 15:29:57 DEBUG UserServiceImpl:49 - User{id=7,username='user6' firstName='Тимур', lastName='Толочко', email='user6@gmai.com', address='Адрес',  role=subscriber}
 2017-04-23 15:29:57 INFO  FrontController:26 - user GET:/app/signOut
 2017-04-23 15:29:57 INFO  RequestProviderImpl:87 - found processor 
+2017-04-23 21:01:25 ERROR UserServiceImpl:95 - transaction failed
+com.tolochko.periodicals.model.dao.exception.DaoException

@@ -14,8 +14,7 @@ import org.junit.Test;
 import java.sql.SQLException;
 
 import static java.util.Objects.nonNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public class UserDaoImplTest {
     private static final long ADMIN_ID = 1;
@@ -34,6 +33,7 @@ public class UserDaoImplTest {
         userBuilder.setUsername("admin")
                 .setFirstName("Tymur")
                 .setLastName("Tolochko")
+                .setAddress("address")
                 .setEmail("admin@gmail.com")
                 .setStatus(User.Status.ACTIVE);
 
@@ -71,6 +71,29 @@ public class UserDaoImplTest {
         assertEquals(expectedNumber, actualNumber);
     }
 
+    @Test
+    public void isEmailExistsInDb_Should_ReturnTrue(){
+
+        assertTrue(userDao.emailExistsInDb(expected.getEmail()));
+    }
+
+    @Test
+    public void isEmailExistsInDb_Should_ReturnFalse(){
+
+        assertFalse(userDao.emailExistsInDb(null));
+    }
+
+    @Test
+    public void updateUser_Should_setNewData_in_Db(){
+        String password = "password" + Math.random();
+
+        expected.setPassword(password);
+
+        userDao.updateById(ADMIN_ID, expected);
+
+        assertEquals(password, userDao.findOneById(ADMIN_ID).getPassword());
+
+    }
 
     @AfterClass
     public static void tearDown() throws SQLException {

@@ -1,6 +1,7 @@
 package com.tolochko.periodicals.model.service;
 
 import com.tolochko.periodicals.model.connection.ConnectionProxy;
+import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.factory.DaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.RoleDao;
 import com.tolochko.periodicals.model.dao.interfaces.UserDao;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -88,6 +91,44 @@ public class UserServiceImplTest {
         verify(user, atLeastOnce()).setRole(any());
         verify(user2, atLeastOnce()).setRole(any());
         verify(user3, atLeastOnce()).setRole(any());
+    }
+
+    @Test
+    public void createNewUser_Should_saveUserInDb_return_true(){
+        User user = mock(User.class);
+
+        when(userDao.add(user)).thenReturn(2l);
+        user.setId(2l);
+
+        assertTrue(userService.createNewUser(user));
+        verify(conn, times(1)).beginTransaction();
+        verify(conn, times(1)).commitTransaction();
+        verify(userDao, times(1)).add(user);
+
+        verify(roleDao, times(1)).addRole(2l, User.Role.SUBSCRIBER);
+    }
+
+    @Test(expected = DaoException.class)
+    public void createNewUser_Should_ThrowDaoException_And_RollbackTransaction_IfException() {
+        User user = mock(User.class);
+
+        when(userDao.add(user)).thenThrow(DaoException.class);
+        userService.createNewUser(user);
+
+        verify(conn).rollbackTransaction();
+    }
+
+
+    @Test
+    public void createNewUser_Should_ReturnFalse_And_RollbackTransaction_IfUserIsNotAdded() {
+        User user = mock(User.class);
+
+        when(userDao.add(user)).thenReturn(0l);
+
+        assertFalse(userService.createNewUser(user));
+
+
+        verify(conn).rollbackTransaction();
     }
 
 }

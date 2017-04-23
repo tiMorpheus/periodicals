@@ -165,7 +165,7 @@ public class UserDaoImpl implements UserDao {
             st.setString(4, user.getEmail());
             st.setString(5, user.getAddress());
             st.setString(6, user.getPassword());
-            st.setLong(7, user.getId());
+            st.setLong(7, id);
 
             return st.executeUpdate();
         } catch (SQLException e) {
