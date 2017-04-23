@@ -3,7 +3,6 @@ package com.tolochko.periodicals.model.domain.user;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
-import java.util.Set;
 
 public class User implements Serializable {
     private static final long serialVersionUID = 1232131888L;
@@ -19,14 +18,12 @@ public class User implements Serializable {
     private Role role;
     private Status status;
 
-
     public enum Status {
         ACTIVE, BLOCKED
     }
 
     public enum Role {
         ADMIN, SUBSCRIBER;
-
 
 
         @Override
@@ -83,7 +80,7 @@ public class User implements Serializable {
             return this;
         }
 
-        public Builder setStatus(Status status){
+        public Builder setStatus(Status status) {
             user.setStatus(status);
             return this;
         }
@@ -150,7 +147,7 @@ public class User implements Serializable {
     }
 
     public boolean hasRole(Role roles) {
-        if(roles == null) {
+        if (roles == null) {
             logger.debug("checking not null role: " + roles);
             throw new NullPointerException();
         }

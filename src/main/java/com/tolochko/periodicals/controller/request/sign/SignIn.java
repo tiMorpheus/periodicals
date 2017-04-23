@@ -1,8 +1,5 @@
 package com.tolochko.periodicals.controller.request.sign;
 
-// TODO: 13.04.2017 comments 
-// TODO: 13.04.2017 UserService realization 
-
 import com.tolochko.periodicals.controller.message.FrontMessage;
 import com.tolochko.periodicals.controller.message.FrontMessageFactory;
 import com.tolochko.periodicals.controller.request.RequestProcessor;
@@ -30,6 +27,8 @@ public final class SignIn implements RequestProcessor {
     private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();
     private static final SignIn instance = new SignIn();
 
+    private static final String SIGN_IN_USERNAME = "signInUsername";
+
     private SignIn() {
     }
 
@@ -42,11 +41,10 @@ public final class SignIn implements RequestProcessor {
         Map<String, FrontMessage> messages = new HashMap<>();
         String redirectUri;
 
-        if (isSignIfUserCorrect(request)) {
+        if (isSignCorrect(request)) {
 
-            logger.info("after verifying users data");
             redirectUri = signInIfUserIsActive(request, messages);
-            logger.info("got redirect");
+
         } else {
             addErrorMessages(messages);
             redirectUri = "/login.jsp";
@@ -56,17 +54,14 @@ public final class SignIn implements RequestProcessor {
         return REDIRECT + redirectUri;
     }
 
-    private void setSessionAttributes(HttpServletRequest request, Map<String, FrontMessage> messages) {
-        HttpSession session = request.getSession();
-        String username = request.getParameter("signInUsername");
-
-        session.setAttribute("username", username);
-        session.setAttribute("messages", messages);
-    }
-
-
-    private boolean isSignIfUserCorrect(HttpServletRequest request) {
-        String username = request.getParameter("signInUsername");
+    /**
+     * Check if username is exists and check password from db with user password
+     *
+     * @param request http
+     * @return true if user exists id db and password is correct
+     */
+    private boolean isSignCorrect(HttpServletRequest request) {
+        String username = request.getParameter(SIGN_IN_USERNAME);
         String password = request.getParameter("password");
 
         User user = userService.findOneUserByUserName(username);
@@ -76,8 +71,19 @@ public final class SignIn implements RequestProcessor {
         return nonNull(user) && isPasswordCorrect(password, user);
     }
 
+    private boolean isPasswordCorrect(String password, User user) {
+        return HttpUtil.getPasswordHash(password).equals(user.getPassword());
+    }
+
+    /**
+     * Checks user status
+     *
+     * @param request http
+     * @param messages front messages
+     * @return set error message and return login page uri if user is blocked
+     */
     private String signInIfUserIsActive(HttpServletRequest request, Map<String, FrontMessage> messages) {
-        String username = request.getParameter("signInUsername");
+        String username = request.getParameter(SIGN_IN_USERNAME);
         User currentUser = userService.findOneUserByUserName(username);
         String redirectUri;
 
@@ -85,14 +91,18 @@ public final class SignIn implements RequestProcessor {
             redirectUri = signInUserAndGetRedirectUri(request, currentUser);
         } else {
             redirectUri = "/login.jsp";
-            messages.put("signInUsername", messageFactory.getError("error.userIsBlocked"));
+            messages.put(SIGN_IN_USERNAME, messageFactory.getError("error.userIsBlocked"));
         }
 
         return redirectUri;
     }
 
-    private boolean isPasswordCorrect(String password, User user) {
-        return HttpUtil.getPasswordHash(password).equals(user.getPassword());
+    private void setSessionAttributes(HttpServletRequest request, Map<String, FrontMessage> messages) {
+        HttpSession session = request.getSession();
+        String username = request.getParameter(SIGN_IN_USERNAME);
+
+        session.setAttribute("username", username);
+        session.setAttribute("messages", messages);
     }
 
     private boolean isUserActive(User currentUser) {
@@ -120,7 +130,7 @@ public final class SignIn implements RequestProcessor {
     }
 
     private void addErrorMessages(Map<String, FrontMessage> messages) {
-        messages.put("signInUsername",
+        messages.put(SIGN_IN_USERNAME,
                 messageFactory.getError("validation.credentialsAreNotCorrect"));
         messages.put("password",
                 messageFactory.getError("validation.credentialsAreNotCorrect"));

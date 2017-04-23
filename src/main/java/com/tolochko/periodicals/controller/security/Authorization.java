@@ -30,7 +30,6 @@ public final class Authorization {
         return authorization;
     }
 
-
     /**
      * Checks whether a current user has enough permissions to access a requested uri
      * using a current http method.

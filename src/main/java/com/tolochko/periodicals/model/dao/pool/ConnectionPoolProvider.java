@@ -8,13 +8,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import static java.util.Objects.isNull;
-
 public class ConnectionPoolProvider {
     private static final Logger logger = Logger.getLogger(ConnectionPoolProvider.class);
 
-    private static ConnectionPool INSTANCE;
-
+    private static ConnectionPool instance;
 
     static {
         InputStream input;
@@ -24,7 +21,7 @@ public class ConnectionPoolProvider {
             input = ConnectionPoolProvider.class.getClassLoader()
                     .getResourceAsStream("config/database.properties");
             properties.load(input);
-            INSTANCE = createPoolFromProperties(properties);
+            instance = createPoolFromProperties(properties);
 
         } catch (FileNotFoundException e) {
             logger.error("Exception during opening the db-config", e);
@@ -35,9 +32,10 @@ public class ConnectionPoolProvider {
         }
     }
 
+    private ConnectionPoolProvider(){}
+
     public static ConnectionPool createPoolFromProperties(Properties properties) {
         String url = properties.getProperty("database.url");
-        String dbName = properties.getProperty("database.name");
         String userName = properties.getProperty("database.username");
         String userPassword = properties.getProperty("database.password");
         int maxConnNumber = Integer.parseInt(properties.getProperty("database.maxconnections"));
@@ -51,11 +49,10 @@ public class ConnectionPoolProvider {
     }
 
     public static ConnectionPool getPool() {
-        if (INSTANCE == null) {
+        if (instance == null) {
             throw new IllegalStateException("Connection manager hasn't initialized yet!");
         }
-        return INSTANCE;
+        return instance;
     }
-
 
 }

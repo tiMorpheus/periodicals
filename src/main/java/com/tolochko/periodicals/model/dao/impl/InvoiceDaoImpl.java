@@ -2,8 +2,6 @@ package com.tolochko.periodicals.model.dao.impl;
 
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.interfaces.InvoiceDao;
-import com.tolochko.periodicals.model.dao.pool.ConnectionPool;
-import com.tolochko.periodicals.model.dao.pool.ConnectionPoolProvider;
 import com.tolochko.periodicals.model.dao.util.DaoUtil;
 import com.tolochko.periodicals.model.domain.invoice.Invoice;
 import org.apache.log4j.Logger;
@@ -91,8 +89,8 @@ public class InvoiceDaoImpl implements InvoiceDao {
             }
 
         } catch (SQLException e) {
-            String message = String.format("Exception during execution statement '%s' for since = %s ",
-                    query, since, until);
+            String message = String.format("Exception during execution for since = %s, until = %s ", since, until);
+            logger.error(message, e);
             throw new DaoException(message, e);
         }
     }
@@ -114,8 +112,8 @@ public class InvoiceDaoImpl implements InvoiceDao {
             }
 
         } catch (SQLException e) {
-            String message = String.format("Exception during execution statement '%s' for since = %s ",
-                    query, since, until);
+            String message = String.format("Exception during execution for since = %s , until = %s", since, until);
+            logger.error(message, e);
             throw new DaoException(message, e);
         }
     }

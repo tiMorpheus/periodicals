@@ -22,7 +22,7 @@
             <c:forEach items="${allUsers}" var="user" varStatus="rowStatus">
                 <tr class="${user.status == 'ACTIVE' ? 'success' : 'danger'}">
                     <td>${user.id}</td>
-                    <td>${user.username}</td>
+                    <td><c:out value="${user.username}" /></td>
                     <td><c:out value="${user.firstName}" /></td>
                     <td><c:out value="${user.lastName}" /></td>
                     <td><c:out value="${user.email}" /></td>

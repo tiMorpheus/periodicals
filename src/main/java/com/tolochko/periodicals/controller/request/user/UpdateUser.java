@@ -7,7 +7,6 @@ import com.tolochko.periodicals.controller.util.HttpUtil;
 import com.tolochko.periodicals.model.domain.user.User;
 import com.tolochko.periodicals.model.service.UserService;
 import com.tolochko.periodicals.model.service.impl.UserServiceImpl;
-import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UpdateUser implements RequestProcessor {
-    private static final Logger logger = Logger.getLogger(UpdateUser.class);
     private static final UpdateUser instance = new UpdateUser();
     private UserService userService = UserServiceImpl.getInstance();
     private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();

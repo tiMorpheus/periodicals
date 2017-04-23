@@ -23,6 +23,7 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        // nothing to init
     }
 
     @Override
@@ -61,5 +62,6 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void destroy() {
+        // nothing to destroy
     }
 }

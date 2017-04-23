@@ -5,7 +5,6 @@ import com.tolochko.periodicals.model.domain.user.User;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 
 public class Invoice implements Serializable {
@@ -15,8 +14,8 @@ public class Invoice implements Serializable {
     private Periodical periodical;
     private int subscriptionPeriod;
     private long totalSum;
-    private Instant creationDate;
-    private Instant paymentDate;
+    private transient Instant creationDate;
+    private transient Instant paymentDate;
     private Status status;
 
     public enum Status {
@@ -88,7 +87,6 @@ public class Invoice implements Serializable {
     }
 
     public void setUser(User user) {
-        //checkNotNull(user);
         this.user = user;
     }
 
@@ -97,7 +95,7 @@ public class Invoice implements Serializable {
     }
 
     public void setTotalSum(long totalSum) {
-    //        checkNotNull(totalSum);
+
         this.totalSum = totalSum;
     }
 
@@ -106,7 +104,6 @@ public class Invoice implements Serializable {
     }
 
     public void setStatus(Status status) {
-//        checkNotNull(status);
         this.status = status;
     }
 
@@ -115,7 +112,6 @@ public class Invoice implements Serializable {
     }
 
     public void setCreationDate(Instant creationDate) {
-  //      checkNotNull(creationDate);
         this.creationDate = creationDate;
     }
 
@@ -132,7 +128,6 @@ public class Invoice implements Serializable {
     }
 
     public void setPeriodical(Periodical periodical) {
-    //    checkNotNull(periodical);
         this.periodical = periodical;
     }
 
@@ -141,7 +136,6 @@ public class Invoice implements Serializable {
     }
 
     public void setSubscriptionPeriod(int subscriptionPeriod) {
-      //  checkNotNull(subscriptionPeriod);
         this.subscriptionPeriod = subscriptionPeriod;
     }
 

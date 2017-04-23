@@ -17,20 +17,20 @@ import com.tolochko.periodicals.controller.validation.AjaxFormValidation;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-// TODO: 21.04.2017 no static
 // provides mapping request uri to classes which work with user data
-public final class RequestProviderImpl implements RequestProvider {
+public final class RequestProviderImpl implements RequestProvider, Serializable{
+    private static final long serialVersionUID = 121213111888L;
     private static final Logger logger = Logger.getLogger(RequestProviderImpl.class);
     private static final Map<String, RequestProcessor> requestMapping = new HashMap<>();
     private static final RequestProviderImpl instance = new RequestProviderImpl();
 
     static {
-
         requestMapping.put("GET:/app/?", DisplayBackendHomePage.getInstance());
         requestMapping.put("POST:/app/signIn/?", SignIn.getInstance());
         requestMapping.put("GET:/app/signOut/?", SignOut.getInstance());
@@ -55,7 +55,6 @@ public final class RequestProviderImpl implements RequestProvider {
         requestMapping.put("POST:/app/users/\\d+/invoices/\\d+/pay/?", PayOneInvoice.getInstance());
 
         requestMapping.put("POST:/app/validation", AjaxFormValidation.getInstance());
-
     }
 
     private RequestProviderImpl() {

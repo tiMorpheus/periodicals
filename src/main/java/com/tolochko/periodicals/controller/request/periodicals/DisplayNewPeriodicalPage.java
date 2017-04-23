@@ -21,6 +21,8 @@ public class DisplayNewPeriodicalPage implements RequestProcessor{
     private static final Logger logger = Logger.getLogger(DisplayNewPeriodicalPage.class);
     private static final DisplayNewPeriodicalPage instance = new DisplayNewPeriodicalPage();
 
+    private static final String PERIODICAL_ATTRIBUTE = "periodical";
+
     private DisplayNewPeriodicalPage(){}
 
     public static DisplayNewPeriodicalPage getInstance() {
@@ -29,7 +31,7 @@ public class DisplayNewPeriodicalPage implements RequestProcessor{
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
-        request.getSession().removeAttribute("periodical");
+        request.getSession().removeAttribute(PERIODICAL_ATTRIBUTE);
         setRequestAttributes(request);
 
         return FORWARD + "periodicals/createAndEdit";
@@ -42,7 +44,7 @@ public class DisplayNewPeriodicalPage implements RequestProcessor{
 
         logger.debug("entityId: " + request.getParameter("entityId"));
         request.setAttribute("messages", getMessagesFromSession(request));
-        request.setAttribute("periodical", periodicalToForward);
+        request.setAttribute(PERIODICAL_ATTRIBUTE, periodicalToForward);
         request.setAttribute("periodicalStatuses", Periodical.Status.values());
         request.setAttribute("periodicalCategories", PeriodicalCategory.values());
         request.setAttribute("periodicalOperationType",
@@ -50,7 +52,7 @@ public class DisplayNewPeriodicalPage implements RequestProcessor{
     }
 
     private Periodical getPeriodicalFromSession(HttpServletRequest request) {
-        return (Periodical) request.getSession().getAttribute("periodical");
+        return (Periodical) request.getSession().getAttribute(PERIODICAL_ATTRIBUTE);
     }
 
     @SuppressWarnings("unchecked")

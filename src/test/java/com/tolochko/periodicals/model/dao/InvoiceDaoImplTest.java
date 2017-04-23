@@ -48,13 +48,12 @@ public class InvoiceDaoImplTest {
     public void getCreatedInvoiceSumByCreationDate_Should_ReturnCorrectSumByTimePeriod(){
 
         Instant until = Instant.now();
-        Instant since = until.minus(300, ChronoUnit.DAYS);
+        Instant since = until.minus(720, ChronoUnit.DAYS);
 
 
 
-        assertEquals(1065, invoiceDao.getCreatedInvoiceSumByCreationDate(since, until) );
+        assertEquals(1095, invoiceDao.getCreatedInvoiceSumByCreationDate(since, until) );
     }
-
 
 
     @AfterClass

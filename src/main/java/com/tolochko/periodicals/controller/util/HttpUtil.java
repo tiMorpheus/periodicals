@@ -30,17 +30,17 @@ public final class HttpUtil {
     private HttpUtil() {
     }
 
-    public static String getExceptionViewName(Throwable exception){
+    public static String getExceptionViewName(Throwable exception) {
 
-        if (exception instanceof DaoException){
+        if (exception instanceof DaoException) {
             return "errors/storage-error-page";
         }
 
-        if (exception instanceof NoSuchElementException){
+        if (exception instanceof NoSuchElementException) {
             return "errors/page-404";
         }
 
-        if (exception instanceof AccessDeniedException){
+        if (exception instanceof AccessDeniedException) {
             return "errors/accessDenied";
         }
 
@@ -59,13 +59,14 @@ public final class HttpUtil {
         } catch (IOException e) {
             String message = String.format("User id = %d. Exception during redirection to '%s'.",
                     HttpUtil.getUserIdFromSession(request), redirectUri);
-            logger.error(message,e);
+            logger.error(message, e);
             throw new DispatchException(message, e);
         }
     }
 
     /**
      * Retrieves a current user's id from the session.
+     *
      * @return id of the current signed in user or 0 if a user has not been authenticated yet
      */
     public static long getUserIdFromSession(HttpServletRequest request) {
@@ -103,7 +104,7 @@ public final class HttpUtil {
      * Sets a session scoped attribute 'messages'.
      */
     private static void addMessagesToSession(HttpServletRequest request,
-                                            Map<String, List<FrontMessage>> frontMessageMap) {
+                                             Map<String, List<FrontMessage>> frontMessageMap) {
         request.getSession().setAttribute("messages", frontMessageMap);
     }
 
@@ -117,7 +118,7 @@ public final class HttpUtil {
 
         } catch (NoSuchAlgorithmException e) {
             logger.error("Exception during getting MessageDigest for 'MD5'", e);
-            throw new RuntimeException();
+            throw new SecurityException(e);
         }
     }
 

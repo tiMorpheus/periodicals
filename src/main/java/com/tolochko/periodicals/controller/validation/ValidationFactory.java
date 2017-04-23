@@ -13,6 +13,8 @@ import com.tolochko.periodicals.controller.validation.user.UserPasswordValidator
  */
 public class ValidationFactory {
 
+    private ValidationFactory(){}
+
     public static Validator getPeriodicalNameValidator() {
         return PeriodicalNameValidator.getInstance();
     }

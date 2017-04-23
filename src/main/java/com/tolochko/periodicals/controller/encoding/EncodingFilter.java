@@ -12,10 +12,12 @@ public class EncodingFilter implements Filter{
     private static final Logger logger = Logger.getLogger(EncodingFilter.class);
 
 
+    @Override
     public void init(FilterConfig config) throws ServletException {
-
+        // nothing to init
     }
 
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
@@ -24,6 +26,8 @@ public class EncodingFilter implements Filter{
         chain.doFilter(request, response);
     }
 
+    @Override
     public void destroy() {
+        //nothing to destroy
     }
 }

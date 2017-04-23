@@ -16,12 +16,6 @@ public class MySqlDaoFactory implements DaoFactory {
     private static final Logger logger = Logger.getLogger(MySqlDaoFactory.class);
     private static final DaoFactory DAO_FACTORY_INSTANCE = new MySqlDaoFactory();
 
-//    private static UserDao userDao = new UserDaoImpl();
-//    private static PeriodicalDao periodicalDao = new PeriodicalDaoImpl();
-//    private static SubscriptionDao subscriptionDao = new SubscriptionDaoImpl();
-//    private static InvoiceDao invoiceDao = new InvoiceDaoImpl();
-//    private static RoleDao roleDao = new RoleDaoImpl();
-
     private MySqlDaoFactory() {
     }
 

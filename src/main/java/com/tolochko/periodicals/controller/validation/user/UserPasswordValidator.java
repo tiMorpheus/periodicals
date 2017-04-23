@@ -12,7 +12,7 @@ public class UserPasswordValidator extends AbstractValidator {
             new ValidationResult(412, "validation.userPasswordIsIncorrect");
 
     private static final UserPasswordValidator instance = new UserPasswordValidator();
-    public static final String USER_PASSWORD_PATTERN_REGEX = "[\\w]{6,12}";
+    public static final String PASS_PATTERN_REGEX = "[\\w]{6,12}";
 
     private UserPasswordValidator() {
     }
@@ -31,6 +31,6 @@ public class UserPasswordValidator extends AbstractValidator {
     }
 
     private boolean passwordMatchesRegex(String password) {
-        return Pattern.matches(USER_PASSWORD_PATTERN_REGEX, password);
+        return Pattern.matches(PASS_PATTERN_REGEX, password);
     }
 }

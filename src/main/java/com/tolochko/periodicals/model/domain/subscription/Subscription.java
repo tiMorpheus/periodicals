@@ -4,7 +4,6 @@ import com.tolochko.periodicals.model.domain.periodical.Periodical;
 import com.tolochko.periodicals.model.domain.user.User;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 
 public class Subscription {
@@ -89,7 +88,6 @@ public class Subscription {
     }
 
     public void setUser(User user) {
-        //checkNotNull(user);
         this.user = user;
     }
 
@@ -98,7 +96,6 @@ public class Subscription {
     }
 
     public void setPeriodical(Periodical periodical) {
-      //  checkNotNull(periodical);
         this.periodical = periodical;
     }
 
@@ -107,7 +104,6 @@ public class Subscription {
     }
 
     public void setDeliveryAddress(String deliveryAddress) {
-       // checkNotNull(deliveryAddress);
         this.deliveryAddress = deliveryAddress;
     }
 
@@ -116,7 +112,6 @@ public class Subscription {
     }
 
     public void setEndDate(Instant endDate) {
-       // checkNotNull(endDate);
         this.endDate = endDate;
     }
 
@@ -125,7 +120,6 @@ public class Subscription {
     }
 
     public void setStatus(Status status) {
-       // checkNotNull(status);
         this.status = status;
     }
 
@@ -149,6 +143,7 @@ public class Subscription {
         if (id != that.id) {
             return false;
         }
+
         if (user != null ? !user.equals(that.user) : that.user != null) {
             return false;
         }

@@ -1,7 +1,6 @@
 package com.tolochko.periodicals.model.service.impl;
 
 import com.tolochko.periodicals.model.connection.ConnectionProxy;
-import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.factory.DaoFactory;
 import com.tolochko.periodicals.model.dao.factory.impl.MySqlDaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.InvoiceDao;
@@ -70,6 +69,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public boolean payInvoice(Invoice invoiceToPay) {
         try (ConnectionProxy connection = pool.getConnection()) {
+            logger.debug("paying invoice... begin transaction");
+
             connection.beginTransaction();
 
             SubscriptionDao subscriptionDao = factory.getSubscriptionDao(connection);
@@ -92,6 +93,7 @@ public class InvoiceServiceImpl implements InvoiceService {
                 updateExistingSubscription(existingSubscription, subscriptionPeriod, subscriptionDao);
             }
 
+            logger.debug("commiting transaction");
             connection.commitTransaction();
             return true;
         }

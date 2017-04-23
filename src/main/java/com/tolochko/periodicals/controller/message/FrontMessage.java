@@ -3,13 +3,12 @@ package com.tolochko.periodicals.controller.message;
 import java.io.Serializable;
 
 public final class FrontMessage implements Serializable {
-    private static final long serialVersionUID = 123412777L;
+    private static final long serialVersionUID = 12341241777L;
 
     private String messageKey;
     private MessageType type;
 
-
-    enum MessageType{
+    enum MessageType implements Serializable{
         SUCCESS, INFO, WARNING, ERROR
     }
 

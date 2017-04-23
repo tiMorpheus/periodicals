@@ -80,7 +80,6 @@ public class Periodical implements Serializable {
     }
 
     public void setName(String name) {
-        //checkNotNull(name);
         this.name = name;
     }
 
@@ -89,7 +88,6 @@ public class Periodical implements Serializable {
     }
 
     public void setCategory(PeriodicalCategory category) {
-       // checkNotNull(category);
         this.category = category;
     }
 
@@ -98,7 +96,6 @@ public class Periodical implements Serializable {
     }
 
     public void setPublisher(String publisher) {
-        //checkNotNull(publisher);
         this.publisher = publisher;
     }
 
@@ -107,7 +104,6 @@ public class Periodical implements Serializable {
     }
 
     public void setDescription(String description) {
-       // checkNotNull(description);
         this.description = description;
     }
 
@@ -116,7 +112,7 @@ public class Periodical implements Serializable {
     }
 
     public void setOneMonthCost(long oneMonthCost) {
-       // checkNotNull(oneMonthCost);
+
         this.oneMonthCost = oneMonthCost;
     }
 
@@ -125,19 +121,18 @@ public class Periodical implements Serializable {
     }
 
     public void setStatus(Status status) {
-        //checkNotNull(status);
         this.status = status;
     }
 
     @Override
     public String toString() {
-        String description = (this.description.length() <= 15)
+        String shortDescription = (this.description.length() <= 15)
                 ? this.description
                 : this.description.substring(0, 15);
 
         return String.format("Periodical{id=%d, name='%s', category='%s', publisher='%s', " +
                         "description='%s', oneMonthCost='%d', status='%s'}", id, name, category, publisher,
-                description, oneMonthCost, status);
+                shortDescription, oneMonthCost, status);
     }
 
     @Override

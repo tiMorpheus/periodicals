@@ -2,8 +2,6 @@ package com.tolochko.periodicals.model.dao.impl;
 
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.interfaces.UserDao;
-import com.tolochko.periodicals.model.dao.pool.ConnectionPool;
-import com.tolochko.periodicals.model.dao.pool.ConnectionPoolProvider;
 import com.tolochko.periodicals.model.dao.util.DaoUtil;
 import com.tolochko.periodicals.model.domain.user.User;
 import org.apache.log4j.Logger;

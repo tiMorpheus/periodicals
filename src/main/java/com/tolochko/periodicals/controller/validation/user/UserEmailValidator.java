@@ -25,7 +25,7 @@ public class UserEmailValidator extends AbstractValidator {
 
     @Override
     protected Optional<ValidationResult> checkParameter(String userEmail, HttpServletRequest request) {
-        if (!emailMatchesRegex((userEmail))) {
+        if (!emailMatchesRegex(userEmail)) {
             return Optional.of(regexFailedResult);
         }
 

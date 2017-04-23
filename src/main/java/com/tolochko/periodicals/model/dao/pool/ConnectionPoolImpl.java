@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class ConnectionPoolImpl implements ConnectionPool {
     private static final Logger logger = Logger.getLogger(ConnectionPoolImpl.class);
     private static final String NAME_DEFAULT = "root";
-    private static final String PASSWORD_DEFAULT = "root";
+    private static final String PASS_DEFAULT = "root";
     private static final String DRIVER_NAME_DEFAULT = "com.mysql.cj.jdbc.Driver";
     private static final int MAX_TOTAL_CONNECTIONS = 10;
     private BasicDataSource dataSource;
@@ -55,7 +55,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
             this.url = url;
             this.driverClassName = DRIVER_NAME_DEFAULT;
             this.userName = NAME_DEFAULT;
-            this.password = PASSWORD_DEFAULT;
+            this.password = PASS_DEFAULT;
             this.maxConnections = MAX_TOTAL_CONNECTIONS;
         }
 

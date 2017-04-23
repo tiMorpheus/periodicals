@@ -21,9 +21,6 @@ import java.util.Map;
 import static com.tolochko.periodicals.model.domain.periodical.Periodical.Status.*;
 import static java.util.Objects.nonNull;
 
-// TODO: 14.04.2017 .................. 
-
-
 /**
  * Processes a POST request to persist one periodical. It handles both {@code create} and
  * {@code update} operations by analysing {@code periodicalOperationType} request parameter.
@@ -33,7 +30,9 @@ public class PersistOnePeriodical implements RequestProcessor {
     private static final PersistOnePeriodical instance = new PersistOnePeriodical();
     private PeriodicalService periodicalService = PeriodicalServiceImpl.getInstance();
     private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();
-    public static final int STATUS_CODE_SUCCESS = 200;
+
+    private static final String ERROR_MESSAGE = "Incorrect periodicalOperationType during persisting a periodical.";
+    private static final int STATUS_CODE_SUCCESS = 200;
 
     private PersistOnePeriodical() {
     }
@@ -48,7 +47,9 @@ public class PersistOnePeriodical implements RequestProcessor {
         List<FrontMessage> generalMessages = new ArrayList<>();
         Periodical periodicalToSave = HttpUtil.getPeriodicalFromRequest(request);
 
-        logger.debug("after getting periodidal: " + periodicalToSave);
+        logger.debug("after getting periodical: " + periodicalToSave);
+
+
         String redirectUri = getRedirectUriByOperationType(request, periodicalToSave);
         request.getSession().setAttribute("periodical", periodicalToSave);
 
@@ -68,8 +69,8 @@ public class PersistOnePeriodical implements RequestProcessor {
 
                 if (affectedRows == 0) {
                     addErrorMessage("validation.periodicalHasActiveSubscriptions.error",
-                            generalMessages,
-                            request, response);
+                            generalMessages, request);
+
                     return REDIRECT + redirectUri;
                 }
             } else {
@@ -81,14 +82,14 @@ public class PersistOnePeriodical implements RequestProcessor {
 
         } catch (RuntimeException e) {
             logger.error("Exception during persisting periodical: " + periodicalToSave, e);
-            addErrorMessage("periodicalPersisting.error", generalMessages, request, response);
+            addErrorMessage("periodicalPersisting.error", generalMessages, request);
             return REDIRECT + redirectUri;
         }
     }
 
 
     private void addErrorMessage(String message, List<FrontMessage> generalMessages,
-                                 HttpServletRequest request, HttpServletResponse response) {
+                                 HttpServletRequest request) {
         generalMessages.add(messageFactory.getError(message));
         HttpUtil.addGeneralMessagesToSession(request, generalMessages);
     }
@@ -122,8 +123,8 @@ public class PersistOnePeriodical implements RequestProcessor {
                 generalMessages.add(messageFactory.getSuccess("periodicalUpdated.success"));
                 break;
             default:
-                logger.error("Incorrect periodicalOperationType during persisting a periodical.");
-                throw new IllegalArgumentException("Incorrect periodicalOperationType during persisting a periodical.");
+                logger.error(ERROR_MESSAGE);
+                throw new IllegalArgumentException(ERROR_MESSAGE);
         }
 
         HttpUtil.addGeneralMessagesToSession(request, generalMessages);
@@ -151,8 +152,9 @@ public class PersistOnePeriodical implements RequestProcessor {
                 redirectUri = "/app/periodicals" + "/" + periodicalToSave.getId() + "/update";
                 break;
             default:
-                logger.error("Incorrect periodicalOperationType during persisting a periodical.");
-                throw new IllegalArgumentException("Incorrect periodicalOperationType during persisting a periodical.");
+
+                logger.error(ERROR_MESSAGE);
+                throw new IllegalArgumentException(ERROR_MESSAGE);
         }
 
         return redirectUri;

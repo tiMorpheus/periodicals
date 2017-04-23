@@ -15,13 +15,13 @@ import java.io.IOException;
  * Checks whether a current user has enough permissions to get a requested resource or perform
  * an operation.
  */
-public class AuthorizationFilter implements Filter{
+public class AuthorizationFilter implements Filter {
     private static final Logger logger = Logger.getLogger(AuthorizationFilter.class);
     private ViewResolver viewResolver = JspViewResolver.getInstance();
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
+        // nothing to init
     }
 
     /**
@@ -35,7 +35,7 @@ public class AuthorizationFilter implements Filter{
 
         boolean isRequestAuthorized = Authorization.getInstance().checkPermissions(request);
 
-        if (isRequestAuthorized){
+        if (isRequestAuthorized) {
             filterChain.doFilter(request, response);
         } else {
 
@@ -49,6 +49,6 @@ public class AuthorizationFilter implements Filter{
 
     @Override
     public void destroy() {
-
+        // nothing to init
     }
 }

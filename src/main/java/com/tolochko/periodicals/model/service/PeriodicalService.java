@@ -5,7 +5,6 @@ import com.tolochko.periodicals.model.domain.periodical.Periodical;
 
 import java.util.List;
 
-// TODO: 13.04.2017 FIX
 
 public interface PeriodicalService {
 

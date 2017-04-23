@@ -17,8 +17,8 @@ import java.io.IOException;
 
 public class FrontController extends HttpServlet {
     private static final Logger logger = Logger.getLogger(FrontController.class);
-    private RequestProvider requestProvider = RequestProviderImpl.getInstance();
-    private ViewResolver viewResolver = JspViewResolver.getInstance();
+    private static final transient RequestProvider requestProvider = RequestProviderImpl.getInstance();
+    private static final transient ViewResolver viewResolver = JspViewResolver.getInstance();
 
 
     @Override

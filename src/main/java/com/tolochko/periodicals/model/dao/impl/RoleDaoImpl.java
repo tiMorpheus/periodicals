@@ -2,8 +2,6 @@ package com.tolochko.periodicals.model.dao.impl;
 
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.interfaces.RoleDao;
-import com.tolochko.periodicals.model.dao.pool.ConnectionPool;
-import com.tolochko.periodicals.model.dao.pool.ConnectionPoolProvider;
 import com.tolochko.periodicals.model.domain.user.User;
 import org.apache.log4j.Logger;
 
@@ -11,8 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
 
 public class RoleDaoImpl implements RoleDao {
     private static final Logger logger = Logger.getLogger(RoleDaoImpl.class);
@@ -37,7 +33,7 @@ public class RoleDaoImpl implements RoleDao {
 
 
             try (ResultSet rs = st.executeQuery()) {
-               return rs.next() ? User.Role.valueOf(rs.getString("user_roles.name").toUpperCase()) : null;
+                return rs.next() ? User.Role.valueOf(rs.getString("user_roles.name").toUpperCase()) : null;
             }
 
         } catch (SQLException e) {

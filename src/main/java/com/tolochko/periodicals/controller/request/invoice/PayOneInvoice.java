@@ -28,8 +28,6 @@ import static java.util.Objects.nonNull;
  */
 public class PayOneInvoice implements RequestProcessor {
     private static final Logger logger = Logger.getLogger(PayOneInvoice.class);
-    private static final String EXCEPTION_DURING_PAYING_THE_INVOICE_WITH_ID =
-            "User id = {}. Exception during paying invoice {}.";
     private InvoiceService invoiceService = InvoiceServiceImpl.getInstance();
     private PeriodicalService periodicalService = PeriodicalServiceImpl.getInstance();
     private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();
@@ -37,7 +35,6 @@ public class PayOneInvoice implements RequestProcessor {
 
     private PayOneInvoice() {
     }
-
 
     public static PayOneInvoice getInstance() {
         return instance;
@@ -49,7 +46,7 @@ public class PayOneInvoice implements RequestProcessor {
         Invoice invoiceInDb = invoiceService.findOneById((long) getInvoiceIdFromRequest(request));
 
         if (isInvoiceValid(invoiceInDb, generalMessages)) {
-            tryToPayInvoice(invoiceInDb, request, generalMessages);
+            tryToPayInvoice(invoiceInDb, generalMessages);
         }
 
         HttpUtil.addGeneralMessagesToSession(request, generalMessages);
@@ -98,8 +95,7 @@ public class PayOneInvoice implements RequestProcessor {
         return isPeriodicalInDbActive;
     }
 
-    private void tryToPayInvoice(Invoice invoiceInDb, HttpServletRequest request,
-                                 List<FrontMessage> generalMessages) {
+    private void tryToPayInvoice(Invoice invoiceInDb, List<FrontMessage> generalMessages) {
         try {
             generalMessages.add(messageFactory.getInfo("validation.passedSuccessfully.success"));
             boolean isInvoicePaid = invoiceService.payInvoice(invoiceInDb);

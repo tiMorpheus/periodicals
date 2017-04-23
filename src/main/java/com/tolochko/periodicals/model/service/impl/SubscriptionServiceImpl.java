@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 import java.util.List;
 
 public class SubscriptionServiceImpl implements SubscriptionService {
-    private static final Logger logger = Logger.getLogger(SubscriptionServiceImpl.class);
     private static final SubscriptionServiceImpl instance = new SubscriptionServiceImpl();
     private DaoFactory factory = MySqlDaoFactory.getFactoryInstance();
     private ConnectionPool pool = ConnectionPoolProvider.getPool();

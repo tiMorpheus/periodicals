@@ -13,9 +13,9 @@
             <required>true</required>
         </attribute>
 
-        <attribute>
+   <!--     <attribute>
             <name>mustNotHaveRole</name>
-        </attribute>
+        </attribute>-->
     </tag>
 
     <tag>

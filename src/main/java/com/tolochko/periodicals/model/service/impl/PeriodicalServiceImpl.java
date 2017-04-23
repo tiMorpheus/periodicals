@@ -33,13 +33,11 @@ public class PeriodicalServiceImpl implements PeriodicalService {
 
     @Override
     public Periodical findOneById(long id) {
-
         try (ConnectionProxy connection = pool.getConnection()) {
-
+            logger.debug("looking for an periodical with id:" + id);
 
             return factory.getPeriodicalDao(connection).findOneById(id);
         }
-
     }
 
     @Override
@@ -65,6 +63,7 @@ public class PeriodicalServiceImpl implements PeriodicalService {
 
     @Override
     public Periodical save(Periodical periodical) {
+
         if (periodical.getId() == 0) {
             createNewPeriodical(periodical);
         } else {
