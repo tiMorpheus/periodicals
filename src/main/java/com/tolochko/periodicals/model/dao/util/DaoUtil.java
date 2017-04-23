@@ -17,7 +17,6 @@ import static java.util.Objects.nonNull;
 
 public final class DaoUtil {
     private static final Logger logger = Logger.getLogger(DaoUtil.class);
-
     private DaoUtil(){}
 
     /**
@@ -49,7 +48,7 @@ public final class DaoUtil {
      * Creates a new periodical using the data from the result set.
      */
     public static Periodical getPeriodicalFromResultSet(ResultSet rs)  {
-        Periodical.Builder periodicalBuilder = null;
+        Periodical.Builder periodicalBuilder;
 
         try {
             periodicalBuilder = new Periodical.Builder()

@@ -20,6 +20,7 @@ import static java.util.Objects.nonNull;
 public class AuthorizationTag extends TagSupport {
     private static final Logger logger = Logger.getLogger(AuthorizationTag.class);
     private String mustHaveRole;
+
     private String mustNotHaveRole;
     private User user;
 

@@ -15,7 +15,7 @@
 
 <div class="row">
     <div class="col-xs-8 col-xs-offset-2 col-md-4 col-md-offset-4">
-        <div class="panel panel-default">
+        <div class="sign-up-panel panel panel-default">
             <div class="panel-heading">
 
                 <h3 class="panel-title"><fmt:message key="credential.signUp.title" bundle="${credential}"/></h3>

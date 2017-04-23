@@ -1,16 +1,17 @@
 package com.tolochko.periodicals.model.dao.factory;
 
+import com.tolochko.periodicals.model.connection.ConnectionProxy;
 import com.tolochko.periodicals.model.dao.interfaces.*;
 
 public interface DaoFactory {
 
-    PeriodicalDao getPeriodicalDao();
+    PeriodicalDao getPeriodicalDao(ConnectionProxy connection);
 
-    UserDao getUserDao();
+    UserDao getUserDao(ConnectionProxy connection);
 
-    SubscriptionDao getSubscriptionDao();
+    SubscriptionDao getSubscriptionDao(ConnectionProxy connection);
 
-    InvoiceDao getInvoiceDao();
+    InvoiceDao getInvoiceDao(ConnectionProxy connection);
 
-    RoleDao getRoleDao();
+    RoleDao getRoleDao(ConnectionProxy connection);
 }

@@ -18,7 +18,12 @@ import static java.util.Objects.nonNull;
 public class InvoiceDaoImpl implements InvoiceDao {
     private static final Logger logger = Logger.getLogger(InvoiceDaoImpl.class);
 
-    private ConnectionPool pool = ConnectionPoolProvider.getPool();
+    private Connection connection;
+
+    public InvoiceDaoImpl(Connection connection) {
+        this.connection = connection;
+    }
+
 
     @Override
     public List<Invoice> findAllByUserId(long userId) {
@@ -55,8 +60,7 @@ public class InvoiceDaoImpl implements InvoiceDao {
     private List<Invoice> executeAndGetInvoicesFromRs(String sqlStatement, long periodicalId)
             throws SQLException {
 
-        try (Connection connection = pool.getConnection();
-                PreparedStatement st = connection.prepareStatement(sqlStatement)) {
+        try (PreparedStatement st = connection.prepareStatement(sqlStatement)) {
             st.setLong(1, periodicalId);
 
             try (ResultSet rs = st.executeQuery()) {
@@ -76,8 +80,7 @@ public class InvoiceDaoImpl implements InvoiceDao {
         String query = "SELECT SUM(total_sum) FROM invoices " +
                 "WHERE creation_date >= ? AND creation_date <= ?";
 
-        try (Connection connection = pool.getConnection();
-                PreparedStatement st = connection.prepareStatement(query)) {
+        try (PreparedStatement st = connection.prepareStatement(query)) {
             st.setTimestamp(1, new Timestamp(since.toEpochMilli()));
             st.setTimestamp(2, new Timestamp(until.toEpochMilli()));
 
@@ -99,8 +102,7 @@ public class InvoiceDaoImpl implements InvoiceDao {
         String query = "SELECT SUM(total_sum) FROM invoices " +
                 "WHERE payment_date >= ? AND payment_date <= ? AND status = ?";
 
-        try (Connection connection = pool.getConnection();
-                PreparedStatement st = connection.prepareStatement(query)) {
+        try (PreparedStatement st = connection.prepareStatement(query)) {
 
             st.setTimestamp(1, new Timestamp(since.toEpochMilli()));
             st.setTimestamp(2, new Timestamp(until.toEpochMilli()));
@@ -122,8 +124,7 @@ public class InvoiceDaoImpl implements InvoiceDao {
     public Invoice findOneById(Long id) {
         String query = "SELECT * FROM invoices WHERE id = ?";
 
-        try (Connection connection = pool.getConnection();
-                PreparedStatement st = connection.prepareStatement(query)) {
+        try (PreparedStatement st = connection.prepareStatement(query)) {
             st.setLong(1, id);
 
             try (ResultSet rs = st.executeQuery()) {
@@ -145,8 +146,7 @@ public class InvoiceDaoImpl implements InvoiceDao {
                 "(user_id, periodical_id, period, total_sum, creation_date, payment_date, status) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection connection = pool.getConnection();
-                PreparedStatement st = connection.prepareStatement(query)) {
+        try (PreparedStatement st = connection.prepareStatement(query)) {
 
             st.setLong(1, invoice.getUser().getId());
             st.setLong(2, invoice.getPeriodical().getId());
@@ -171,8 +171,7 @@ public class InvoiceDaoImpl implements InvoiceDao {
                 "SET user_id=?, periodical_id=?, period=?, total_sum=?, creation_date=?, " +
                 "payment_date=?, status=? WHERE id=?";
 
-        try (Connection connection = pool.getConnection();
-                PreparedStatement st = connection.prepareStatement(query)) {
+        try (PreparedStatement st = connection.prepareStatement(query)) {
 
             st.setLong(1, invoice.getUser().getId());
             st.setLong(2, invoice.getPeriodical().getId());

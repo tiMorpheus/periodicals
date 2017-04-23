@@ -7,6 +7,7 @@ D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\view\Syste
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\domain\user\User.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\validation\Validator.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\security\AccessDeniedException.java
+D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\connection\ConnectionProxy.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\interfaces\InvoiceDao.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\pool\ConnectionPoolImpl.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\provider\impl\RequestProviderImpl.java
@@ -27,7 +28,6 @@ D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\factory\imp
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\security\Authorization.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\service\UserService.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\periodicals\PersistOnePeriodical.java
-D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\transaction\Transaction.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\user\CreateUser.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\factory\DaoFactory.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\service\impl\UserServiceImpl.java
@@ -61,6 +61,7 @@ D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\domain\invoice\
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\validation\periodical\PeriodicalPublisherValidator.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\user\DisplayCurrentUser.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\DispatchException.java
+D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\connection\ConnectionProxyImpl.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\interfaces\RoleDao.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\FrontController.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\message\FrontMessageFactory.java

@@ -17,7 +17,12 @@ import java.util.Set;
 public class RoleDaoImpl implements RoleDao {
     private static final Logger logger = Logger.getLogger(RoleDaoImpl.class);
 
-    private ConnectionPool pool = ConnectionPoolProvider.getPool();
+    private Connection connection;
+
+    public RoleDaoImpl(Connection connection) {
+        this.connection = connection;
+    }
+
 
     @Override
     public User.Role findRoleByUserName(String userName) {
@@ -27,8 +32,7 @@ public class RoleDaoImpl implements RoleDao {
                 "WHERE users.username = ?";
 
 
-        try (Connection connection = pool.getConnection();
-                PreparedStatement st = connection.prepareStatement(query)) {
+        try (PreparedStatement st = connection.prepareStatement(query)) {
             st.setString(1, userName);
 
 
@@ -48,8 +52,7 @@ public class RoleDaoImpl implements RoleDao {
         String sqlStatement = "INSERT INTO user_roles " +
                 "(user_id, name) VALUES (?, ?)";
 
-        try (Connection connection = pool.getConnection();
-                PreparedStatement st = connection.prepareStatement(sqlStatement)) {
+        try (PreparedStatement st = connection.prepareStatement(sqlStatement)) {
             st.setLong(1, userId);
             st.setString(2, role.toString());
 

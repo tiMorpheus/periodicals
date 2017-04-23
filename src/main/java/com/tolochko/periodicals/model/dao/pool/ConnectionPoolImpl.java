@@ -1,5 +1,7 @@
 package com.tolochko.periodicals.model.dao.pool;
 
+import com.tolochko.periodicals.model.connection.ConnectionProxy;
+import com.tolochko.periodicals.model.connection.ConnectionProxyImpl;
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.log4j.Logger;
@@ -25,14 +27,16 @@ public class ConnectionPoolImpl implements ConnectionPool {
     }
 
     @Override
-    public Connection getConnection() {
+    public ConnectionProxy getConnection() {
+        Connection connection;
         try {
-            return dataSource.getConnection();
+            connection = dataSource.getConnection();
         } catch (SQLException e) {
-
             logger.error("Cannot create connection from data source", e);
             throw new DaoException("Cannot create connection from data source", e);
         }
+
+        return new ConnectionProxyImpl(connection);
     }
 
     public static Builder getBuilder(String url) {

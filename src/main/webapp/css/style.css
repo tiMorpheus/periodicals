@@ -7,6 +7,10 @@
     font-weight: 600;
 }
 
+.sign-up-panel{
+     margin-top: 15px;
+}
+
 /*noinspection CssUnusedSymbol*/
 #header .userEmail {
     font-style: italic;
@@ -14,6 +18,10 @@
 
 .form-control{
     height: 50px;
+}
+
+.btn{
+    padding: 14px 12px;
 }
 
 footer {

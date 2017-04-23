@@ -1,8 +1,11 @@
 package com.tolochko.periodicals.model.service.impl;
 
+import com.tolochko.periodicals.model.connection.ConnectionProxy;
 import com.tolochko.periodicals.model.dao.factory.DaoFactory;
 import com.tolochko.periodicals.model.dao.factory.impl.MySqlDaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.PeriodicalDao;
+import com.tolochko.periodicals.model.dao.pool.ConnectionPool;
+import com.tolochko.periodicals.model.dao.pool.ConnectionPoolProvider;
 import com.tolochko.periodicals.model.domain.PeriodicalNumberByCategory;
 import com.tolochko.periodicals.model.domain.periodical.Periodical;
 import com.tolochko.periodicals.model.domain.periodical.PeriodicalCategory;
@@ -19,6 +22,7 @@ public class PeriodicalServiceImpl implements PeriodicalService {
     private static final Logger logger = Logger.getLogger(PeriodicalServiceImpl.class);
     private static final PeriodicalServiceImpl instance = new PeriodicalServiceImpl();
     private DaoFactory factory = MySqlDaoFactory.getFactoryInstance();
+    private ConnectionPool pool = ConnectionPoolProvider.getPool();
 
     private PeriodicalServiceImpl() {
     }
@@ -30,27 +34,33 @@ public class PeriodicalServiceImpl implements PeriodicalService {
     @Override
     public Periodical findOneById(long id) {
 
-        PeriodicalDao periodicalDao = factory.getPeriodicalDao();
+        try (ConnectionProxy connection = pool.getConnection()) {
+            PeriodicalDao periodicalDao = factory.getPeriodicalDao(connection);
 
-        return periodicalDao.findOneById(id);
+            return periodicalDao.findOneById(id);
+        }
+
     }
 
     @Override
     public Periodical findOneByName(String name) {
-
-        return factory.getPeriodicalDao().findOneByName(name);
+        try (ConnectionProxy connection = pool.getConnection()) {
+            return factory.getPeriodicalDao(connection).findOneByName(name);
+        }
     }
 
     @Override
     public List<Periodical> findAll() {
-
-        return factory.getPeriodicalDao().findAll();
+        try (ConnectionProxy connection = pool.getConnection()) {
+            return factory.getPeriodicalDao(connection).findAll();
+        }
     }
 
     @Override
     public List<Periodical> findAllByStatus(Periodical.Status status) {
-
-        return factory.getPeriodicalDao().findAllByStatus(status);
+        try (ConnectionProxy connection = pool.getConnection()) {
+            return factory.getPeriodicalDao(connection).findAllByStatus(status);
+        }
     }
 
     @Override
@@ -66,59 +76,64 @@ public class PeriodicalServiceImpl implements PeriodicalService {
 
 
     private void createNewPeriodical(Periodical periodical) {
-
-        factory.getPeriodicalDao().add(periodical);
+        try (ConnectionProxy connection = pool.getConnection()) {
+            factory.getPeriodicalDao(connection).add(periodical);
+        }
     }
 
     private void updatePeriodical(Periodical periodical) {
+        try (ConnectionProxy connection = pool.getConnection()) {
+            int affectedRows = factory.getPeriodicalDao(connection).updateById(periodical.getId(), periodical);
 
-        int affectedRows = factory.getPeriodicalDao().updateById(periodical.getId(), periodical);
-
-        if (affectedRows == 0) {
-            throw new NoSuchElementException(
-                    String.format("There is no periodical in the DB with id = %d", periodical.getId()));
+            if (affectedRows == 0) {
+                throw new NoSuchElementException(
+                        String.format("There is no periodical in the DB with id = %d", periodical.getId()));
+            }
         }
-
     }
 
     private Periodical getPeriodicalFromDbByName(String name) {
-
-        return factory.getPeriodicalDao().findOneByName(name);
+        try (ConnectionProxy connection = pool.getConnection()) {
+            return factory.getPeriodicalDao(connection).findOneByName(name);
+        }
     }
 
     @Override
     public int updateAndSetDiscarded(Periodical periodical) {
-
-        return factory.getPeriodicalDao().updateAndSetDiscarded(periodical);
+        try (ConnectionProxy connection = pool.getConnection()) {
+            return factory.getPeriodicalDao(connection).updateAndSetDiscarded(periodical);
+        }
     }
 
     @Override
     public int deleteAllDiscarded() {
-
-        return factory.getPeriodicalDao().deleteAllDiscarded();
+        try (ConnectionProxy connection = pool.getConnection()) {
+            return factory.getPeriodicalDao(connection).deleteAllDiscarded();
+        }
     }
 
     @Override
     public boolean hasActiveSubscriptions(long periodicalId) {
-
-        return !factory.getSubscriptionDao()
-                .findAllByPeriodicalIdAndStatus(periodicalId, Subscription.Status.ACTIVE)
-                .isEmpty();
-
+        try (ConnectionProxy connection = pool.getConnection()) {
+            return !factory.getSubscriptionDao(connection)
+                    .findAllByPeriodicalIdAndStatus(periodicalId, Subscription.Status.ACTIVE)
+                    .isEmpty();
+        }
     }
 
     @Override
     public List<PeriodicalNumberByCategory> getQuantitativeStatistics() {
         List<PeriodicalNumberByCategory> statistics = new ArrayList<>();
 
+        try (ConnectionProxy connection = pool.getConnection()) {
+            PeriodicalDao dao = factory.getPeriodicalDao(connection);
 
-        PeriodicalDao dao = factory.getPeriodicalDao();
+            for (PeriodicalCategory category : PeriodicalCategory.values()) {
+                statistics.add(getPeriodicalNumberByCategory(dao, category));
+            }
 
-        for (PeriodicalCategory category : PeriodicalCategory.values()) {
-            statistics.add(getPeriodicalNumberByCategory(dao, category));
+            return statistics;
         }
-
-        return statistics;
     }
 
     private PeriodicalNumberByCategory getPeriodicalNumberByCategory(PeriodicalDao dao,

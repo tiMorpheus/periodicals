@@ -1,5 +1,6 @@
 package com.tolochko.periodicals.model.service;
 
+import com.tolochko.periodicals.model.connection.ConnectionProxy;
 import com.tolochko.periodicals.model.dao.factory.DaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.SubscriptionDao;
 import com.tolochko.periodicals.model.dao.interfaces.UserDao;
@@ -33,7 +34,7 @@ public class SubscriptionServiceImplTest {
     @Mock
     private ConnectionPool connectionPool;
     @Mock
-    private Connection conn;
+    private ConnectionProxy conn;
     @InjectMocks
     private SubscriptionService subscriptionService = SubscriptionServiceImpl.getInstance();
     private User user;
@@ -48,8 +49,8 @@ public class SubscriptionServiceImplTest {
 
         when(connectionPool.getConnection()).thenReturn(conn);
 
-        when(factory.getUserDao()).thenReturn(userDao);
-        when(factory.getSubscriptionDao()).thenReturn(subscriptionDao);
+        when(factory.getUserDao(conn)).thenReturn(userDao);
+        when(factory.getSubscriptionDao(conn)).thenReturn(subscriptionDao);
 
         when(userDao.findOneById(USER_ID)).thenReturn(user);
         when(subscriptionDao.findAllByUser(user)).thenReturn(userSubscriptions);

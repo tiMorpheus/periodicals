@@ -1,5 +1,6 @@
 package com.tolochko.periodicals.model.service;
 
+import com.tolochko.periodicals.model.connection.ConnectionProxy;
 import com.tolochko.periodicals.model.dao.factory.DaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.RoleDao;
 import com.tolochko.periodicals.model.dao.interfaces.UserDao;
@@ -13,6 +14,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,7 +33,7 @@ public class UserServiceImplTest {
     @Mock
     private ConnectionPool connectionPool;
     @Mock
-    private Connection conn;
+    private ConnectionProxy conn;
     @InjectMocks
     private UserService userService = UserServiceImpl.getInstance();
 
@@ -40,9 +43,8 @@ public class UserServiceImplTest {
 
         when(connectionPool.getConnection()).thenReturn(conn);
 
-        when(factory.getUserDao()).thenReturn(userDao);
-        when(factory.getRoleDao()).thenReturn(roleDao);
-
+        when(factory.getUserDao(conn)).thenReturn(userDao);
+        when(factory.getRoleDao(conn)).thenReturn(roleDao);
     }
 
     @Test
@@ -54,4 +56,38 @@ public class UserServiceImplTest {
 
         verify(user).setRole(any());
     }
+
+    @Test
+    public void findOneUserById_Should_SetRolesAndReturnCorrectUser() throws Exception{
+        User user = mock(User.class);
+        long id = 1;
+
+        when(userDao.findOneById(id)).thenReturn(user);
+
+        assertEquals(user, userService.findOneById(id));
+
+        verify(user).setRole(any());
+    }
+
+    @Test
+    public void findAllUsers_Should_SetRolesAndReturnCorrectUser() throws Exception {
+        List<User> users = new ArrayList<>();
+
+        User user = mock(User.class);
+        User user2 = mock(User.class);
+        User user3 = mock(User.class);
+
+        users.add(user);
+        users.add(user2);
+        users.add(user3);
+
+        when(userDao.findAll()).thenReturn(users);
+
+        assertEquals(users, userService.findAll());
+
+        verify(user, atLeastOnce()).setRole(any());
+        verify(user2, atLeastOnce()).setRole(any());
+        verify(user3, atLeastOnce()).setRole(any());
+    }
+
 }

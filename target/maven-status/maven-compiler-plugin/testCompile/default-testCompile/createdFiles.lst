@@ -1,6 +1,5 @@
-com\tolochko\periodicals\model\service\InvoiceServiceImplTest.class
+com\tolochko\periodicals\model\dao\UserDaoImplTest.class
 com\tolochko\periodicals\model\service\PeriodicalServiceImplTest.class
-com\tolochko\periodicals\init\EntityCreator.class
-com\tolochko\periodicals\init\InitDB.class
 com\tolochko\periodicals\model\service\SubscriptionServiceImplTest.class
 com\tolochko\periodicals\model\service\UserServiceImplTest.class
+com\tolochko\periodicals\model\service\InvoiceServiceImplTest.class

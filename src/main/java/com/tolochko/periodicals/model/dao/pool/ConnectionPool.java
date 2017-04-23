@@ -1,8 +1,8 @@
 package com.tolochko.periodicals.model.dao.pool;
 
-import java.sql.Connection;
+import com.tolochko.periodicals.model.connection.ConnectionProxy;
 
 public interface ConnectionPool {
 
-    Connection getConnection();
+    ConnectionProxy getConnection();
 }

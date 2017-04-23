@@ -17,6 +17,7 @@ import static java.util.Objects.isNull;
  * Makes sure that this request comes from a signed in user and the session has not expired.
  */
 public class AuthenticationFilter implements Filter {
+
     private List<String> unProtectedUris = Arrays.asList("/app/signIn", "/app/signUp",
             "/app/validation");
 

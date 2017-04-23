@@ -1,5 +1,6 @@
 package com.tolochko.periodicals.model.service;
 
+import com.tolochko.periodicals.model.connection.ConnectionProxy;
 import com.tolochko.periodicals.model.dao.factory.DaoFactory;
 import com.tolochko.periodicals.model.dao.interfaces.PeriodicalDao;
 import com.tolochko.periodicals.model.dao.pool.ConnectionPool;
@@ -28,7 +29,7 @@ public class PeriodicalServiceImplTest {
     @Mock
     private PeriodicalDao periodicalDao;
     @Mock
-    private Connection conn;
+    private ConnectionProxy conn;
 
     @InjectMocks
     private PeriodicalService periodicalService = PeriodicalServiceImpl.getInstance();
@@ -46,7 +47,7 @@ public class PeriodicalServiceImplTest {
         newPeriodical.setId(NEW_PERIODICAL_ID);
 
         when(connectionPool.getConnection()).thenReturn(conn);
-        when(factory.getPeriodicalDao()).thenReturn(periodicalDao);
+        when(factory.getPeriodicalDao(conn)).thenReturn(periodicalDao);
     }
 
     @Test

@@ -67,7 +67,7 @@ public class Periodical implements Serializable {
         }
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

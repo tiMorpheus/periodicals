@@ -39,7 +39,7 @@ public final class Authorization {
      * @return {@code true} - if a current user has enough permissions to perform such a kind of requests,
      * and {@code false} otherwise
      */
-    boolean checkPermissions(HttpServletRequest request) {
+    public boolean checkPermissions(HttpServletRequest request) {
         if (!isUserIdInUriValid(request)) {
             return false;
         }

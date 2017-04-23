@@ -15,15 +15,18 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
     private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
 
-    private ConnectionPool pool = ConnectionPoolProvider.getPool();
+    private Connection connection;
+
+    public UserDaoImpl(Connection connection) {
+        this.connection = connection;
+    }
 
     @Override
     public User findOneByUserName(String userName) {
         String query = "SELECT * FROM users WHERE username = ?";
 
 
-        try (Connection connection = pool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(query)) {
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
 
             ps.setString(1, userName);
 
@@ -43,8 +46,7 @@ public class UserDaoImpl implements UserDao {
         String sqlStatement = "SELECT COUNT(id) FROM users " +
                 "WHERE users.email = ?";
 
-        try (Connection connection = pool.getConnection();
-             PreparedStatement st = connection.prepareStatement(sqlStatement)) {
+        try (PreparedStatement st = connection.prepareStatement(sqlStatement)) {
             st.setString(1, email);
 
             try (ResultSet rs = st.executeQuery()) {
@@ -62,8 +64,7 @@ public class UserDaoImpl implements UserDao {
     public User findOneById(Long id) {
         String query = "SELECT * FROM users WHERE id = ?";
 
-        try (Connection connection = pool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(query)) {
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setLong(1, id);
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -81,8 +82,7 @@ public class UserDaoImpl implements UserDao {
     public List<User> findAll() {
         String query = "SELECT * FROM users";
 
-        try (Connection connection = pool.getConnection();
-             PreparedStatement st = connection.prepareStatement(query);
+        try (PreparedStatement st = connection.prepareStatement(query);
              ResultSet rs = st.executeQuery()) {
 
             List<User> users = new ArrayList<>();
@@ -108,8 +108,7 @@ public class UserDaoImpl implements UserDao {
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 
-        try (Connection connection = pool.getConnection();
-             PreparedStatement st =
+        try (PreparedStatement st =
                      connection.prepareStatement(sqlStatement, Statement.RETURN_GENERATED_KEYS)) {
 
             st.setString(1, user.getUsername());
@@ -157,8 +156,7 @@ public class UserDaoImpl implements UserDao {
                 "username = ?,first_name = ?, last_name = ?,email = ?, address = ?, password = ? " +
                 "WHERE id = ?";
 
-        try (Connection connection = pool.getConnection();
-             PreparedStatement st =
+        try (PreparedStatement st =
                      connection.prepareStatement(query)) {
 
             st.setString(1, user.getUsername());

@@ -1,5 +1,6 @@
 package com.tolochko.periodicals.model.dao.pool;
 
+import com.tolochko.periodicals.model.dao.exception.DaoException;
 import org.apache.log4j.Logger;
 
 import java.io.FileNotFoundException;
@@ -7,10 +8,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import static java.util.Objects.isNull;
+
 public class ConnectionPoolProvider {
     private static final Logger logger = Logger.getLogger(ConnectionPoolProvider.class);
 
     private static ConnectionPool INSTANCE;
+
 
     static {
         InputStream input;
@@ -24,14 +28,14 @@ public class ConnectionPoolProvider {
 
         } catch (FileNotFoundException e) {
             logger.error("Exception during opening the db-config", e);
-            throw new RuntimeException(e);
+            throw new DaoException(e);
         } catch (IOException e) {
             logger.error("Exception during loading db-config properties", e);
-            throw new RuntimeException();
+            throw new DaoException(e);
         }
     }
 
-    private static ConnectionPool createPoolFromProperties(Properties properties) {
+    public static ConnectionPool createPoolFromProperties(Properties properties) {
         String url = properties.getProperty("database.url");
         String dbName = properties.getProperty("database.name");
         String userName = properties.getProperty("database.username");
@@ -52,4 +56,6 @@ public class ConnectionPoolProvider {
         }
         return INSTANCE;
     }
+
+
 }

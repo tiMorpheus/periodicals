@@ -32,13 +32,13 @@ com\tolochko\periodicals\model\dao\pool\ConnectionPoolProvider.class
 com\tolochko\periodicals\controller\security\Authorization.class
 com\tolochko\periodicals\controller\validation\periodical\PeriodicalCategoryValidator.class
 com\tolochko\periodicals\model\domain\subscription\Subscription.class
-com\tolochko\periodicals\model\transaction\Transaction.class
 com\tolochko\periodicals\model\dao\pool\ConnectionPoolImpl.class
 com\tolochko\periodicals\model\dao\pool\ConnectionPoolImpl$1.class
 com\tolochko\periodicals\controller\view\jsp\tag\FormatDatetimeTag.class
 com\tolochko\periodicals\controller\request\provider\RequestProvider.class
 com\tolochko\periodicals\controller\request\periodicals\DisplayOnePeriodical.class
 com\tolochko\periodicals\controller\message\FrontMessageFactory.class
+com\tolochko\periodicals\model\connection\ConnectionProxy.class
 com\tolochko\periodicals\model\dao\impl\InvoiceDaoImpl.class
 com\tolochko\periodicals\controller\view\ViewResolver.class
 com\tolochko\periodicals\model\domain\FinancialStatistics.class
@@ -59,6 +59,7 @@ com\tolochko\periodicals\model\service\InvoiceService.class
 com\tolochko\periodicals\model\dao\exception\DaoException.class
 com\tolochko\periodicals\model\dao\pool\ConnectionPool.class
 com\tolochko\periodicals\model\domain\periodical\PeriodicalCategory.class
+com\tolochko\periodicals\model\connection\ConnectionProxyImpl.class
 com\tolochko\periodicals\controller\request\periodicals\DisplayUpdatePeriodicalPage.class
 com\tolochko\periodicals\controller\request\periodicals\PersistOnePeriodical$1.class
 com\tolochko\periodicals\controller\validation\ValidationFactory.class
