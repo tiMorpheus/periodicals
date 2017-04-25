@@ -1,5 +1,7 @@
 package com.tolochko.periodicals.model.dao.impl;
 
+import com.tolochko.periodicals.model.TransactionHelper;
+import com.tolochko.periodicals.model.connection.ConnectionProxy;
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.interfaces.RoleDao;
 import com.tolochko.periodicals.model.domain.user.User;
@@ -13,13 +15,6 @@ import java.sql.SQLException;
 public class RoleDaoImpl implements RoleDao {
     private static final Logger logger = Logger.getLogger(RoleDaoImpl.class);
 
-    private Connection connection;
-
-    public RoleDaoImpl(Connection connection) {
-        this.connection = connection;
-    }
-
-
     @Override
     public User.Role findRoleByUserName(String userName) {
         String query = "SELECT user_roles.name " +
@@ -28,7 +23,8 @@ public class RoleDaoImpl implements RoleDao {
                 "WHERE users.username = ?";
 
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement st = connection.prepareStatement(query)) {
             st.setString(1, userName);
 
 
@@ -45,17 +41,18 @@ public class RoleDaoImpl implements RoleDao {
 
     @Override
     public void addRole(long userId, User.Role role) {
-        String sqlStatement = "INSERT INTO user_roles " +
+        String query = "INSERT INTO user_roles " +
                 "(user_id, name) VALUES (?, ?)";
 
-        try (PreparedStatement st = connection.prepareStatement(sqlStatement)) {
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement st = connection.prepareStatement(query)) {
             st.setLong(1, userId);
             st.setString(2, role.toString());
 
             st.executeUpdate();
 
         } catch (SQLException e) {
-            String message = String.format("Exception during executing statement: '%s' for userId = %d", sqlStatement, userId);
+            String message = String.format("Exception during executing statement: '%s' for userId = %d", query, userId);
             logger.error(message, e);
             throw new DaoException(message, e);
         }

@@ -27,10 +27,10 @@ import java.util.Optional;
 public final class RequestProviderImpl implements RequestProvider, Serializable{
     private static final long serialVersionUID = 121213111888L;
     private static final Logger logger = Logger.getLogger(RequestProviderImpl.class);
-    private static final Map<String, RequestProcessor> requestMapping = new HashMap<>();
+    private  Map<String, RequestProcessor> requestMapping = new HashMap<>();
     private static final RequestProviderImpl instance = new RequestProviderImpl();
 
-    static {
+    private RequestProviderImpl() {
         requestMapping.put("GET:/app/?", DisplayBackendHomePage.getInstance());
         requestMapping.put("POST:/app/signIn/?", SignIn.getInstance());
         requestMapping.put("GET:/app/signOut/?", SignOut.getInstance());
@@ -41,6 +41,7 @@ public final class RequestProviderImpl implements RequestProvider, Serializable{
         requestMapping.put("GET:/app/users/?", DisplayAllUsers.getInstance());
         requestMapping.put("GET:/app/users/\\d+/update/?", DisplayUpdateUserPage.getInstance());
         requestMapping.put("POST:/app/users/?", UpdateUser.getInstance());
+        requestMapping.put("POST:/app/users/changeStatus/\\d+/?", ChangeStatus.getInstance());
 
         requestMapping.put("GET:/app/adminPanel/?", DisplayAdminPanel.getInstance());
 
@@ -57,10 +58,7 @@ public final class RequestProviderImpl implements RequestProvider, Serializable{
         requestMapping.put("POST:/app/validation", AjaxFormValidation.getInstance());
     }
 
-    private RequestProviderImpl() {
-    }
-
-    public static final RequestProviderImpl getInstance() {
+    public static RequestProviderImpl getInstance() {
         return instance;
     }
 

@@ -22,13 +22,31 @@
             <c:forEach items="${allUsers}" var="user" varStatus="rowStatus">
                 <tr class="${user.status == 'ACTIVE' ? 'success' : 'danger'}">
                     <td>${user.id}</td>
-                    <td><c:out value="${user.username}" /></td>
-                    <td><c:out value="${user.firstName}" /></td>
-                    <td><c:out value="${user.lastName}" /></td>
-                    <td><c:out value="${user.email}" /></td>
-                    <td><c:out value="${user.address}" /></td>
-                    <td><fmt:message key="${user.status}" bundle="${langUser}"/></td>
-                    <td><c:out value="${user.role}" /></td>
+                    <td><c:out value="${user.username}"/></td>
+                    <td><c:out value="${user.firstName}"/></td>
+                    <td><c:out value="${user.lastName}"/></td>
+                    <td><c:out value="${user.email}"/></td>
+                    <td><c:out value="${user.address}"/></td>
+                    <td><fmt:message key="${user.status}" bundle="${langUser}"/>
+                        <form method="post"
+                              action="/app/users/changeStatus/${user.id}">
+
+                            <c:choose>
+                                <c:when test="${(user.status == 'ACTIVE')}">
+                                    <button type="submit" class="btn btn-danger btn-block statusBtn">
+                                        <fmt:message key="BanBtn.label" bundle="${langUser}"/>
+                                    </button>
+                                </c:when>
+                                <c:otherwise>
+                                    <button type="submit" class="btn btn-success btn-block statusBtn">
+                                        <fmt:message key="ActivateBtn.label" bundle="${langUser}"/>
+                                    </button>
+                                </c:otherwise>
+                            </c:choose>
+
+                        </form>
+                    </td>
+                    <td><c:out value="${user.role}"/></td>
                 </tr>
 
             </c:forEach>

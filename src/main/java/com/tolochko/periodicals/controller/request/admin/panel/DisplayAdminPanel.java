@@ -5,8 +5,10 @@ import com.tolochko.periodicals.model.domain.FinancialStatistics;
 import com.tolochko.periodicals.model.domain.PeriodicalNumberByCategory;
 import com.tolochko.periodicals.model.service.InvoiceService;
 import com.tolochko.periodicals.model.service.PeriodicalService;
+import com.tolochko.periodicals.model.service.ServiceFactory;
 import com.tolochko.periodicals.model.service.impl.InvoiceServiceImpl;
 import com.tolochko.periodicals.model.service.impl.PeriodicalServiceImpl;
+import com.tolochko.periodicals.model.service.impl.ServiceFactoryImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,8 +22,9 @@ import java.util.List;
  */
 public class DisplayAdminPanel implements RequestProcessor {
     private static final DisplayAdminPanel instance = new DisplayAdminPanel();
-    private PeriodicalService periodicalService = PeriodicalServiceImpl.getInstance();
-    private InvoiceService invoiceService = InvoiceServiceImpl.getInstance();
+    private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
+    private PeriodicalService periodicalService = serviceFactory.getPeriodicalService();
+    private InvoiceService invoiceService = serviceFactory.getInvoiceService();
 
     private DisplayAdminPanel(){}
 

@@ -1,11 +1,15 @@
 package com.tolochko.periodicals.model.connection;
 
 import com.tolochko.periodicals.model.dao.exception.DaoException;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+
 public class ConnectionProxyImpl implements ConnectionProxy {
+    private static final Logger logger = Logger.getLogger(ConnectionProxyImpl.class);
     private static final String CAN_NOT_BEGIN_TRANSACTION = "Can not begin transaction.";
     private static final String CAN_NOT_COMMIT_TRANSACTION = "Can not commit transaction";
     private static final String CAN_NOT_ROLLBACK_TRANSACTION = "Can not rollback transaction";
@@ -54,6 +58,8 @@ public class ConnectionProxyImpl implements ConnectionProxy {
 
     @Override
     public void close() {
+
+
         try {
             if (transactionBegun && !transactionCommitted) {
                 rollbackTransaction();
@@ -62,6 +68,17 @@ public class ConnectionProxyImpl implements ConnectionProxy {
         } catch (SQLException e) {
             throw new DaoException(CAN_NOT_CLOSE_CONNECTION, e);
         }
+    }
+
+    @Override
+    public PreparedStatement prepareStatement(String query) throws SQLException {
+
+        return connection.prepareStatement(query);
+    }
+
+    @Override
+    public PreparedStatement prepareStatement(String query, int i) throws SQLException {
+        return connection.prepareStatement(query, i);
     }
 
     public Connection getConnection() {

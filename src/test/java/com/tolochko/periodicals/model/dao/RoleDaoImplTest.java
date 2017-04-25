@@ -28,7 +28,7 @@ public class RoleDaoImplTest {
     public static void setUp() throws Exception {
         conn = InitDb.getTestPool().getConnection();
         factory = MySqlDaoFactory.getFactoryInstance();
-        roleDao = factory.getRoleDao(conn);
+        roleDao = factory.getRoleDao();
 
         expectedAdmin = User.Role.ADMIN;
         expectedSubscriber = User.Role.SUBSCRIBER;

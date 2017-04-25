@@ -7,7 +7,9 @@ import com.tolochko.periodicals.controller.util.HttpUtil;
 import com.tolochko.periodicals.model.domain.periodical.Periodical;
 import com.tolochko.periodicals.model.domain.user.User;
 import com.tolochko.periodicals.model.service.PeriodicalService;
+import com.tolochko.periodicals.model.service.ServiceFactory;
 import com.tolochko.periodicals.model.service.impl.PeriodicalServiceImpl;
+import com.tolochko.periodicals.model.service.impl.ServiceFactoryImpl;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +25,9 @@ import static java.util.Objects.isNull;
  */
 public class DisplayOnePeriodical implements RequestProcessor {
     private static final Logger logger = Logger.getLogger(DisplayOnePeriodical.class);
+    private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
+    private PeriodicalService periodicalService = serviceFactory.getPeriodicalService();
     private static final DisplayOnePeriodical instance = new DisplayOnePeriodical();
-    private PeriodicalService periodicalService = PeriodicalServiceImpl.getInstance();
 
     private DisplayOnePeriodical() {
     }

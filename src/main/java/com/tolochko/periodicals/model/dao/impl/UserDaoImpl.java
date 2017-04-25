@@ -1,5 +1,7 @@
 package com.tolochko.periodicals.model.dao.impl;
 
+import com.tolochko.periodicals.model.TransactionHelper;
+import com.tolochko.periodicals.model.connection.ConnectionProxy;
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.interfaces.UserDao;
 import com.tolochko.periodicals.model.dao.util.DaoUtil;
@@ -13,18 +15,13 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
     private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
 
-    private Connection connection;
-
-    public UserDaoImpl(Connection connection) {
-        this.connection = connection;
-    }
 
     @Override
     public User findOneByUserName(String userName) {
         String query = "SELECT * FROM users WHERE username = ?";
 
-
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement ps = connection.prepareStatement(query)) {
 
             ps.setString(1, userName);
 
@@ -41,10 +38,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean emailExistsInDb(String email) {
-        String sqlStatement = "SELECT COUNT(id) FROM users " +
+        String query = "SELECT COUNT(id) FROM users " +
                 "WHERE users.email = ?";
 
-        try (PreparedStatement st = connection.prepareStatement(sqlStatement)) {
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement st = connection.prepareStatement(query)) {
             st.setString(1, email);
 
             try (ResultSet rs = st.executeQuery()) {
@@ -62,7 +60,8 @@ public class UserDaoImpl implements UserDao {
     public User findOneById(Long id) {
         String query = "SELECT * FROM users WHERE id = ?";
 
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setLong(1, id);
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -80,7 +79,8 @@ public class UserDaoImpl implements UserDao {
     public List<User> findAll() {
         String query = "SELECT * FROM users";
 
-        try (PreparedStatement st = connection.prepareStatement(query);
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement st = connection.prepareStatement(query);
              ResultSet rs = st.executeQuery()) {
 
             List<User> users = new ArrayList<>();
@@ -106,8 +106,9 @@ public class UserDaoImpl implements UserDao {
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 
-        try (PreparedStatement st =
-                     connection.prepareStatement(sqlStatement, Statement.RETURN_GENERATED_KEYS)) {
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement st = connection
+                     .prepareStatement(sqlStatement, Statement.RETURN_GENERATED_KEYS)) {
 
             st.setString(1, user.getUsername());
             st.setString(2, user.getFirstName());
@@ -151,10 +152,11 @@ public class UserDaoImpl implements UserDao {
     public int updateById(Long id, User user) {
         String query = "UPDATE users " +
                 "SET " +
-                "username = ?,first_name = ?, last_name = ?,email = ?, address = ?, password = ? " +
+                "username = ?,first_name = ?, last_name = ?,email = ?, address = ?, password = ?, status = ? " +
                 "WHERE id = ?";
 
-        try (PreparedStatement st =
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement st =
                      connection.prepareStatement(query)) {
 
             st.setString(1, user.getUsername());
@@ -163,7 +165,8 @@ public class UserDaoImpl implements UserDao {
             st.setString(4, user.getEmail());
             st.setString(5, user.getAddress());
             st.setString(6, user.getPassword());
-            st.setLong(7, id);
+            st.setString(7, user.getStatus().name().toLowerCase());
+            st.setLong(8, id);
 
             return st.executeUpdate();
         } catch (SQLException e) {

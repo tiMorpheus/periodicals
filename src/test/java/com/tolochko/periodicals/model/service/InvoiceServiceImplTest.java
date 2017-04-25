@@ -12,6 +12,7 @@ import com.tolochko.periodicals.model.domain.periodical.Periodical;
 import com.tolochko.periodicals.model.domain.subscription.Subscription;
 import com.tolochko.periodicals.model.domain.user.User;
 import com.tolochko.periodicals.model.service.impl.InvoiceServiceImpl;
+import com.tolochko.periodicals.model.service.impl.ServiceFactoryImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -51,7 +52,8 @@ public class InvoiceServiceImplTest {
     private Periodical periodical = new Periodical();
 
     @InjectMocks
-    private InvoiceService invoiceService = InvoiceServiceImpl.getInstance();
+    private InvoiceService invoiceService = ServiceFactoryImpl
+                                    .getServiceFactoryInstance().getInvoiceService();
 
     @Before
     public void setUp() throws Exception {
@@ -77,9 +79,9 @@ public class InvoiceServiceImplTest {
         when(subscriptionDao.findOneByUserIdAndPeriodicalId(USER_ID, PERIODICAL_ID))
                 .thenReturn(subscription);
 
-        when(factory.getUserDao(conn)).thenReturn(userDao);
-        when(factory.getSubscriptionDao(conn)).thenReturn(subscriptionDao);
-        when(factory.getInvoiceDao(conn)).thenReturn(invoiceDao);
+        when(factory.getUserDao()).thenReturn(userDao);
+        when(factory.getSubscriptionDao()).thenReturn(subscriptionDao);
+        when(factory.getInvoiceDao()).thenReturn(invoiceDao);
 
         when(userDao.findOneById(USER_ID)).thenReturn(user);
 
@@ -89,8 +91,6 @@ public class InvoiceServiceImplTest {
     public void payInvoice_Should_UpdateInvoiceAndSubscription() throws Exception {
         assertTrue(invoiceService.payInvoice(invoice));
 
-        verify(conn, times(1)).beginTransaction();
-        verify(conn, times(1)).commitTransaction();
 
         verify(invoiceDao, times(1)).updateById(invoice.getId(),invoice);
 

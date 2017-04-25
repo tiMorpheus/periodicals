@@ -10,7 +10,7 @@
             <label class="col-sm-3 control-label">
                 <fmt:message key="name.label" bundle="${langPeriodical}"/></label>
             <div class="col-sm-9">
-                <p class="form-control-static">${periodical.name}</p>
+                <p class="form-control-static"><c:out value="${periodical.name}"/></p>
             </div>
         </div>
         <div class="row">
@@ -25,14 +25,14 @@
             <label class="col-sm-3 control-label">
                 <fmt:message key="publisher.label" bundle="${langPeriodical}"/></label>
             <div class="col-sm-9">
-                <p class="form-control-static">${periodical.publisher}</p>
+                <p class="form-control-static"><c:out value="${periodical.publisher}" /></p>
             </div>
         </div>
         <div class="row">
             <label class="col-sm-3 control-label">
                 <fmt:message key="description.label" bundle="${langPeriodical}"/></label>
             <div class="col-sm-9">
-                <p class="form-control-static">${periodical.description}</p>
+                <p class="form-control-static"><c:out value="${periodical.description}"/></p>
             </div>
         </div>
         <div class="row">

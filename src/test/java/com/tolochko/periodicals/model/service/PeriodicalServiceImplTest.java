@@ -8,6 +8,7 @@ import com.tolochko.periodicals.model.dao.pool.ConnectionPool;
 import com.tolochko.periodicals.model.domain.periodical.Periodical;
 import com.tolochko.periodicals.model.domain.subscription.Subscription;
 import com.tolochko.periodicals.model.service.impl.PeriodicalServiceImpl;
+import com.tolochko.periodicals.model.service.impl.ServiceFactoryImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -40,7 +41,8 @@ public class PeriodicalServiceImplTest {
     private ConnectionProxy conn;
 
     @InjectMocks
-    private PeriodicalService periodicalService = PeriodicalServiceImpl.getInstance();
+    private PeriodicalService periodicalService = ServiceFactoryImpl.getServiceFactoryInstance()
+            .getPeriodicalService();
     private Periodical periodical;
     private Periodical newPeriodical;
 
@@ -55,8 +57,8 @@ public class PeriodicalServiceImplTest {
         newPeriodical.setId(NEW_PERIODICAL_ID);
 
         when(connectionPool.getConnection()).thenReturn(conn);
-        when(factory.getPeriodicalDao(conn)).thenReturn(periodicalDao);
-        when(factory.getSubscriptionDao(conn)).thenReturn(subscriptionDao);
+        when(factory.getPeriodicalDao()).thenReturn(periodicalDao);
+        when(factory.getSubscriptionDao()).thenReturn(subscriptionDao);
     }
 
     @Test

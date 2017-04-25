@@ -5,7 +5,9 @@ import com.tolochko.periodicals.controller.message.FrontMessageFactory;
 import com.tolochko.periodicals.controller.request.RequestProcessor;
 import com.tolochko.periodicals.controller.util.HttpUtil;
 import com.tolochko.periodicals.model.domain.user.User;
+import com.tolochko.periodicals.model.service.ServiceFactory;
 import com.tolochko.periodicals.model.service.UserService;
+import com.tolochko.periodicals.model.service.impl.ServiceFactoryImpl;
 import com.tolochko.periodicals.model.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
 
@@ -23,7 +25,8 @@ import static java.util.Objects.nonNull;
  */
 public final class SignIn implements RequestProcessor {
     private static final Logger logger = Logger.getLogger(SignIn.class);
-    private UserService userService = UserServiceImpl.getInstance();
+    private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
+    private UserService userService = serviceFactory.getUserService();
     private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();
     private static final SignIn instance = new SignIn();
 
@@ -67,7 +70,7 @@ public final class SignIn implements RequestProcessor {
         User user = userService.findOneUserByUserName(username);
 
         logger.debug(user.toString());
-
+        logger.debug("pass: " + password);
         return nonNull(user) && isPasswordCorrect(password, user);
     }
 
@@ -83,6 +86,7 @@ public final class SignIn implements RequestProcessor {
      * @return set error message and return login page uri if user is blocked
      */
     private String signInIfUserIsActive(HttpServletRequest request, Map<String, FrontMessage> messages) {
+
         String username = request.getParameter(SIGN_IN_USERNAME);
         User currentUser = userService.findOneUserByUserName(username);
         String redirectUri;

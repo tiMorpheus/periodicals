@@ -6,9 +6,11 @@ import com.tolochko.periodicals.model.domain.invoice.Invoice;
 import com.tolochko.periodicals.model.domain.subscription.Subscription;
 import com.tolochko.periodicals.model.service.InvoiceService;
 import com.tolochko.periodicals.model.service.PeriodicalService;
+import com.tolochko.periodicals.model.service.ServiceFactory;
 import com.tolochko.periodicals.model.service.SubscriptionService;
 import com.tolochko.periodicals.model.service.impl.InvoiceServiceImpl;
 import com.tolochko.periodicals.model.service.impl.PeriodicalServiceImpl;
+import com.tolochko.periodicals.model.service.impl.ServiceFactoryImpl;
 import com.tolochko.periodicals.model.service.impl.SubscriptionServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +23,11 @@ import java.util.List;
  */
 public class DisplayCurrentUser implements RequestProcessor {
     private static final DisplayCurrentUser instance = new DisplayCurrentUser();
-    private InvoiceService invoiceService = InvoiceServiceImpl.getInstance();
-    private SubscriptionService subscriptionService = SubscriptionServiceImpl.getInstance();
-    private PeriodicalService periodicalService = PeriodicalServiceImpl.getInstance();
+    private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
+
+    private InvoiceService invoiceService = serviceFactory.getInvoiceService();
+    private SubscriptionService subscriptionService = serviceFactory.getSubscriptionService();
+    private PeriodicalService periodicalService = serviceFactory.getPeriodicalService();
 
     private DisplayCurrentUser(){}
 

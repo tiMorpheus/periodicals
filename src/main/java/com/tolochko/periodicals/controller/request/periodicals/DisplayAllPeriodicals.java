@@ -3,7 +3,9 @@ package com.tolochko.periodicals.controller.request.periodicals;
 
 import com.tolochko.periodicals.controller.request.RequestProcessor;
 import com.tolochko.periodicals.model.service.PeriodicalService;
+import com.tolochko.periodicals.model.service.ServiceFactory;
 import com.tolochko.periodicals.model.service.impl.PeriodicalServiceImpl;
+import com.tolochko.periodicals.model.service.impl.ServiceFactoryImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +16,9 @@ import javax.servlet.http.HttpServletResponse;
  * A user with role = 'admin' will see all periodicals in the system.
  */
 public class DisplayAllPeriodicals implements RequestProcessor{
-    private PeriodicalService periodicalService = PeriodicalServiceImpl.getInstance();
+    private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
+    private PeriodicalService periodicalService = serviceFactory.getPeriodicalService();
+
     private static final DisplayAllPeriodicals instance = new DisplayAllPeriodicals();
 
     public static DisplayAllPeriodicals getInstance() {

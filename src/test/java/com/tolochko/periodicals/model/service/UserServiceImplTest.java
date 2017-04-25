@@ -1,5 +1,6 @@
 package com.tolochko.periodicals.model.service;
 
+import com.tolochko.periodicals.model.TransactionHelper;
 import com.tolochko.periodicals.model.connection.ConnectionProxy;
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.factory.DaoFactory;
@@ -7,6 +8,7 @@ import com.tolochko.periodicals.model.dao.interfaces.RoleDao;
 import com.tolochko.periodicals.model.dao.interfaces.UserDao;
 import com.tolochko.periodicals.model.dao.pool.ConnectionPool;
 import com.tolochko.periodicals.model.domain.user.User;
+import com.tolochko.periodicals.model.service.impl.ServiceFactoryImpl;
 import com.tolochko.periodicals.model.service.impl.UserServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,8 +39,9 @@ public class UserServiceImplTest {
     private ConnectionPool connectionPool;
     @Mock
     private ConnectionProxy conn;
+
     @InjectMocks
-    private UserService userService = UserServiceImpl.getInstance();
+    private UserService userService = ServiceFactoryImpl.getServiceFactoryInstance().getUserService();
 
     @Before
     public void setUp() throws Exception {
@@ -46,8 +49,9 @@ public class UserServiceImplTest {
 
         when(connectionPool.getConnection()).thenReturn(conn);
 
-        when(factory.getUserDao(conn)).thenReturn(userDao);
-        when(factory.getRoleDao(conn)).thenReturn(roleDao);
+        when(factory.getUserDao()).thenReturn(userDao);
+        when(factory.getRoleDao()).thenReturn(roleDao);
+
     }
 
     @Test
@@ -98,11 +102,10 @@ public class UserServiceImplTest {
         User user = mock(User.class);
 
         when(userDao.add(user)).thenReturn(2l);
-        user.setId(2l);
+
 
         assertTrue(userService.createNewUser(user));
-        verify(conn, times(1)).beginTransaction();
-        verify(conn, times(1)).commitTransaction();
+
         verify(userDao, times(1)).add(user);
 
         verify(roleDao, times(1)).addRole(2l, User.Role.SUBSCRIBER);
@@ -127,8 +130,6 @@ public class UserServiceImplTest {
 
         assertFalse(userService.createNewUser(user));
 
-
-        verify(conn).rollbackTransaction();
     }
 
 }

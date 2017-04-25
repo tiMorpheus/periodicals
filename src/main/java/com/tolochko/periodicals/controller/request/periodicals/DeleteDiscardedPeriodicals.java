@@ -5,7 +5,9 @@ import com.tolochko.periodicals.controller.message.FrontMessageFactory;
 import com.tolochko.periodicals.controller.request.RequestProcessor;
 import com.tolochko.periodicals.controller.util.HttpUtil;
 import com.tolochko.periodicals.model.service.PeriodicalService;
+import com.tolochko.periodicals.model.service.ServiceFactory;
 import com.tolochko.periodicals.model.service.impl.PeriodicalServiceImpl;
+import com.tolochko.periodicals.model.service.impl.ServiceFactoryImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +21,8 @@ public class DeleteDiscardedPeriodicals implements RequestProcessor {
 
     private static final DeleteDiscardedPeriodicals instance = new DeleteDiscardedPeriodicals();
     private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();
-    private PeriodicalService periodicalService = PeriodicalServiceImpl.getInstance();
+    private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
+    private PeriodicalService periodicalService = serviceFactory.getPeriodicalService();
 
     private DeleteDiscardedPeriodicals(){}
 

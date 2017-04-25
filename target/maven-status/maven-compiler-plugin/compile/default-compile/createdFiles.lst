@@ -19,6 +19,7 @@ com\tolochko\periodicals\model\dao\impl\RoleDaoImpl.class
 com\tolochko\periodicals\model\dao\factory\DaoFactory.class
 com\tolochko\periodicals\model\domain\PeriodicalNumberByCategory$1.class
 com\tolochko\periodicals\model\domain\periodical\Periodical$OperationType.class
+com\tolochko\periodicals\model\service\impl\ServiceFactoryImpl.class
 com\tolochko\periodicals\model\dao\pool\ConnectionPoolImpl$Builder.class
 com\tolochko\periodicals\model\domain\invoice\Invoice.class
 com\tolochko\periodicals\controller\request\user\CreateUser.class
@@ -40,10 +41,12 @@ com\tolochko\periodicals\controller\request\periodicals\DisplayOnePeriodical.cla
 com\tolochko\periodicals\controller\message\FrontMessageFactory.class
 com\tolochko\periodicals\model\connection\ConnectionProxy.class
 com\tolochko\periodicals\model\dao\impl\InvoiceDaoImpl.class
+com\tolochko\periodicals\model\service\ServiceFactory.class
 com\tolochko\periodicals\controller\view\ViewResolver.class
 com\tolochko\periodicals\model\domain\FinancialStatistics.class
 com\tolochko\periodicals\controller\validation\AjaxFormValidation.class
 com\tolochko\periodicals\controller\validation\Validator.class
+com\tolochko\periodicals\controller\request\user\ChangeStatus.class
 com\tolochko\periodicals\model\service\UserService.class
 com\tolochko\periodicals\controller\validation\ValidationResult.class
 com\tolochko\periodicals\controller\request\periodicals\DeleteDiscardedPeriodicals.class
@@ -61,6 +64,7 @@ com\tolochko\periodicals\model\dao\pool\ConnectionPool.class
 com\tolochko\periodicals\model\domain\periodical\PeriodicalCategory.class
 com\tolochko\periodicals\model\connection\ConnectionProxyImpl.class
 com\tolochko\periodicals\controller\request\periodicals\DisplayUpdatePeriodicalPage.class
+com\tolochko\periodicals\model\TransactionHelper.class
 com\tolochko\periodicals\controller\request\periodicals\PersistOnePeriodical$1.class
 com\tolochko\periodicals\controller\validation\ValidationFactory.class
 com\tolochko\periodicals\model\dao\impl\SubscriptionDaoImpl.class

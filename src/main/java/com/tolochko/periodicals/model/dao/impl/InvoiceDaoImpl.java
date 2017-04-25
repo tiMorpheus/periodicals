@@ -1,5 +1,7 @@
 package com.tolochko.periodicals.model.dao.impl;
 
+import com.tolochko.periodicals.model.TransactionHelper;
+import com.tolochko.periodicals.model.connection.ConnectionProxy;
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.interfaces.InvoiceDao;
 import com.tolochko.periodicals.model.dao.util.DaoUtil;
@@ -15,13 +17,6 @@ import static java.util.Objects.nonNull;
 
 public class InvoiceDaoImpl implements InvoiceDao {
     private static final Logger logger = Logger.getLogger(InvoiceDaoImpl.class);
-
-    private Connection connection;
-
-    public InvoiceDaoImpl(Connection connection) {
-        this.connection = connection;
-    }
-
 
     @Override
     public List<Invoice> findAllByUserId(long userId) {
@@ -55,10 +50,11 @@ public class InvoiceDaoImpl implements InvoiceDao {
         }
     }
 
-    private List<Invoice> executeAndGetInvoicesFromRs(String sqlStatement, long periodicalId)
+    private List<Invoice> executeAndGetInvoicesFromRs(String query, long periodicalId)
             throws SQLException {
 
-        try (PreparedStatement st = connection.prepareStatement(sqlStatement)) {
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement st = connection.prepareStatement(query)) {
             st.setLong(1, periodicalId);
 
             try (ResultSet rs = st.executeQuery()) {
@@ -78,7 +74,8 @@ public class InvoiceDaoImpl implements InvoiceDao {
         String query = "SELECT SUM(total_sum) FROM invoices " +
                 "WHERE creation_date >= ? AND creation_date <= ?";
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (ConnectionProxy connection =TransactionHelper.getConnectionProxy();
+                PreparedStatement st = connection.prepareStatement(query)) {
             st.setTimestamp(1, new Timestamp(since.toEpochMilli()));
             st.setTimestamp(2, new Timestamp(until.toEpochMilli()));
 
@@ -100,7 +97,8 @@ public class InvoiceDaoImpl implements InvoiceDao {
         String query = "SELECT SUM(total_sum) FROM invoices " +
                 "WHERE payment_date >= ? AND payment_date <= ? AND status = ?";
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (ConnectionProxy connection =TransactionHelper.getConnectionProxy();
+                PreparedStatement st = connection.prepareStatement(query)) {
 
             st.setTimestamp(1, new Timestamp(since.toEpochMilli()));
             st.setTimestamp(2, new Timestamp(until.toEpochMilli()));
@@ -122,7 +120,8 @@ public class InvoiceDaoImpl implements InvoiceDao {
     public Invoice findOneById(Long id) {
         String query = "SELECT * FROM invoices WHERE id = ?";
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (ConnectionProxy connection =TransactionHelper.getConnectionProxy();
+                PreparedStatement st = connection.prepareStatement(query)) {
             st.setLong(1, id);
 
             try (ResultSet rs = st.executeQuery()) {
@@ -144,7 +143,8 @@ public class InvoiceDaoImpl implements InvoiceDao {
                 "(user_id, periodical_id, period, total_sum, creation_date, payment_date, status) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (ConnectionProxy connection =TransactionHelper.getConnectionProxy();
+                PreparedStatement st = connection.prepareStatement(query)) {
 
             st.setLong(1, invoice.getUser().getId());
             st.setLong(2, invoice.getPeriodical().getId());
@@ -169,7 +169,8 @@ public class InvoiceDaoImpl implements InvoiceDao {
                 "SET user_id=?, periodical_id=?, period=?, total_sum=?, creation_date=?, " +
                 "payment_date=?, status=? WHERE id=?";
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (ConnectionProxy connection =TransactionHelper.getConnectionProxy();
+                PreparedStatement st = connection.prepareStatement(query)) {
 
             st.setLong(1, invoice.getUser().getId());
             st.setLong(2, invoice.getPeriodical().getId());

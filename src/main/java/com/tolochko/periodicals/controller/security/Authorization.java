@@ -21,6 +21,8 @@ public final class Authorization {
         permissionMapping.put("POST:/app/periodicals/?", admin);
         permissionMapping.put("POST:/app/periodicals/discarded/?", admin);
         permissionMapping.put("GET:/app/adminPanel/?", admin);
+        permissionMapping.put("POST:/app/users/changeStatus/\\d+/?", admin);
+
     }
 
     private Authorization() {
@@ -84,6 +86,7 @@ public final class Authorization {
 
     private boolean isPermissionGranted(Map.Entry<String, User.Role> permissionMapping,
                                         HttpServletRequest request) {
+
         User.Role userRole = getUserFromSession(request).getRole();
         User.Role legitRole = permissionMapping.getValue();
 

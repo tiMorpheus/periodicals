@@ -8,8 +8,10 @@ import com.tolochko.periodicals.model.domain.invoice.Invoice;
 import com.tolochko.periodicals.model.domain.periodical.Periodical;
 import com.tolochko.periodicals.model.service.InvoiceService;
 import com.tolochko.periodicals.model.service.PeriodicalService;
+import com.tolochko.periodicals.model.service.ServiceFactory;
 import com.tolochko.periodicals.model.service.impl.InvoiceServiceImpl;
 import com.tolochko.periodicals.model.service.impl.PeriodicalServiceImpl;
+import com.tolochko.periodicals.model.service.impl.ServiceFactoryImpl;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,8 +30,9 @@ import static java.util.Objects.nonNull;
  */
 public class PayOneInvoice implements RequestProcessor {
     private static final Logger logger = Logger.getLogger(PayOneInvoice.class);
-    private InvoiceService invoiceService = InvoiceServiceImpl.getInstance();
-    private PeriodicalService periodicalService = PeriodicalServiceImpl.getInstance();
+    private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
+    private InvoiceService invoiceService = serviceFactory.getInvoiceService();
+    private PeriodicalService periodicalService = serviceFactory.getPeriodicalService();
     private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();
     private static final PayOneInvoice instance = new PayOneInvoice();
 

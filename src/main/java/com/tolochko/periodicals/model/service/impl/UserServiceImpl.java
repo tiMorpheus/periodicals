@@ -1,11 +1,9 @@
 package com.tolochko.periodicals.model.service.impl;
 
-import com.tolochko.periodicals.model.connection.ConnectionProxy;
+import com.tolochko.periodicals.model.TransactionHelper;
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.factory.DaoFactory;
 import com.tolochko.periodicals.model.dao.factory.impl.MySqlDaoFactory;
-import com.tolochko.periodicals.model.dao.pool.ConnectionPool;
-import com.tolochko.periodicals.model.dao.pool.ConnectionPoolProvider;
 import com.tolochko.periodicals.model.domain.user.User;
 import com.tolochko.periodicals.model.service.UserService;
 import org.apache.log4j.Logger;
@@ -17,34 +15,24 @@ import static java.util.Objects.nonNull;
 
 public class UserServiceImpl implements UserService {
     private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
-    private static final UserServiceImpl instance = new UserServiceImpl();
+
     private DaoFactory factory = MySqlDaoFactory.getFactoryInstance();
-    private ConnectionPool pool = ConnectionPoolProvider.getPool();
-
-
-    private UserServiceImpl() {
-    }
-
-    public static UserServiceImpl getInstance() {
-        return instance;
-    }
-
 
     @Override
     public User findOneById(long id) {
-        try (ConnectionProxy connection = pool.getConnection()) {
-            User user = factory.getUserDao(connection).findOneById(id);
 
-            setUserRole(user, connection);
-            return user;
-        }
+        User user = factory.getUserDao().findOneById(id);
+
+        setUserRole(user);
+        return user;
+
     }
 
-    private void setUserRole(User user, ConnectionProxy connection) {
+    private void setUserRole(User user) {
         if (nonNull(user)) {
             logger.info("setting role to user: " + user.getUsername());
 
-            user.setRole(factory.getRoleDao(connection).findRoleByUserName(user.getUsername()));
+            user.setRole(factory.getRoleDao().findRoleByUserName(user.getUsername()));
 
             logger.debug(user);
         }
@@ -52,43 +40,43 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findOneUserByUserName(String userName) {
-        try (ConnectionProxy connection = pool.getConnection()) {
-            User user = factory.getUserDao(connection).findOneByUserName(userName);
 
-            setUserRole(user, connection);
+        User user = factory.getUserDao().findOneByUserName(userName);
 
-            return user;
-        }
+        setUserRole(user);
+
+        return user;
+
     }
 
     @Override
     public List<User> findAll() {
-        try (ConnectionProxy connection = pool.getConnection()) {
-            List<User> allUser = factory.getUserDao(connection).findAll();
-            allUser.forEach(user -> user.setRole(factory.getRoleDao(connection)
-                    .findRoleByUserName(user.getUsername())));
 
-            return allUser;
-        }
+        List<User> allUser = factory.getUserDao().findAll();
+        allUser.forEach(user -> user.setRole(factory.getRoleDao()
+                .findRoleByUserName(user.getUsername())));
+
+        return allUser;
+
 
     }
 
     @Override
     public boolean createNewUser(User user) {
-        try (ConnectionProxy connection = pool.getConnection()) {
+        try {
 
-            connection.beginTransaction();
+            TransactionHelper.beginTransaction();
 
-            Long userId = factory.getUserDao(connection).add(user);
+            Long userId = factory.getUserDao().add(user);
 
             if (userId == 0) {
-                connection.rollbackTransaction();
+                TransactionHelper.rollback();
                 return false;
             }
 
-            factory.getRoleDao(connection).addRole(userId, User.Role.SUBSCRIBER);
+            factory.getRoleDao().addRole(userId, User.Role.SUBSCRIBER);
 
-            connection.commitTransaction();
+            TransactionHelper.commit();
 
             return true;
         } catch (RuntimeException e) {
@@ -99,18 +87,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean emailExistsInDb(String email) {
-        try (ConnectionProxy connection = pool.getConnection()) {
 
-            return factory.getUserDao(connection).emailExistsInDb(email);
-        }
+
+        return factory.getUserDao().emailExistsInDb(email);
+
     }
 
     @Override
     public void update(User user) {
-        try (ConnectionProxy connection = pool.getConnection()) {
 
-            factory.getUserDao(connection).updateById(user.getId(), user);
-        }
+        long id = user.getId();
+        logger.debug("inside userService update id:" + id);
+        int result = factory.getUserDao().updateById(id, user);
+        logger.debug("updating result" + result);
+
     }
 
 

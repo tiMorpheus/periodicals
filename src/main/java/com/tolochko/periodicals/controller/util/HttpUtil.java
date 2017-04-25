@@ -6,7 +6,9 @@ import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.domain.periodical.Periodical;
 import com.tolochko.periodicals.model.domain.periodical.PeriodicalCategory;
 import com.tolochko.periodicals.model.domain.user.User;
+import com.tolochko.periodicals.model.service.ServiceFactory;
 import com.tolochko.periodicals.model.service.UserService;
+import com.tolochko.periodicals.model.service.impl.ServiceFactoryImpl;
 import com.tolochko.periodicals.model.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
 
@@ -25,7 +27,8 @@ import static java.util.Objects.nonNull;
 // helper class
 public final class HttpUtil {
     private static final Logger logger = Logger.getLogger(HttpUtil.class);
-    private static UserService userService = UserServiceImpl.getInstance();
+    private static ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
+    private static UserService userService = serviceFactory.getUserService();
 
     private HttpUtil() {
     }
@@ -90,9 +93,6 @@ public final class HttpUtil {
         return Pattern.matches(urlPattern, requestUri);
     }
 
-    /**
-     * Adds general messages to the session.
-     */
     public static void addGeneralMessagesToSession(HttpServletRequest request,
                                                    List<FrontMessage> generalMessages) {
         Map<String, List<FrontMessage>> frontMessageMap = new HashMap<>();
@@ -100,18 +100,11 @@ public final class HttpUtil {
         HttpUtil.addMessagesToSession(request, frontMessageMap);
     }
 
-    /**
-     * Sets a session scoped attribute 'messages'.
-     */
     private static void addMessagesToSession(HttpServletRequest request,
                                              Map<String, List<FrontMessage>> frontMessageMap) {
         request.getSession().setAttribute("messages", frontMessageMap);
     }
 
-
-    /**
-     * Returns a hash for this password.
-     */
     public static String getPasswordHash(String password) {
         try {
             return convertPasswordIntoHash(password);

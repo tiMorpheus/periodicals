@@ -11,9 +11,19 @@
      margin-top: 15px;
 }
 
+.statusBtn{
+    padding: 8px 22px;
+}
+
+
 /*noinspection CssUnusedSymbol*/
 #header .userEmail {
     font-style: italic;
+}
+
+.container-fluid{
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .form-control{
@@ -62,8 +72,19 @@ footer {
 
 .periodicalNameModal {
     font-weight: bold;
-    font-style: italic;
+
     color: darkgreen;
+}
+
+.unfollowModal-body{
+    font-size: 20px;
+    margin: 56px;
+
+}
+
+.unfollowModal-footer{
+    margin-top: 150px;
+
 }
 
 .theadSublabel {

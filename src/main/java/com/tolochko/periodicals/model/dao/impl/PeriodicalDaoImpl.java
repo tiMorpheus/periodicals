@@ -1,5 +1,7 @@
 package com.tolochko.periodicals.model.dao.impl;
 
+import com.tolochko.periodicals.model.TransactionHelper;
+import com.tolochko.periodicals.model.connection.ConnectionProxy;
 import com.tolochko.periodicals.model.dao.exception.DaoException;
 import com.tolochko.periodicals.model.dao.interfaces.PeriodicalDao;
 import com.tolochko.periodicals.model.dao.util.DaoUtil;
@@ -8,7 +10,6 @@ import com.tolochko.periodicals.model.domain.periodical.PeriodicalCategory;
 import com.tolochko.periodicals.model.domain.subscription.Subscription;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,17 +19,12 @@ import java.util.List;
 public class PeriodicalDaoImpl implements PeriodicalDao {
     private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
 
-    private Connection connection;
-
-    public PeriodicalDaoImpl(Connection connection) {
-        this.connection = connection;
-    }
-
     @Override
     public Periodical findOneByName(String name) {
         String query = "SELECT * FROM periodicals WHERE name = ?";
 
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, name);
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -46,7 +42,8 @@ public class PeriodicalDaoImpl implements PeriodicalDao {
     public Periodical findOneById(Long id) {
         String query = "SELECT * FROM periodicals WHERE id = ?";
 
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setLong(1, id);
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -65,7 +62,8 @@ public class PeriodicalDaoImpl implements PeriodicalDao {
     public List<Periodical> findAll() {
         String query = "SELECT * FROM periodicals";
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement st = connection.prepareStatement(query)) {
             ResultSet rs = st.executeQuery();
 
             List<Periodical> periodicals = new ArrayList<>();
@@ -89,7 +87,8 @@ public class PeriodicalDaoImpl implements PeriodicalDao {
     public List<Periodical> findAllByStatus(Periodical.Status status) {
         String query = "SELECT * FROM periodicals WHERE status = ?";
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement st = connection.prepareStatement(query)) {
             st.setString(1, status.name().toLowerCase());
 
             ResultSet rs = st.executeQuery();
@@ -115,7 +114,8 @@ public class PeriodicalDaoImpl implements PeriodicalDao {
         String query = "SELECT COUNT(id) FROM periodicals " +
                 "WHERE category = ? AND status = ?";
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement st = connection.prepareStatement(query)) {
             st.setString(1, category.name().toLowerCase());
             st.setString(2, status.name().toLowerCase());
 
@@ -139,7 +139,8 @@ public class PeriodicalDaoImpl implements PeriodicalDao {
                 "(name, category, publisher, description, one_month_cost, status) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement st = connection.prepareStatement(query)) {
 
             st.setString(1, periodical.getName());
             st.setString(2, periodical.getCategory().name().toLowerCase());
@@ -163,7 +164,8 @@ public class PeriodicalDaoImpl implements PeriodicalDao {
                 "SET name=?, category=?, publisher=?, description=?, one_month_cost=?, status=? " +
                 "WHERE id=?";
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement st = connection.prepareStatement(query)) {
             st.setString(1, periodical.getName());
             st.setString(2, periodical.getCategory().name().toLowerCase());
             st.setString(3, periodical.getPublisher());
@@ -188,7 +190,8 @@ public class PeriodicalDaoImpl implements PeriodicalDao {
                 "WHERE id=? AND 0 = (SELECT count(*) FROM subscriptions AS s " +
                 "WHERE s.periodical_id = p.id AND s.status = ?)";
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement st = connection.prepareStatement(query)) {
 
             st.setString(1, periodical.getName());
             st.setString(2, periodical.getCategory().name().toLowerCase());
@@ -213,7 +216,8 @@ public class PeriodicalDaoImpl implements PeriodicalDao {
         String query = "DELETE FROM periodicals " +
                 "WHERE status = ?";
 
-        try (PreparedStatement st = connection.prepareStatement(query)) {
+        try (ConnectionProxy connection = TransactionHelper.getConnectionProxy();
+             PreparedStatement st = connection.prepareStatement(query)) {
             st.setString(1, Periodical.Status.DISCARDED.name());
 
             return st.executeUpdate();

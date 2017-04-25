@@ -6,7 +6,9 @@ import com.tolochko.periodicals.controller.request.RequestProcessor;
 import com.tolochko.periodicals.controller.util.HttpUtil;
 import com.tolochko.periodicals.controller.validation.ValidationFactory;
 import com.tolochko.periodicals.model.domain.user.User;
+import com.tolochko.periodicals.model.service.ServiceFactory;
 import com.tolochko.periodicals.model.service.UserService;
+import com.tolochko.periodicals.model.service.impl.ServiceFactoryImpl;
 import com.tolochko.periodicals.model.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
 
@@ -23,9 +25,11 @@ import static java.util.Objects.nonNull;
 
 public class CreateUser implements RequestProcessor {
     private static final Logger logger = Logger.getLogger(CreateUser.class);
-    private static final CreateUser instance = new CreateUser();
-    private UserService userService = UserServiceImpl.getInstance();
     private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();
+    private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
+    private UserService userService = serviceFactory.getUserService();
+
+    private static final CreateUser instance = new CreateUser();
 
     private CreateUser(){
 
@@ -93,7 +97,9 @@ public class CreateUser implements RequestProcessor {
     }
 
     private boolean arePasswordsValidAndEqual(String password, String repeatPassword) {
-        int validationResult = ValidationFactory.getUserPasswordValidator().validate(password, null).getStatusCode();
+        int validationResult = ValidationFactory.getUserPasswordValidator()
+                .validate(password, null).getStatusCode();
+
         return (validationResult == 200) && password.equals(repeatPassword);
     }
 

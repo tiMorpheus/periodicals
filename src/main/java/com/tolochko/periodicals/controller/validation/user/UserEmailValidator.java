@@ -2,6 +2,9 @@ package com.tolochko.periodicals.controller.validation.user;
 
 import com.tolochko.periodicals.controller.validation.AbstractValidator;
 import com.tolochko.periodicals.controller.validation.ValidationResult;
+import com.tolochko.periodicals.model.service.ServiceFactory;
+import com.tolochko.periodicals.model.service.UserService;
+import com.tolochko.periodicals.model.service.impl.ServiceFactoryImpl;
 import com.tolochko.periodicals.model.service.impl.UserServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +12,9 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 public class UserEmailValidator extends AbstractValidator {
+    private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
+    private UserService userService = serviceFactory.getUserService();
+
     private static ValidationResult regexFailedResult =
             new ValidationResult(412, "validation.userEmailIsIncorrect");
     private static ValidationResult duplicationFailedResult =
@@ -41,6 +47,6 @@ public class UserEmailValidator extends AbstractValidator {
     }
 
     private boolean emailExistsInDb(String userEmail) {
-        return UserServiceImpl.getInstance().emailExistsInDb(userEmail);
+        return userService.emailExistsInDb(userEmail);
     }
 }

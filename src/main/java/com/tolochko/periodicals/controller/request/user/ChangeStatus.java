@@ -9,22 +9,23 @@ import com.tolochko.periodicals.model.service.ServiceFactory;
 import com.tolochko.periodicals.model.service.UserService;
 import com.tolochko.periodicals.model.service.impl.ServiceFactoryImpl;
 import com.tolochko.periodicals.model.service.impl.UserServiceImpl;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpdateUser implements RequestProcessor {
-    private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();
+
+public class ChangeStatus implements RequestProcessor {
+    private static final Logger logger = Logger.getLogger(ChangeStatus.class);
+    private static final ChangeStatus instance = new ChangeStatus();
     private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
     private UserService userService = serviceFactory.getUserService();
-    private static final UpdateUser instance = new UpdateUser();
 
-    private UpdateUser() {
-    }
+    private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();
 
-    public static UpdateUser getInstance() {
+    public static ChangeStatus getInstance() {
         return instance;
     }
 
@@ -32,21 +33,30 @@ public class UpdateUser implements RequestProcessor {
     public String process(HttpServletRequest request, HttpServletResponse response) {
         List<FrontMessage> generalMessages = new ArrayList<>();
 
-        User userToSave = userService.findOneById(HttpUtil.getUserIdFromSession(request));
+        User user = userService.findOneById(HttpUtil.getFirstIdFromUri(request.getRequestURI()));
 
-        userToSave.setFirstName(request.getParameter("editFirstName"));
-        userToSave.setLastName(request.getParameter("editLastName"));
-        userToSave.setAddress(request.getParameter("editAddress"));
+        logger.debug(user);
 
-        request.getSession().setAttribute("currentUser", userToSave);
+        updateUserStatus(user);
 
-        userService.update(userToSave);
-
-        generalMessages.add(messageFactory.getSuccess("userUpdated.success"));
+        generalMessages.add(messageFactory.getSuccess("userStatusUpdated.success"));
 
         HttpUtil.addGeneralMessagesToSession(request, generalMessages);
 
         return REDIRECT + "/app";
     }
+
+    private void updateUserStatus(User user) {
+        if (user.getStatus() == User.Status.ACTIVE) {
+            logger.debug("blocking user id:" + user.getId());
+            user.setStatus(User.Status.BLOCKED);
+            userService.update(user);
+        } else {
+            logger.debug("activating user id: " + user.getId());
+            user.setStatus(User.Status.ACTIVE);
+            userService.update(user);
+        }
+    }
+
 
 }

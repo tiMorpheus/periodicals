@@ -8,7 +8,9 @@ import com.tolochko.periodicals.controller.validation.ValidationFactory;
 import com.tolochko.periodicals.controller.validation.ValidationResult;
 import com.tolochko.periodicals.model.domain.periodical.Periodical;
 import com.tolochko.periodicals.model.service.PeriodicalService;
+import com.tolochko.periodicals.model.service.ServiceFactory;
 import com.tolochko.periodicals.model.service.impl.PeriodicalServiceImpl;
+import com.tolochko.periodicals.model.service.impl.ServiceFactoryImpl;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,9 +29,11 @@ import static java.util.Objects.nonNull;
  */
 public class PersistOnePeriodical implements RequestProcessor {
     private static final Logger logger = Logger.getLogger(PersistOnePeriodical.class);
-    private static final PersistOnePeriodical instance = new PersistOnePeriodical();
-    private PeriodicalService periodicalService = PeriodicalServiceImpl.getInstance();
     private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();
+    private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
+    private PeriodicalService periodicalService = serviceFactory.getPeriodicalService();
+
+    private static final PersistOnePeriodical instance = new PersistOnePeriodical();
 
     private static final String ERROR_MESSAGE = "Incorrect periodicalOperationType during persisting a periodical.";
     private static final int STATUS_CODE_SUCCESS = 200;
@@ -228,7 +232,8 @@ public class PersistOnePeriodical implements RequestProcessor {
 
         static PeriodicalStatusChange getInstance(Periodical periodicalToSave) {
             Periodical periodicalInDb =
-                    PeriodicalServiceImpl.getInstance().findOneById(periodicalToSave.getId());
+                    ServiceFactoryImpl.getServiceFactoryInstance().
+                            getPeriodicalService().findOneById(periodicalToSave.getId());
             Periodical.Status oldStatus = nonNull(periodicalInDb) ? periodicalInDb.getStatus() : null;
             Periodical.Status newStatus = periodicalToSave.getStatus();
             String cacheKey = getCacheKey(oldStatus, newStatus);

@@ -3,7 +3,9 @@ package com.tolochko.periodicals.controller.request.user;
 import com.tolochko.periodicals.controller.request.RequestProcessor;
 import com.tolochko.periodicals.controller.util.HttpUtil;
 import com.tolochko.periodicals.model.domain.user.User;
+import com.tolochko.periodicals.model.service.ServiceFactory;
 import com.tolochko.periodicals.model.service.UserService;
+import com.tolochko.periodicals.model.service.impl.ServiceFactoryImpl;
 import com.tolochko.periodicals.model.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
 
@@ -15,8 +17,10 @@ import static java.util.Objects.isNull;
 
 public class DisplayUpdateUserPage implements RequestProcessor {
     private static final Logger logger = Logger.getLogger(DisplayUpdateUserPage.class);
+    private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
+
+    private UserService userService = serviceFactory.getUserService();
     private static final DisplayUpdateUserPage instance = new DisplayUpdateUserPage();
-    private UserService userService = UserServiceImpl.getInstance();
 
     private DisplayUpdateUserPage() {
     }

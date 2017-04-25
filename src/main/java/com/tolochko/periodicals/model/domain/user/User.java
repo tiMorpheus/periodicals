@@ -19,7 +19,12 @@ public class User implements Serializable {
     private Status status;
 
     public enum Status {
-        ACTIVE, BLOCKED
+        ACTIVE, BLOCKED;
+
+        @Override
+        public String toString() {
+            return name().toLowerCase();
+        }
     }
 
     public enum Role {
@@ -40,7 +45,7 @@ public class User implements Serializable {
             this.user = new User();
         }
 
-        public Builder setId(Long id) {
+        public Builder setId(long id) {
             user.setId(id);
             return this;
         }
@@ -90,7 +95,7 @@ public class User implements Serializable {
         }
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -178,9 +183,9 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return String.format("User{id=%d,username='%s' firstName='%s', lastName='%s', " +
-                        "email='%s', address='%s',  role=%s}",
+                        "email='%s', address='%s', status=%s, role=%s}",
                 id, username, firstName, lastName,
-                email, address, role);
+                email, address, status, role);
     }
 
     @Override

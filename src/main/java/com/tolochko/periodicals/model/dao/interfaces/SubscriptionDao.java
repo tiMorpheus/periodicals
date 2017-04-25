@@ -16,4 +16,5 @@ public interface SubscriptionDao extends GenericDao<Subscription, Long> {
 
     List<Subscription> findAllByPeriodicalIdAndStatus(long periodicalId,
                                                       Subscription.Status status);
+
 }

@@ -7,10 +7,12 @@ D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\view\Syste
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\domain\user\User.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\validation\Validator.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\security\AccessDeniedException.java
+D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\TransactionHelper.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\connection\ConnectionProxy.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\interfaces\InvoiceDao.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\pool\ConnectionPoolImpl.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\provider\impl\RequestProviderImpl.java
+D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\user\ChangeStatus.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\validation\AjaxFormValidation.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\domain\periodical\Periodical.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\user\DisplayUpdateUserPage.java
@@ -52,6 +54,7 @@ D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\view\ViewR
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\view\impl\JspViewResolver.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\DisplayBackendHomePage.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\validation\periodical\PeriodicalCostValidator.java
+D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\service\ServiceFactory.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\periodicals\DisplayAllPeriodicals.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\periodicals\DisplayOnePeriodical.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\sign\DisplaySignUpPage.java
@@ -69,6 +72,7 @@ D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\exception\D
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\message\FrontMessage.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\dao\impl\PeriodicalDaoImpl.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\service\InvoiceService.java
+D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\service\impl\ServiceFactoryImpl.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\request\periodicals\DisplayNewPeriodicalPage.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\model\service\PeriodicalService.java
 D:\code\Periodicals\src\main\java\com\tolochko\periodicals\controller\view\jsp\tag\FormatDatetimeTag.java
