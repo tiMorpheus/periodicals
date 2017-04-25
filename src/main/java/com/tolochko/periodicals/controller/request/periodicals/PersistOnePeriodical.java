@@ -33,17 +33,8 @@ public class PersistOnePeriodical implements RequestProcessor {
     private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
     private PeriodicalService periodicalService = serviceFactory.getPeriodicalService();
 
-    private static final PersistOnePeriodical instance = new PersistOnePeriodical();
-
     private static final String ERROR_MESSAGE = "Incorrect periodicalOperationType during persisting a periodical.";
     private static final int STATUS_CODE_SUCCESS = 200;
-
-    private PersistOnePeriodical() {
-    }
-
-    public static PersistOnePeriodical getInstance() {
-        return instance;
-    }
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
@@ -52,7 +43,6 @@ public class PersistOnePeriodical implements RequestProcessor {
         Periodical periodicalToSave = HttpUtil.getPeriodicalFromRequest(request);
 
         logger.debug("after getting periodical: " + periodicalToSave);
-
 
         String redirectUri = getRedirectUriByOperationType(request, periodicalToSave);
         request.getSession().setAttribute("periodical", periodicalToSave);
@@ -82,7 +72,7 @@ public class PersistOnePeriodical implements RequestProcessor {
             }
 
             addGeneralMessagesToSession(request, generalMessages);
-            return DisplayAllPeriodicals.getInstance().process(request, response);
+            return new DisplayAllPeriodicals().process(request, response);
 
         } catch (RuntimeException e) {
             logger.error("Exception during persisting periodical: " + periodicalToSave, e);

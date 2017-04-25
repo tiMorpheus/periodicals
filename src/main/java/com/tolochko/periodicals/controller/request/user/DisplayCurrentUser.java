@@ -22,18 +22,10 @@ import java.util.List;
  * Processes a GET request to a current user personal account page.
  */
 public class DisplayCurrentUser implements RequestProcessor {
-    private static final DisplayCurrentUser instance = new DisplayCurrentUser();
     private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
-
     private InvoiceService invoiceService = serviceFactory.getInvoiceService();
     private SubscriptionService subscriptionService = serviceFactory.getSubscriptionService();
     private PeriodicalService periodicalService = serviceFactory.getPeriodicalService();
-
-    private DisplayCurrentUser(){}
-
-    public static DisplayCurrentUser getInstance() {
-        return instance;
-    }
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {

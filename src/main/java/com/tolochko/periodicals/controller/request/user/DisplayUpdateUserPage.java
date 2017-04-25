@@ -18,16 +18,7 @@ import static java.util.Objects.isNull;
 public class DisplayUpdateUserPage implements RequestProcessor {
     private static final Logger logger = Logger.getLogger(DisplayUpdateUserPage.class);
     private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
-
     private UserService userService = serviceFactory.getUserService();
-    private static final DisplayUpdateUserPage instance = new DisplayUpdateUserPage();
-
-    private DisplayUpdateUserPage() {
-    }
-
-    public static DisplayUpdateUserPage getInstance(){
-        return instance;
-    }
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
@@ -47,8 +38,6 @@ public class DisplayUpdateUserPage implements RequestProcessor {
     }
 
     private void setRequestAttributes(HttpServletRequest request, User user) {
-
-
         request.setAttribute("userFirstName", user.getFirstName());
         request.setAttribute("userLastName", user.getLastName());
         request.setAttribute("userAddress", user.getAddress());

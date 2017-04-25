@@ -25,14 +25,6 @@ import static java.util.Objects.nonNull;
  */
 public class AjaxFormValidation implements RequestProcessor {
     private static final Logger logger = Logger.getLogger(AjaxFormValidation.class);
-    private static final AjaxFormValidation instance = new AjaxFormValidation();
-
-    private AjaxFormValidation() {
-    }
-
-    public static AjaxFormValidation getInstance() {
-        return instance;
-    }
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {

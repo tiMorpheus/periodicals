@@ -21,17 +21,9 @@ import java.util.List;
  * Processes a GET request to the Admin Panel page.
  */
 public class DisplayAdminPanel implements RequestProcessor {
-    private static final DisplayAdminPanel instance = new DisplayAdminPanel();
     private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
     private PeriodicalService periodicalService = serviceFactory.getPeriodicalService();
     private InvoiceService invoiceService = serviceFactory.getInvoiceService();
-
-    private DisplayAdminPanel(){}
-
-    public static DisplayAdminPanel getInstance() {
-        return instance;
-    }
-
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {

@@ -19,15 +19,7 @@ import static java.util.Objects.nonNull;
  */
 public class DisplayNewPeriodicalPage implements RequestProcessor{
     private static final Logger logger = Logger.getLogger(DisplayNewPeriodicalPage.class);
-    private static final DisplayNewPeriodicalPage instance = new DisplayNewPeriodicalPage();
-
     private static final String PERIODICAL_ATTRIBUTE = "periodical";
-
-    private DisplayNewPeriodicalPage(){}
-
-    public static DisplayNewPeriodicalPage getInstance() {
-        return instance;
-    }
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {

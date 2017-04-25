@@ -10,13 +10,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SignOut implements RequestProcessor{
 
-    private static final SignOut instance = new SignOut();
-
-    public static SignOut getInstance() {
-        return instance;
-    }
-
-
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().removeAttribute("currentUser");

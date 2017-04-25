@@ -26,17 +26,10 @@ import static java.util.Objects.nonNull;
 
 public class PersistOneInvoice implements RequestProcessor {
     private static final Logger logger = Logger.getLogger(PersistOneInvoice.class);
-    private static final PersistOneInvoice instance = new PersistOneInvoice();
     private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
     private PeriodicalService periodicalService = serviceFactory.getPeriodicalService();
     private InvoiceService invoiceService = serviceFactory.getInvoiceService();
     private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();
-
-    private PersistOneInvoice(){}
-
-    public static PersistOneInvoice getInstance() {
-        return instance;
-    }
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {

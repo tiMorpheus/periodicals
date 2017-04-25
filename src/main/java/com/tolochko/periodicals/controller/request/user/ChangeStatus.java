@@ -19,15 +19,9 @@ import java.util.List;
 
 public class ChangeStatus implements RequestProcessor {
     private static final Logger logger = Logger.getLogger(ChangeStatus.class);
-    private static final ChangeStatus instance = new ChangeStatus();
     private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
     private UserService userService = serviceFactory.getUserService();
-
     private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();
-
-    public static ChangeStatus getInstance() {
-        return instance;
-    }
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {

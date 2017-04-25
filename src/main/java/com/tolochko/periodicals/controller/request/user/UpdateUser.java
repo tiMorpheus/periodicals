@@ -19,14 +19,6 @@ public class UpdateUser implements RequestProcessor {
     private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();
     private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
     private UserService userService = serviceFactory.getUserService();
-    private static final UpdateUser instance = new UpdateUser();
-
-    private UpdateUser() {
-    }
-
-    public static UpdateUser getInstance() {
-        return instance;
-    }
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
@@ -48,5 +40,4 @@ public class UpdateUser implements RequestProcessor {
 
         return REDIRECT + "/app";
     }
-
 }

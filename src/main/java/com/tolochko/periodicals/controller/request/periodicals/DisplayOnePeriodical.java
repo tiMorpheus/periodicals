@@ -27,14 +27,6 @@ public class DisplayOnePeriodical implements RequestProcessor {
     private static final Logger logger = Logger.getLogger(DisplayOnePeriodical.class);
     private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
     private PeriodicalService periodicalService = serviceFactory.getPeriodicalService();
-    private static final DisplayOnePeriodical instance = new DisplayOnePeriodical();
-
-    private DisplayOnePeriodical() {
-    }
-
-    public static DisplayOnePeriodical getInstance() {
-        return instance;
-    }
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {

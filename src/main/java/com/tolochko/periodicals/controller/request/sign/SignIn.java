@@ -28,16 +28,8 @@ public final class SignIn implements RequestProcessor {
     private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
     private UserService userService = serviceFactory.getUserService();
     private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();
-    private static final SignIn instance = new SignIn();
-
     private static final String SIGN_IN_USERNAME = "signInUsername";
 
-    private SignIn() {
-    }
-
-    public static SignIn getInstance() {
-        return instance;
-    }
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {

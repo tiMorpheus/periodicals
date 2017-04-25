@@ -24,15 +24,6 @@ public class DisplayUpdatePeriodicalPage implements RequestProcessor {
     private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
     private PeriodicalService periodicalService = serviceFactory.getPeriodicalService();
 
-    private static final DisplayUpdatePeriodicalPage instance = new DisplayUpdatePeriodicalPage();
-
-    private DisplayUpdatePeriodicalPage() {
-    }
-
-    public static DisplayUpdatePeriodicalPage getInstance() {
-        return instance;
-    }
-
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
         long periodicalId = HttpUtil.getFirstIdFromUri(request.getRequestURI());

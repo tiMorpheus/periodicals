@@ -18,17 +18,9 @@ import java.util.List;
  * Processes a POST request to delete all periodicals with status = "discarded".
  */
 public class DeleteDiscardedPeriodicals implements RequestProcessor {
-
-    private static final DeleteDiscardedPeriodicals instance = new DeleteDiscardedPeriodicals();
     private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();
     private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
     private PeriodicalService periodicalService = serviceFactory.getPeriodicalService();
-
-    private DeleteDiscardedPeriodicals(){}
-
-    public static DeleteDiscardedPeriodicals getInstance() {
-        return instance;
-    }
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {

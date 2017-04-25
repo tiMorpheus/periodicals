@@ -22,22 +22,15 @@ import java.util.Map;
 
 import static java.util.Objects.nonNull;
 
-
+/**
+ * Processes a POST request to create new user account
+ */
 public class CreateUser implements RequestProcessor {
     private static final Logger logger = Logger.getLogger(CreateUser.class);
     private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();
     private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
     private UserService userService = serviceFactory.getUserService();
 
-    private static final CreateUser instance = new CreateUser();
-
-    private CreateUser(){
-
-    }
-
-    public static CreateUser getInstance() {
-        return instance;
-    }
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {

@@ -17,9 +17,6 @@ import java.io.IOException;
 
 public class FrontController extends HttpServlet {
     private static final Logger logger = Logger.getLogger(FrontController.class);
-    private static final transient RequestProvider requestProvider = RequestProviderImpl.getInstance();
-    private static final transient ViewResolver viewResolver = JspViewResolver.getInstance();
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,7 +35,7 @@ public class FrontController extends HttpServlet {
 
         try {
 
-            String abstractViewName = requestProvider.getRequestProcessor(req).process(req, resp);
+            String abstractViewName =  RequestProviderImpl.getInstance().getRequestProcessor(req).process(req, resp);
             dispatch(abstractViewName, req, resp);
         } catch (RuntimeException e) {
             redirectUserToErrorPageAndLogException(req, resp, e);
@@ -72,7 +69,7 @@ public class FrontController extends HttpServlet {
 
         try {
             RequestDispatcher dispatcher = request.getRequestDispatcher(
-                    viewResolver.resolvePrivateViewName(viewName));
+                    JspViewResolver.getInstance().resolvePrivateViewName(viewName));
             dispatcher.forward(request, response);
         } catch (ServletException | IOException e) {
             logger.error("Dispatching to the viewName " + viewName + " was failed", e);
@@ -89,6 +86,6 @@ public class FrontController extends HttpServlet {
         logger.error("User " + req.getSession().getAttribute("currentUser")
                 + ". Request uri " + req.getRequestURI(), e);
 
-        HttpUtil.sendRedirect(req, resp, viewResolver.resolvePublicViewName(HttpUtil.getExceptionViewName(e)));
+        HttpUtil.sendRedirect(req, resp, JspViewResolver.getInstance().resolvePublicViewName(HttpUtil.getExceptionViewName(e)));
     }
 }

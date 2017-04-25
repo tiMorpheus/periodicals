@@ -5,15 +5,10 @@ import com.tolochko.periodicals.model.domain.user.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+/**
+ * Processes a GET request to sing up the current user and redirects to a 'sing up' page.
+ */
 public class DisplaySignUpPage implements RequestProcessor {
-    private static final DisplaySignUpPage instance = new DisplaySignUpPage();
-
-    private DisplaySignUpPage(){}
-
-    public static DisplaySignUpPage getInstance() {
-        return instance;
-    }
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {

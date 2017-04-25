@@ -20,14 +20,6 @@ public class DisplayAllUsers implements RequestProcessor{
     private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
     private UserService userService = serviceFactory.getUserService();
 
-    private static final DisplayAllUsers instance = new DisplayAllUsers();
-
-    private DisplayAllUsers() {}
-
-    public static DisplayAllUsers getInstance() {
-        return instance;
-    }
-
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
         List<User> list = userService.findAll();

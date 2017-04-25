@@ -19,13 +19,6 @@ public class DisplayAllPeriodicals implements RequestProcessor{
     private ServiceFactory serviceFactory = ServiceFactoryImpl.getServiceFactoryInstance();
     private PeriodicalService periodicalService = serviceFactory.getPeriodicalService();
 
-    private static final DisplayAllPeriodicals instance = new DisplayAllPeriodicals();
-
-    public static DisplayAllPeriodicals getInstance() {
-        return instance;
-    }
-
-
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
         request.setAttribute("allPeriodicals", periodicalService.findAll());

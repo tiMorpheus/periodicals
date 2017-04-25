@@ -23,7 +23,9 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-// provides mapping request uri to classes which work with user data
+/**
+ *  Provides mapping request uri to classes which work with user data
+ */
 public final class RequestProviderImpl implements RequestProvider, Serializable{
     private static final long serialVersionUID = 121213111888L;
     private static final Logger logger = Logger.getLogger(RequestProviderImpl.class);
@@ -31,31 +33,31 @@ public final class RequestProviderImpl implements RequestProvider, Serializable{
     private static final RequestProviderImpl instance = new RequestProviderImpl();
 
     private RequestProviderImpl() {
-        requestMapping.put("GET:/app/?", DisplayBackendHomePage.getInstance());
-        requestMapping.put("POST:/app/signIn/?", SignIn.getInstance());
-        requestMapping.put("GET:/app/signOut/?", SignOut.getInstance());
-        requestMapping.put("GET:/app/signUp/?", DisplaySignUpPage.getInstance());
+        requestMapping.put("GET:/app/?", new DisplayBackendHomePage());
+        requestMapping.put("POST:/app/signIn/?", new SignIn());
+        requestMapping.put("GET:/app/signOut/?", new SignOut());
+        requestMapping.put("GET:/app/signUp/?", new DisplaySignUpPage());
 
-        requestMapping.put("POST:/app/signUp/?", CreateUser.getInstance());
-        requestMapping.put("GET:/app/users/currentUser/?", DisplayCurrentUser.getInstance());
-        requestMapping.put("GET:/app/users/?", DisplayAllUsers.getInstance());
-        requestMapping.put("GET:/app/users/\\d+/update/?", DisplayUpdateUserPage.getInstance());
-        requestMapping.put("POST:/app/users/?", UpdateUser.getInstance());
-        requestMapping.put("POST:/app/users/changeStatus/\\d+/?", ChangeStatus.getInstance());
+        requestMapping.put("POST:/app/signUp/?", new CreateUser());
+        requestMapping.put("GET:/app/users/currentUser/?", new DisplayCurrentUser());
+        requestMapping.put("GET:/app/users/?", new DisplayAllUsers());
+        requestMapping.put("GET:/app/users/\\d+/update/?", new DisplayUpdateUserPage());
+        requestMapping.put("POST:/app/users/?", new UpdateUser());
+        requestMapping.put("POST:/app/users/changeStatus/\\d+/?", new ChangeStatus());
 
-        requestMapping.put("GET:/app/adminPanel/?", DisplayAdminPanel.getInstance());
+        requestMapping.put("GET:/app/adminPanel/?", new DisplayAdminPanel());
 
-        requestMapping.put("GET:/app/periodicals/?", DisplayAllPeriodicals.getInstance());
-        requestMapping.put("GET:/app/periodicals/\\d+", DisplayOnePeriodical.getInstance());
-        requestMapping.put("GET:/app/periodicals/createNew/?", DisplayNewPeriodicalPage.getInstance());
-        requestMapping.put("GET:/app/periodicals/\\d+/update/?", DisplayUpdatePeriodicalPage.getInstance());
-        requestMapping.put("POST:/app/periodicals/?", PersistOnePeriodical.getInstance());
-        requestMapping.put("POST:/app/periodicals/discarded/?", DeleteDiscardedPeriodicals.getInstance());
+        requestMapping.put("GET:/app/periodicals/?", new DisplayAllPeriodicals());
+        requestMapping.put("GET:/app/periodicals/\\d+", new DisplayOnePeriodical());
+        requestMapping.put("GET:/app/periodicals/createNew/?", new DisplayNewPeriodicalPage());
+        requestMapping.put("GET:/app/periodicals/\\d+/update/?", new DisplayUpdatePeriodicalPage());
+        requestMapping.put("POST:/app/periodicals/?", new PersistOnePeriodical());
+        requestMapping.put("POST:/app/periodicals/discarded/?", new DeleteDiscardedPeriodicals());
 
-        requestMapping.put("POST:/app/users/\\d+/invoices/?", PersistOneInvoice.getInstance());
-        requestMapping.put("POST:/app/users/\\d+/invoices/\\d+/pay/?", PayOneInvoice.getInstance());
+        requestMapping.put("POST:/app/users/\\d+/invoices/?", new PersistOneInvoice());
+        requestMapping.put("POST:/app/users/\\d+/invoices/\\d+/pay/?", new PayOneInvoice());
 
-        requestMapping.put("POST:/app/validation", AjaxFormValidation.getInstance());
+        requestMapping.put("POST:/app/validation", new AjaxFormValidation());
     }
 
     public static RequestProviderImpl getInstance() {

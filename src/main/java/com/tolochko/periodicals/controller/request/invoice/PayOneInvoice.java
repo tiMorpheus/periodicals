@@ -34,14 +34,6 @@ public class PayOneInvoice implements RequestProcessor {
     private InvoiceService invoiceService = serviceFactory.getInvoiceService();
     private PeriodicalService periodicalService = serviceFactory.getPeriodicalService();
     private FrontMessageFactory messageFactory = FrontMessageFactory.getInstance();
-    private static final PayOneInvoice instance = new PayOneInvoice();
-
-    private PayOneInvoice() {
-    }
-
-    public static PayOneInvoice getInstance() {
-        return instance;
-    }
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
